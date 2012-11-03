@@ -2915,7 +2915,7 @@ Index: repro/repro.config
  
  # Logging level: NONE|CRIT|ERR|WARNING|INFO|DEBUG|STACK
 -LogLevel = INFO
-+LogLevel = DEBUG
++LogLevel = WARNING
  
  # Log Filename
  LogFilename = repro.log
@@ -3399,7 +3399,7 @@ Index: resip/stack/ConnectionBase.cxx
           }
           catch(resip::BaseException& e)  // Could be SipMessage::Exception or ParseException
           {
-@@ -524,6 +536,227 @@
+@@ -524,6 +536,242 @@
     return true;
  }
  
@@ -3565,9 +3565,9 @@ Index: resip/stack/ConnectionBase.cxx
 +	}
 +	else
 +	{
-+		if(bytesRead < 16)
++		if(bytesRead < 2 && mBufferPos == 0)
 +		{
-+			ErrLog(<< "Too short to contain ws data ");
++			ErrLog(<< "Too short to contain ws data [0]");
 +			return false;
 +		}
 +		UInt8 *uData;
@@ -3590,15 +3590,30 @@ Index: resip/stack/ConnectionBase.cxx
 +			
 +			if(mWsPayLen == 126)
 +			{
++				if((bytesRead - dataLen) < 2)
++				{
++					ErrLog(<< "Too short to contain ws data [1]");
++					return false;
++				}
 +				mWsPayLen = (uBuffer[dataLen] << 8 | uBuffer[dataLen + 1]);
 +				dataLen += 2;
 +			}
 +			else if(mWsPayLen == 127)
 +			{
++				if((bytesRead - dataLen) < 4)
++				{
++					ErrLog(<< "Too short to contain ws data [2]");
++					return false;
++				}
 +				mWsPayLen = (((UInt64)uBuffer[dataLen]) << 56 | ((UInt64)uBuffer[dataLen + 1]) << 48 | ((UInt64)uBuffer[dataLen + 2]) << 40 | ((UInt64)uBuffer[dataLen + 3]) << 32 | ((UInt64)uBuffer[dataLen + 4]) << 24 | ((UInt64)uBuffer[dataLen + 5]) << 16 | ((UInt64)uBuffer[dataLen + 6]) << 8 || ((UInt64)uBuffer[dataLen + 7]));
 +				dataLen += 8;
 +			}
 +
++			if((bytesRead - dataLen) < 4)
++			{
++				ErrLog(<< "Too short to contain ws data [3]");
++				return false;
++			}
 +			if(maskFlag)
 +			{
 +				mWsMaskKey[0] = uBuffer[dataLen];
