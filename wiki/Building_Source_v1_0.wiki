@@ -1,0 +1,84 @@
+#summary Building webrtc2sip v1.0 (Deprecated)
+#labels Phase-Support,Featured,Phase-Deploy
+
+= Introduction =
+
+webrtc2sip v1.0 depends on [http://www.resiprocate.org/Main_Page Resiprocate] and is *deprecated*.
+
+<wiki:toc max_depth="4" />
+
+==Supported systems==
+ * All Linux distributions
+ * Windows XP, Vista and 7
+ * OS X
+
+==Building the source code==
+The complete guide about how to build [http://www.resiprocate.org/Main_Page Resiprocate] is available [http://www.resiprocate.org/Quick_Subversion_Checkout_and_Compilation_HOWTO here] but please note that *SVN r9737 is required*.
+ # install required libraries
+  * Mac OS X 10.5 (with MacPorts installed)
+   {{{
+sudo port install openssl db42 patch
+   }}}
+  * CentOS
+   {{{
+sudo yum update
+sudo yum install make libtool autoconf subversion patch wget g++ libssl-dev libdb4.2++-dev
+   }}}
+  * Ubuntu (Tested with version *12.04*) / Debian
+   {{{
+sudo apt-get update
+sudo apt-get install make libtool autoconf subversion patch wget g++ libssl-dev libdb++-dev
+   }}}
+ # checkout Resiprocate source code *revision 9737*
+{{{
+svn checkout -r 9737 http://svn.resiprocate.org/rep/resiprocate/main  resiprocate
+}}}
+ # copy the [http://code.google.com/p/webrtc2sip/source/browse/trunk/webrtc2sip.patch patch] into *resiprocate* folder
+{{{
+cd resiprocate
+wget http://webrtc2sip.googlecode.com/svn/trunk/webrtc2sip.patch
+}}}
+ # apply the patch
+ {{{
+ patch -p0 -i ./webrtc2sip.patch
+ }}}
+ # prepare makefiles
+{{{
+autoreconf --install && ./configure
+}}}
+ # configure for build
+{{{
+export PREFIX=/opt/resiprocate
+./configure --with-ssl --enable-ipv6 --prefix=$PREFIX
+cp -f config.h resip/stack/config.hxx
+}}}
+ # build and install
+{{{
+make clean && make && make install
+cp -f ./repro/repro.config $PREFIX/sbin/repro.config
+}}}
+ # open *$PREFIX/sbin/repro.config* and set the port number (e.g. *4062*) to bind to for incoming websocket connections
+{{{
+# Local port to listen on for SIP messages over WS (WebSocket) - 0 to disable
+WSPort = 4062
+}}}
+ # Run the sever
+{{{
+cd /opt/resiprocate/sbin
+./repro
+}}}
+
+===Known build issues===
+ * ../repro/BerkeleyDb.hxx:8:19: fatal error: db_cxx.h: No such file or directory
+  # Find BerkeleyDB package for c++ dev
+{{{
+sudo apt-cache search libdb
+}}}
+  # select from the result a package named *libdb(x).(y)++-dev* where *(x).(y)* is the version (e.g. *libdb4.2++-dev*) and install it
+{{{
+sudo apt-get install libdb4.2++-dev
+}}}
+
+==Testing the gateway==
+ # open [http://sipml5.org/call.htm http://sipml5.org/call.htm] in your browser and press on *Expert mode?* button
+ # fill _WebSocket Server URL_ field with the IP address and port where your webrtc2sip gateway listen for incoming connections (e.g *ws://192.168.0.1:4062*). IMPORTANT:Do not forget the the url scheme (*ws://*)
