@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Please check the technical guide for more information on how to adjust this file -->
+<config>
+
+  <debug-level>INFO</debug-level>
+  
+  <transport>udp;*;10060</transport>
+  <transport>ws;*;10060</transport>
+  <transport>wss;*;10062</transport>
+  
+  <enable-100rel>no</enable-100rel>
+  <enable-media-coder>no</enable-media-coder>
+  <enable-videojb>yes</enable-videojb>
+  <rtp-buffsize>65535</rtp-buffsize>
+  <avpf-tail-length>100;400</avpf-tail-length>
+  
+  <codecs>pcma;pcmu;gsm;vp8;h264-bp;h264-mp;h263;h263+</codecs>
+  
+  <!--nameserver>66.66.66.6</nameserver-->
+
+  <!--ssl-certificates>
+    self.pem;
+    self.pem;
+    *
+  </ssl-certificates-->
+  
+</config>
