@@ -31,10 +31,10 @@ sudo apt-get install make libtool autoconf subversion patch wget g++ libssl-dev 
 {{{
 svn checkout -r 9737 http://svn.resiprocate.org/rep/resiprocate/main  resiprocate
 }}}
- # copy the [http://code.google.com/p/webrtc2sip/source/browse/trunk/webrtc2sip.patch patch] into *resiprocate* folder
+ # copy the [http://code.google.com/p/webrtc2sip/source/browse/trunk/resiprocate-deprecated.patch resiprocate-deprecated.patch] into *resiprocate* folder
 {{{
 cd resiprocate
-wget http://webrtc2sip.googlecode.com/svn/trunk/webrtc2sip.patch
+wget http://webrtc2sip.googlecode.com/svn/trunk/resiprocate-deprecated.patch
 }}}
  # apply the patch
  {{{
