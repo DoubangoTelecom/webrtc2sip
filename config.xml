@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Please check the technical guide for more information on how to adjust this file -->
+<!-- Please check the technical guide (http://webrtc2sip.googlecode.com/svn/trunk/documentation/technical-guide-1.0.pdf) for more information on how to adjust this file -->
 <config>
 
   <debug-level>INFO</debug-level>

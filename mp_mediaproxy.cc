@@ -262,7 +262,10 @@ int main(int argc, char** argv)
 	{
 		return iRet;
 	}	
-	bRet = oEngine->start();
+	if(!(bRet = oEngine->start()))
+	{
+		exit (-1);
+	}
 	
 	while(true)
 	{
