@@ -2,7 +2,7 @@
 <!-- Please check the technical guide (http://webrtc2sip.googlecode.com/svn/trunk/documentation/technical-guide-1.0.pdf) for more information on how to adjust this file -->
 <config>
 
-  <debug-level>INFO</debug-level>
+  <debug-level>ERROR</debug-level>
   
   <transport>udp;*;10060</transport>
   <transport>ws;*;10060</transport>
