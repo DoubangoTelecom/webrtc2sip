@@ -50,7 +50,7 @@
             <ul class="nav">
               <li class="active"><a href="index.html?svn=13">Home</a></li>
               <li><a href="http://code.google.com/p/webrtc2sip/source/checkout" target="_blank">Source code</a></li>
-              <li><a href="http://webrtc2sip.googlecode.com/svn/trunk/documentation/technical-guide-1.0.pdf">Technical Guide</a></li>
+              <li><a href="technical-guide-1.0.pdf" target=_blank>Technical Guide</a></li>
               <li><a href="contact.htm">Contact</a></li>
             </ul>
           </div><!--/.nav-collapse -->
@@ -64,9 +64,9 @@
       <div class="hero-unit">
         <h2>Smart SIP and Media Gateway to connect WebRTC endpoints</h2>
         <br />
-        <p><b>webrtc2sip</b> is a smart and powerful gateway using RTCWeb and SIP to turn your browser into a phone with audio, video and SMS capabilities. 
+        <p><b>webrtc2sip</b> is a smart and powerful gateway using <a href="http://en.wikipedia.org/wiki/WebRTC">RTCWeb</a> and SIP to turn your browser into a phone with audio, video and SMS capabilities. 
             The gateway allows your web browser to make and receive calls from/to any SIP-legacy network or PSTN. <br />
-            As an example, you will be able to make a call from your preferred web browser to a SIp-legacy softphone (e.g. <a href="http://www.counterpath.com/x-lite.html">xlite</a>) or mobile/fixed phone.<br />
+            As an example, you will be able to make a call from your preferred web browser to a SIP-legacy softphone (e.g. <a href="http://www.counterpath.com/x-lite.html">xlite</a>) or mobile/fixed phone.<br />
             The gateway contains three modules: <a href="#aSipProxy">SIP Proxy</a> | <a href="#aRTCWebBreaker">RTCWeb Breaker</a> | <a href="#aMediaCoder">Media Coder</a>. <br />
         </p>
         <p><a class="btn btn-primary btn-large" href="http://sipml5.org/call.htm?svn=15" target="_blank">Enjoy our live demo &raquo;</a></p>
@@ -90,9 +90,9 @@
             <table>
               <tr><td><h2><a name="aRTCWebBreaker">RTCWeb Breaker</a></h2></td></tr>
               <tr class="spaceUnder"><td><p>
-                   The RTCWeb specifications make support for ICE and DTLS/SRTP mandatory. The problem is that many SIP-legacy endpoints (e.g. PSTN network) do not support these features. 
+                   The RTCWeb specifications make support for <b>ICE</b> and <b>DTLS/SRTP</b> mandatory. The problem is that many SIP-legacy endpoints (e.g. PSTN network) do not support these features. 
                     It’s up to the RTCWeb Breaker to negotiate and convert the media stream to allow these two worlds to interop. <br />
-                    For example, FreeSWITCH do not support ICE which means it requires the RTCWeb Breaker in order to be able to connect the browser to a SIP-legacy endpoint.      
+                    For example, <b>FreeSWITCH</b> do not support ICE which means it requires the RTCWeb Breaker in order to be able to connect the browser to a SIP-legacy endpoint.      
                </p></td></tr>
               <tr><td align="center"><img alt="SIP Proxy architecture" src="http://webrtc2sip.googlecode.com/svn/trunk/documentation/images/module_rtcwebbreaker.png"/></td></tr>
               <tr><td align="center"><i><u>RTCWeb Breaker architecture</u></i></td></tr>
@@ -103,9 +103,9 @@
             <table>
               <tr><td><h2><a name="aMediaCoder">Media Coder</a></h2></td></tr>
               <tr class="spaceUnder"><td><p>
-                   The RTCWeb standard defined two MTI (Mandatory To Implement) audio codecs: <b>opus</b> and <b>g.711</b>.<br />
+                   The RTCWeb standard defined two MTI (<b>M</b>andatory <b>T</b>o <b>I</b>mplement) audio codecs: <b>opus</b> and <b>g.711</b>.<br />
                     For now there are intense discussions about the MTI video codecs. The choice is between <b>VP8</b> and <b>H.264</b>. VP8 is royalty-free but not widely deployed while H.264 AVC is not free but widely deployed. 
-                    Google has decided to use <b>VP8</b> in Chrome while Ericsson uses <b>H.264 AVC</b> in Bowser. Mozilla and Opera Software will probably use VP8 and Microsoft H.264 AVC. As an example, the Media Coder will allow to make video calls between Chrome and Bowser. 
+                    Google has decided to use VP8 in Chrome while Ericsson uses <b>H.264 AVC</b> in <a href="https://labs.ericsson.com/apps/bowser">Bowser</a>. Mozilla and Opera Software will probably use VP8 and Microsoft H.264 AVC. As an example, the Media Coder will allow to make video calls between Chrome and Bowser. 
                     Another example is calling a Telepresence system (e.g. Cisco) which most likely uses <b>H.264 SVC</b> from Chrome.
                </p></td></tr>
               <tr><td align="center"><img alt="SIP Proxy architecture" src="http://webrtc2sip.googlecode.com/svn/trunk/documentation/images/module_mediacoder.png"/></td></tr>
