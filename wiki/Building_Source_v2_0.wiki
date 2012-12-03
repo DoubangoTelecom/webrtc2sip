@@ -30,7 +30,7 @@ cd srtp
 }}}
 
 ===Installing openssl===
-*openssl* is required if you want to use the RTCWeb Breaker module or Secure WebSocket transport (WSS).
+*openssl* is required.
 {{{
 yum install openssl-devel
 }}}
