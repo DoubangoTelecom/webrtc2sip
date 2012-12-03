@@ -1,5 +1,5 @@
 #summary Building webrtc2sip v1.0 (Deprecated)
-#labels Phase-Support,Featured,Phase-Deploy
+#labels Phase-Support,Featured,Phase-Deploy,Deprecated
 
 webrtc2sip v1.0 depends on [http://www.resiprocate.org/Main_Page Resiprocate] and is *deprecated*.
 
