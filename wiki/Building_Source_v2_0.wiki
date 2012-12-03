@@ -1,7 +1,7 @@
 #summary Building Source v2.0
 #labels Featured,Phase-Support,Phase-Deploy
 
-This section explains how to build the project using *CentOS 64* but could be easily adapted for _Linux_, _Windows_ or _OS X_.<br />
+This section explains how to build the project using *CentOS 64* but could be easily adapted for any _Linux_, _Windows_ or _OS X_.<br />
 *webrtc2sip* gateway depends on [http://code.google.com/p/doubango Doubango IMS Framework v2.0].
 
 <wiki:toc max_depth="3" />
