@@ -71,7 +71,7 @@ svn co http://src.chromium.org/svn/trunk/tools/depot_tools .
 ./gclient sync && cd trunk
 make -j6 V=1 -r libyuv BUILDTYPE=Release
 #cp out/Release/obj.target/libyuv.a /usr/local/lib
-mkdir /usr/local/include/libyuv && cp -r include/* /usr/local/include/libyuv
+#mkdir /usr/local/include/libyuv && cp -r include/* /usr/local/include/libyuv
 }}}
 
 ===Building opencore-amr===
