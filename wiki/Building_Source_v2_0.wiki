@@ -26,7 +26,7 @@ libsrtp is required.
 wget http://srtp.sourceforge.net/srtp-1.4.2.tgz
 tar -xvzf srtp-1.4.2.tgz
 cd srtp
-./configure && make && make install
+./configure --enable-pic && make && make install
 }}}
 
 ===Installing openssl===
