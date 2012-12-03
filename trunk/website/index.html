@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<!--
+* Copyright (C) 2012 Doubango Telecom <http://www.doubango.org>
+* License: GPLv3
+* This file is part of Open Source webrtc2sip project <http://code.google.com/p/webrtc2sip/>
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>webrtc2sip - Smart SIP and Media Gateway to connect WebRTC endpoints</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="Keywords" content="doubango, VoIP, HTML5, WebRTC, RTCWeb, SIP, IMS, Video chat, VP8, Chrome, Firefox, Safari, Bowser, Opera, Web Browser " />
+    <meta name="Description" content="Smart SIP and Media Gateway to connect WebRTC endpoints" />
+    <meta name="author" content="Doubango Telecom" />
+
+    <!-- Le styles -->
+    <link href="./assets/css/bootstrap.css" rel="stylesheet" />
+    <style type="text/css">
+      body {
+        padding-top: 80px;
+        padding-bottom: 40px;
+      }
+      tr.spaceUnder > td {
+        padding-bottom: 2em;
+      }
+    </style>
+    <link href="./assets/css/bootstrap-responsive.css" rel="stylesheet" />
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="./assets/ico/favicon.ico" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="./assets/ico/apple-touch-icon-114-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="./assets/ico/apple-touch-icon-72-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" href="./assets/ico/apple-touch-icon-57-precomposed.png" />
+    
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="./index.html">Doubango Telecom</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="index.html?svn=13">Home</a></li>
+              <li><a href="http://code.google.com/p/webrtc2sip/source/checkout" target="_blank">Source code</a></li>
+              <li><a href="http://webrtc2sip.googlecode.com/svn/trunk/documentation/technical-guide-1.0.pdf">Technical Guide</a></li>
+              <li><a href="contact.htm">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+        <h2>Smart SIP and Media Gateway to connect WebRTC endpoints</h2>
+        <br />
+        <p><b>webrtc2sip</b> is a smart and powerful gateway using RTCWeb and SIP to turn your browser into a phone with audio, video and SMS capabilities. 
+            The gateway allows your web browser to make and receive calls from/to any SIP-legacy network or PSTN. <br />
+            As an example, you will be able to make a call from your preferred web browser to a SIp-legacy softphone (e.g. <a href="http://www.counterpath.com/x-lite.html">xlite</a>) or mobile/fixed phone.<br />
+            The gateway contains three modules: <a href="#aSipProxy">SIP Proxy</a> | <a href="#aRTCWebBreaker">RTCWeb Breaker</a> | <a href="#aMediaCoder">Media Coder</a>. <br />
+        </p>
+        <p><a class="btn btn-primary btn-large" href="http://sipml5.org/call.htm?svn=15" target="_blank">Enjoy our live demo &raquo;</a></p>
+      </div>
+
+      <table>
+      <tr class="spaceUnder"><td>
+            <table>
+              <tr><td><h2><a name="aSipProxy">SIP Proxy</a></h2></td></tr>
+              <tr class="spaceUnder"><td><p>
+                   The role of the SIP Proxy module is to convert the SIP transport from WebSocket protocol to <b>UDP</b>, <b>TCP</b> or <b>TLS</b> which are supported by all legacy networks. If your provider or hosted server supports SIP over <b>WebSocket</b> (e.g. Asterisk or Kamailio) then, you can bypass the module and connect the client directly to the endpoint. 
+                   Bypassing the SIP Proxy is not recommended if you’re planning to use the RTCWeb Breaker or Media Coder modules as this will requires maintaining two different connections.<br />
+                   There are no special requirements for the end server to be able to talk to the Proxy module.       
+               </p></td></tr>
+              <tr><td align="center"><img alt="SIP Proxy architecture" src="http://webrtc2sip.googlecode.com/svn/trunk/documentation/images/module_sipproxy.png"/></td></tr>
+              <tr><td align="center"><i><u>SIP Proxy architecture</u></i></td></tr>
+          </table>
+      </td></tr>
+
+      <tr class="spaceUnder"><td>
+            <table>
+              <tr><td><h2><a name="aRTCWebBreaker">RTCWeb Breaker</a></h2></td></tr>
+              <tr class="spaceUnder"><td><p>
+                   The RTCWeb specifications make support for ICE and DTLS/SRTP mandatory. The problem is that many SIP-legacy endpoints (e.g. PSTN network) do not support these features. 
+                    It’s up to the RTCWeb Breaker to negotiate and convert the media stream to allow these two worlds to interop. <br />
+                    For example, FreeSWITCH do not support ICE which means it requires the RTCWeb Breaker in order to be able to connect the browser to a SIP-legacy endpoint.      
+               </p></td></tr>
+              <tr><td align="center"><img alt="SIP Proxy architecture" src="http://webrtc2sip.googlecode.com/svn/trunk/documentation/images/module_rtcwebbreaker.png"/></td></tr>
+              <tr><td align="center"><i><u>RTCWeb Breaker architecture</u></i></td></tr>
+          </table>
+      </td></tr>
+      
+      <tr class="spaceUnder"><td>
+            <table>
+              <tr><td><h2><a name="aMediaCoder">Media Coder</a></h2></td></tr>
+              <tr class="spaceUnder"><td><p>
+                   The RTCWeb standard defined two MTI (Mandatory To Implement) audio codecs: <b>opus</b> and <b>g.711</b>.<br />
+                    For now there are intense discussions about the MTI video codecs. The choice is between <b>VP8</b> and <b>H.264</b>. VP8 is royalty-free but not widely deployed while H.264 AVC is not free but widely deployed. 
+                    Google has decided to use <b>VP8</b> in Chrome while Ericsson uses <b>H.264 AVC</b> in Bowser. Mozilla and Opera Software will probably use VP8 and Microsoft H.264 AVC. As an example, the Media Coder will allow to make video calls between Chrome and Bowser. 
+                    Another example is calling a Telepresence system (e.g. Cisco) which most likely uses <b>H.264 SVC</b> from Chrome.
+               </p></td></tr>
+              <tr><td align="center"><img alt="SIP Proxy architecture" src="http://webrtc2sip.googlecode.com/svn/trunk/documentation/images/module_mediacoder.png"/></td></tr>
+              <tr><td align="center"><i><u>Media Coder architecture</u></i></td></tr>
+          </table>
+      </td></tr>
+
+      </table>
+
+
+       <br />
+         
+    <hr />
+    <g:plus href="https://plus.google.com/107177632824809995368" rel="author"></g:plus>
+    <footer>
+        <p>
+            &copy; Doubango Telecom 2011-2012</p>
+        <i>Inspiring the future</i>
+        <br />
+        <br />
+        <!--a href="http://www.iconshock.com">icon sets by iconshock</a-->
+    </footer>
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="./assets/js/jquery.js"></script>
+    <script type="text/javascript" src="./assets/js/bootstrap-transition.js"></script>
+    <script type="text/javascript" src="./assets/js/bootstrap-alert.js"></script>
+    <script type="text/javascript" src="./assets/js/bootstrap-modal.js"></script>
+    <script type="text/javascript" src="./assets/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="./assets/js/bootstrap-scrollspy.js"></script>
+    <script type="text/javascript" src="./assets/js/bootstrap-tab.js"></script>
+    <script type="text/javascript" src="./assets/js/bootstrap-tooltip.js"></script>
+    <script type="text/javascript" src="./assets/js/bootstrap-popover.js"></script>
+    <script type="text/javascript" src="./assets/js/bootstrap-button.js"></script>
+    <script type="text/javascript" src="./assets/js/bootstrap-collapse.js"></script>
+    <script type="text/javascript" src="./assets/js/bootstrap-carousel.js"></script>
+    <script type="text/javascript" src="./assets/js/bootstrap-typeahead.js"></script>
+
+    <!-- GOOGLE ANALYTICS -->
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-6868621-24']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+    
+     <!-- TWITTER -->
+    <script src='http://www.go2web20.net/twitterfollowbadge/1.0/badge.js' type='text/javascript'></script><script type='text/javascript' charset='utf-8'>
+        <!--
+        tfb.account = 'DoubangoTelecom';
+        tfb.label = 'follow-us';
+        tfb.color = '#35ccff';
+        tfb.side = 'r';
+        tfb.top = 136;
+        tfb.showbadge();
+        -->
+    </script>
+
+  </body>
+</html>
