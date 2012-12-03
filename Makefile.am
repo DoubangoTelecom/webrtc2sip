@@ -70,8 +70,4 @@ webrtc2sip_SOURCES  += \
 	tinywrap/SipUri.cxx\
 	tinywrap/SMSEncoder.cxx\
 	tinywrap/Xcap.cxx
-
-all: tinywrap
-tinywrap:
-	echo checking tinyWRAP source code from Doubango website
-	svn checkout http://doubango.googlecode.com/svn/branches/2.0/doubango/bindings/_common tinywrap
+	
