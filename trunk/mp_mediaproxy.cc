@@ -255,7 +255,7 @@ int main(int argc, char** argv)
 	int iRet, i = 0;
 	char quit[4];
 
-	printf("Copyright (C) 2012 Doubango Telecom <http://www.doubango.org>\n\n");
+	printf("Copyright (C) 2012 Doubango Telecom <http://www.doubango.org>\n'quit' to quit the application.\n\n");
 
 	MPObjectWrapper<MPEngine*> oEngine = MPEngine::New();
 	if((iRet = parseConfigRoot(oEngine, kConfigXmlPath)))
@@ -277,6 +277,8 @@ int main(int argc, char** argv)
 		
 		++i;
 	}
+
+	oEngine->stop();
 
 	return 0;
 }
