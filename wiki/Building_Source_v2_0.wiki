@@ -10,7 +10,7 @@ This section explains how to build the project using *CentOS 64* but could be ea
 ==Preparing the system==
 {{{
 sudo yum update
-sudo yum install make libtool autoconf subversion git wget nasm
+sudo yum install make libtool autoconf subversion git wget
 }}}
 
 ==Building Doubango IMS Framework and 3rd-party libraries==
