@@ -184,6 +184,7 @@ cd webrtc2sip && ./autogen.sh && ./configure --prefix=$PREFIX
 make clean && make && make install
 cp -f ./config.xml $PREFIX/sbin/config.xml
 }}}
+The gateway is configured using *config.xml*. Please check the [http://webrtc2sip.org/technical-guide-1.0.pdf technical guide] for more information about this file.
 
 <br />
 Et voilà
