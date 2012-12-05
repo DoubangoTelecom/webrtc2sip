@@ -68,7 +68,7 @@ int MPProxyPluginProducerAudio::stopCallback()
 	int ret;
 
 	// call parent
-	if(ret = MPProxyPlugin::stop()){
+	if((ret = MPProxyPlugin::stop())){
 		TSK_DEBUG_ERROR("Failed to stop producer");
 		return ret;
 	}
