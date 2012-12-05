@@ -148,6 +148,8 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 { 
 	switch(e->getType())
 	{
+        default: break;
+            
 		case tsip_i_newcall:
 		{
 			assert(e->getSession() == NULL);
@@ -394,6 +396,8 @@ int MPSipCallback::OnRegistrationEvent(const RegistrationEvent* e)
 { 
 	switch(e->getType())
 	{
+        default: break;
+            
 		case tsip_i_newreg:
 			{
 				assert(e->getSession() == NULL);
