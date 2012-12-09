@@ -74,9 +74,9 @@ AC_ARG_WITH([doubango], [AC_HELP_STRING([--with-doubango=PATH], [path to install
   DOUBANGO_LIB="${withval}/lib"
   AC_MSG_RESULT("${withval}")
 ], [
-  DOUBANGO_INCLUDE="/usr/include/doubango"
-  DOUBANGO_LIB="/usr/lib"
-  AC_MSG_RESULT(/usr)
+  DOUBANGO_INCLUDE="/usr/local/include"
+  DOUBANGO_LIB="/usr/local/lib"
+  AC_MSG_RESULT(/usr/local)
 ])
 AC_SUBST(DOUBANGO_INCLUDE)
 AC_SUBST(DOUBANGO_LIB)
