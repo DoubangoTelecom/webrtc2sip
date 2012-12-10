@@ -70,10 +70,8 @@ svn co http://src.chromium.org/svn/trunk/tools/depot_tools .
 ./gclient config http://libyuv.googlecode.com/svn/trunk
 ./gclient sync && cd trunk
 make -j6 V=1 -r libyuv BUILDTYPE=Release
-# the next line builds libjpeg_tubo and is only required if not already on you system
 make -j6 V=1 -r libjpeg BUILDTYPE=Release
 cp out/Release/obj.target/libyuv.a /usr/local/lib
-# next line installs 'libjpeg_turbo' and only requires if you built it as above
 cp out/Release/obj.target/third_party/libjpeg_turbo/libjpeg_turbo.a /usr/local/lib
 mkdir --parents /usr/local/include/libyuv/libyuv
 cp -rf include/libyuv.h /usr/local/include/libyuv
