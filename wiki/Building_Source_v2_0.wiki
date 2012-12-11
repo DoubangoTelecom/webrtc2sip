@@ -177,7 +177,7 @@ svn co http://webrtc2sip.googlecode.com/svn/trunk/ webrtc2sip
 
 ===Installing libxml2===
 {{{
-yum install libxml2
+yum install libxml2-devel
 }}}
 
 ===Building webrtc2sip===
