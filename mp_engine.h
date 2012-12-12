@@ -51,6 +51,7 @@ public:
 	virtual bool setAvpfTail(int32_t nMin, int32_t nMax);
 	virtual bool setSSLCertificate(const char* pcPrivateKey, const char* pcPublicKey, const char* pcCA);
 	virtual bool setCodecs(int64_t nCodecs);
+	virtual bool setSRTPMode(const char* pcMode);
 	virtual bool addDNSServer(const char* pcDNSServer);
 	virtual bool start();
 	virtual bool stop();

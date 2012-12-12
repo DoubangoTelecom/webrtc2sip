@@ -174,6 +174,28 @@ bool MPEngine::setCodecs(int64_t nCodecs)
 	return true;
 }
 
+bool MPEngine::setSRTPMode(const char* pcMode)
+{
+	if(!pcMode){
+		TSK_DEBUG_ERROR("Invalid parameter");
+		return false;
+	}
+
+	if(tsk_striequals(pcMode, "none")){
+		return MediaSessionMgr::defaultsSetSRtpMode(tmedia_srtp_mode_none);
+	}
+	else if(tsk_striequals(pcMode, "optional")){
+		return MediaSessionMgr::defaultsSetSRtpMode(tmedia_srtp_mode_optional);
+	}
+	else if(tsk_striequals(pcMode, "mandatory")){
+		return MediaSessionMgr::defaultsSetSRtpMode(tmedia_srtp_mode_mandatory);
+	}
+	else{
+		TSK_DEBUG_ERROR("%s note valid as SRTP mode", pcMode);
+		return false;
+	}
+}
+
 bool MPEngine::addDNSServer(const char* pcDNSServer)
 {
 	if(!isValid())

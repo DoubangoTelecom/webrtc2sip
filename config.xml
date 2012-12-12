@@ -13,6 +13,7 @@
   <enable-videojb>yes</enable-videojb>
   <rtp-buffsize>65535</rtp-buffsize>
   <avpf-tail-length>100;400</avpf-tail-length>
+  <srtp-mode>optional</srtp-mode>
   
   <codecs>pcma;pcmu;gsm;vp8;h264-bp;h264-mp;h263;h263+</codecs>
   
