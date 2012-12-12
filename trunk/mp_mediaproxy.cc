@@ -124,6 +124,14 @@ static int parseConfigNode(xmlNode *pNode, MPObjectWrapper<MPEngine*> oEngine)
 							}
 						}
 					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "srtp-mode"))
+					{
+						TSK_DEBUG_INFO("srtp-mode = %s", (const char*)pCurrNode->content);
+						if(!(oEngine->setSRTPMode((const char*)pCurrNode->content)))
+						{
+							TSK_DEBUG_ERROR("Failed to set 'srtp-mode': %s", (const char*)pCurrNode->content);
+						}
+					}
 					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "ssl-certificates"))
 					{
 						if((pParams = tsk_params_fromstring((const char*)pCurrNode->content, ";", tsk_true)) && mp_list_count(pParams) == 3)
