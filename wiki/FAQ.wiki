@@ -4,4 +4,4 @@
 <wiki:toc max_depth="2" />
 
 == I see "a=crypto in RTP/AVP, refer to RFC 3711" on my console when calling FreeSWITCH. How can I fix this? ==
-Edit the config.xml file and change the *<srtp-mode>* from *optional* to *mandatory*.
+Edit the config.xml file and change the *srtp-mode* from _optional_ to _mandatory_.
