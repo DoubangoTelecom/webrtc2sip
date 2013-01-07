@@ -109,13 +109,24 @@ bool MPEngine::setDebugLevel(const char* pcLevel)
 
 bool MPEngine::addTransport(const char* pTransport, uint16_t pLocalPort, const char* pLocalIP /*= tsk_null*/)
 {
-	if(!isValid()){
+	if(!isValid())
+	{
 		TSK_DEBUG_ERROR("Engine not valid");
 		return false;
 	}
 	bool bRet = const_cast<SipStack*>(m_oStack->getWrappedStack())->setLocalIP(pLocalIP, pTransport);
 	bRet &= const_cast<SipStack*>(m_oStack->getWrappedStack())->setLocalPort(pLocalPort, pTransport);
 	return bRet;
+}
+
+bool MPEngine::setRtpSymetricEnabled(bool bEnabled)
+{
+	if(!isValid())
+	{
+		TSK_DEBUG_ERROR("Engine not valid");
+		return false;
+	}
+	return MediaSessionMgr::defaultsSetRtpSymetricEnabled(bEnabled);
 }
 
 bool MPEngine::set100relEnabled(bool bEnabled)
@@ -149,7 +160,43 @@ bool MPEngine::setAvpfTail(int32_t nMin, int32_t nMax)
 	return MediaSessionMgr::defaultsSetAvpfTail(nMin, nMax);
 }
 
-bool MPEngine::setSSLCertificate(const char* pcPrivateKey, const char* pcPublicKey, const char* pcCA)
+bool MPEngine::setPrefVideoSize(const char* pcPrefVideoSize)
+{
+	if(!isValid())
+	{
+		TSK_DEBUG_ERROR("Engine not valid");
+		return false;
+	}
+
+	int i;
+	struct pref_video_size { const char* name; tmedia_pref_video_size_t size; };
+	static const pref_video_size pref_video_sizes[] =
+	{
+		{"sqcif", tmedia_pref_video_size_sqcif}, // 128 x 98
+		{"qcif", tmedia_pref_video_size_qcif}, // 176 x 144
+		{"qvga", tmedia_pref_video_size_qvga}, // 320 x 240
+		{"cif", tmedia_pref_video_size_cif}, // 352 x 288
+		{"hvga", tmedia_pref_video_size_hvga}, // 480 x 320
+		{"vga", tmedia_pref_video_size_vga}, // 640 x 480
+		{"4cif", tmedia_pref_video_size_4cif}, // 704 x 576
+		{"svga", tmedia_pref_video_size_svga}, // 800 x 600
+		{"480p", tmedia_pref_video_size_480p}, // 852 x 480
+		{"720p", tmedia_pref_video_size_720p}, // 1280 x 720
+		{"16cif", tmedia_pref_video_size_16cif}, // 1408 x 1152
+		{"1080p", tmedia_pref_video_size_1080p}, // 1920 x 1080
+	};
+	static const int pref_video_sizes_count = sizeof(pref_video_sizes)/sizeof(pref_video_sizes[0]);
+	
+	for(i = 0; i < pref_video_sizes_count; ++i){
+		if(tsk_striequals(pref_video_sizes[i].name, pcPrefVideoSize)){
+			return MediaSessionMgr::defaultsSetPrefVideoSize(pref_video_sizes[i].size);
+		}
+	}
+	TSK_DEBUG_ERROR("%s not valid as video size. Valid values", pcPrefVideoSize);
+	return false;
+}
+
+bool MPEngine::setSSLCertificate(const char* pcPrivateKey, const char* pcPublicKey, const char* pcCA, bool bVerify /*= false*/)
 {
 	if(!isValid())
 	{
@@ -159,7 +206,8 @@ bool MPEngine::setSSLCertificate(const char* pcPrivateKey, const char* pcPublicK
 	return const_cast<SipStack*>(m_oStack->getWrappedStack())->setSSLCretificates(
 				pcPrivateKey,
 				pcPublicKey,
-				pcCA
+				pcCA,
+				bVerify
 			);
 }
 
@@ -194,6 +242,27 @@ bool MPEngine::setSRTPMode(const char* pcMode)
 		TSK_DEBUG_ERROR("%s note valid as SRTP mode", pcMode);
 		return false;
 	}
+}
+
+bool MPEngine::setSRTPType(const char* pcTypesCommaSep)
+{
+	if(!pcTypesCommaSep){
+		TSK_DEBUG_ERROR("Invalid parameter");
+		return false;
+	}
+
+	tmedia_srtp_type_t srtp_type = tmedia_srtp_type_none;
+
+	if(tsk_strcontains(pcTypesCommaSep, tsk_strlen(pcTypesCommaSep), "sdes"))
+	{
+		srtp_type = (tmedia_srtp_type_t)(srtp_type | tmedia_srtp_type_sdes);
+	}
+	if(tsk_strcontains(pcTypesCommaSep, tsk_strlen(pcTypesCommaSep), "dtls"))
+	{
+		srtp_type = (tmedia_srtp_type_t)(srtp_type | tmedia_srtp_type_dtls);
+	}
+
+	return MediaSessionMgr::defaultsSetSRtpType(srtp_type);
 }
 
 bool MPEngine::addDNSServer(const char* pcDNSServer)

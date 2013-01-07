@@ -44,14 +44,17 @@ public:
 	virtual MP_INLINE bool isStarted(){ return m_bStarted; }
 	virtual bool setDebugLevel(const char* pcLevel);
 	virtual bool addTransport(const char* pTransport, uint16_t pLocalPort, const char* pLocalIP = tsk_null);
+	virtual bool setRtpSymetricEnabled(bool bEnabled);
 	virtual bool set100relEnabled(bool bEnabled);
 	virtual bool setMediaCoderEnabled(bool bEnabled);
 	virtual bool setVideoJbEnabled(bool bEnabled);
 	virtual bool setRtpBuffSize(int32_t nSize);
 	virtual bool setAvpfTail(int32_t nMin, int32_t nMax);
-	virtual bool setSSLCertificate(const char* pcPrivateKey, const char* pcPublicKey, const char* pcCA);
+	virtual bool setPrefVideoSize(const char* pcPrefVideoSize);
+	virtual bool setSSLCertificate(const char* pcPrivateKey, const char* pcPublicKey, const char* pcCA, bool bVerify = false);
 	virtual bool setCodecs(int64_t nCodecs);
 	virtual bool setSRTPMode(const char* pcMode);
+	virtual bool setSRTPType(const char* pcTypesCommaSep);
 	virtual bool addDNSServer(const char* pcDNSServer);
 	virtual bool start();
 	virtual bool stop();
