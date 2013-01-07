@@ -24,10 +24,10 @@
   <!--nameserver>66.66.66.6</nameserver-->
 
   <!--ssl-certificates>
-    C:/Projects/ssl/priv-key.crt;
-    C:/Projects/ssl/server.crt;
-    C:/Projects/ssl/quickssl-ca.crt;
-    yes
+    C:/Projects/ssl/priv.pem;
+    C:/Projects/ssl/pub.pem;
+    C:/Projects/ssl/ca-cert.pem;
+    no
   </ssl-certificates-->
 
 </config>

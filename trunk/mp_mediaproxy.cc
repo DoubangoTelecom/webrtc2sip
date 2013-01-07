@@ -167,7 +167,7 @@ static int parseConfigNode(xmlNode *pNode, MPObjectWrapper<MPEngine*> oEngine)
 							const char* pcPrivateKey = ((const tsk_param_t*)pParams->head->data)->name;
 							const char* pcPublicKey = ((const tsk_param_t*)pParams->head->next->data)->name;
 							const char* pcCA = ((const tsk_param_t*)pParams->head->next->next->data)->name;
-							const char* pcVerify = pParams->head->next->next->next ? ((const tsk_param_t*)pParams->head->next->next->next->data)->name : "yes"; // available since 2.1.0
+							const char* pcVerify = pParams->head->next->next->next ? ((const tsk_param_t*)pParams->head->next->next->next->data)->name : "no"; // available since 2.1.0
 							TSK_DEBUG_INFO("ssl-certificates = \n%s;\n%s;\n%s;\n%s", pcPrivateKey, pcPublicKey, pcCA, pcVerify);
 
 							if(!oEngine->setSSLCertificate(mp_str_is_star(pcPrivateKey) ? NULL : pcPrivateKey, mp_str_is_star(pcPublicKey) ? NULL : pcPublicKey, mp_str_is_star(pcCA) ? NULL : pcCA, mp_str_is_yes(pcVerify)))
