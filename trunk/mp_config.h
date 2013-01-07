@@ -19,6 +19,10 @@
 #if !defined(_MEDIAPROXY_CONFIG_H_)
 #define _MEDIAPROXY_CONFIG_H_
 
+#define WEBRTC2SIP_VERSION_MAJOR 2
+#define WEBRTC2SIP_VERSION_MINOR 1
+#define WEBRTC2SIP_VERSION_MICRO 0
+
 #if defined(WIN32)|| defined(_WIN32) || defined(_WIN32_WCE)
 #	define MP_UNDER_WINDOWS	1
 #endif

@@ -59,8 +59,12 @@ void MPProxyPluginMgr::initialize()
 
 		MediaSessionMgr::defaultsSet100relEnabled(false);
 
+		// SRTP options
 		MediaSessionMgr::defaultsSetSRtpMode(tmedia_srtp_mode_optional);
-		MediaSessionMgr::defaultsSetIceEnabled(true);
+		MediaSessionMgr::defaultsSetSRtpType(tmedia_srtp_type_sdes_dtls);
+
+		// set preferred video size
+		MediaSessionMgr::defaultsSetPrefVideoSize(tmedia_pref_video_size_vga);
 
 		// do not transcode
 		MediaSessionMgr::defaultsSetByPassEncoding(true);
@@ -71,6 +75,10 @@ void MPProxyPluginMgr::initialize()
 
 		// enlarge RTP network buffer size
 		MediaSessionMgr::defaultsSetRtpBuffSize(0xffff);
+
+		// NATT traversal options
+		MediaSessionMgr::defaultsSetRtpSymetricEnabled(true);
+		MediaSessionMgr::defaultsSetIceEnabled(true);
 
 		// enlarge AVPF tail to honor more RTCP-NACK requests
 		MediaSessionMgr::defaultsSetAvpfTail(100, 400);

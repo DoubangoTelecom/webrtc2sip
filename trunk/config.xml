@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Please check the technical guide (http://webrtc2sip.googlecode.com/svn/trunk/documentation/technical-guide-1.0.pdf) for more information on how to adjust this file -->
+<!-- Please check the technical guide (http://webrtc2sip.org/technical-guide-1.0.pdf) for more information on how to adjust this file -->
 <config>
 
   <debug-level>ERROR</debug-level>
-  
+
   <transport>udp;*;10060</transport>
   <transport>ws;*;10060</transport>
   <transport>wss;*;10062</transport>
-  
+
+  <enable-rtp-symetric>yes</enable-rtp-symetric>
   <enable-100rel>no</enable-100rel>
   <enable-media-coder>no</enable-media-coder>
   <enable-videojb>yes</enable-videojb>
+  <video-size-pref>vga</video-size-pref>
   <rtp-buffsize>65535</rtp-buffsize>
   <avpf-tail-length>100;400</avpf-tail-length>
   <srtp-mode>optional</srtp-mode>
-  
+  <srtp-type>sdes;dtls</srtp-type>
+
   <codecs>pcma;pcmu;gsm;vp8;h264-bp;h264-mp;h263;h263+</codecs>
-  
+
+
   <!--nameserver>66.66.66.6</nameserver-->
 
   <!--ssl-certificates>
-    self.pem;
-    self.pem;
-    *
+    C:/Projects/ssl/priv-key.crt;
+    C:/Projects/ssl/server.crt;
+    C:/Projects/ssl/quickssl-ca.crt;
+    yes
   </ssl-certificates-->
-  
+
 </config>

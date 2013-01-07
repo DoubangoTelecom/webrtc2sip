@@ -22,7 +22,7 @@ CFLAGS="${CFLAGS=}"
 
 ### ENABLE-DEBUG
 AC_MSG_CHECKING(whether to enable debugging)
-debug_default="yes"
+debug_default="no"
 AC_ARG_ENABLE(debug, 
 [  --enable-debug[=no/yes] turn on/off debugging 
                        [[default=$debug_default]]],
@@ -36,7 +36,7 @@ AC_ARG_ENABLE(debug,
 ],
 [])
 
-### DEBUG-LEVEL
+### DEBUG-LEVEL: could be updated using config.xml
 AC_ARG_WITH(debug-level, 
 [  --with-debug-level[=level] Set debug-level to level [[default=info]]
                        info: informational
