@@ -1,0 +1,20 @@
+#summary Release notes
+#labels Featured,Phase-Implementation,Phase-Support
+
+<wiki:toc max_depth="2" />
+
+==2.1.0==
+ * SVN: 38
+ * Requires Doubango IMS Framework 803 or later to be fully featured
+ * Date: January 7, 2013
+ * Add support for DTLS-SRTP (rfc5763 and rfc 5764)
+ * Add new command line arguments: _--config_, _--help_ and _--version_
+ * Add new xml configuration entries: _video-size-pref_, _enable-rtp-symetric_ and _srtp-type_
+ * Add verify option to xml configuration entry `<ssl-certificates />` to allow remote certificates verification.
+ * Fix issue 35, issue 36, issue 39, issue 41, issue 42 and issue 43 
+
+
+==2.0.0==
+ * SVN: 9
+ * Date: December 02, 2012
+ * First release for version 2.x
