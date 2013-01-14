@@ -5,14 +5,14 @@
 
 ==2.2.0==
  * SVN: 44
- * Requires Doubango IMS Framework 807 or later to be fully featured
+ * Requires Doubango IMS Framework 808+ or later to be fully featured
  * Date: January 14, 2013
  * Adds support for Firefox Nightly
  * Fix issue 47 and issue 48
 
 ==2.1.0==
  * SVN: 38
- * Requires Doubango IMS Framework 804 or later to be fully featured
+ * Requires Doubango IMS Framework 804+ or later to be fully featured
  * Date: January 7, 2013
  * Add support for DTLS-SRTP (rfc5763 and rfc 5764)
  * Add new command line arguments: _--config_, _--help_ and _--version_
