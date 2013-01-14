@@ -196,7 +196,7 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 					if((pcHa1 = TSIP_HEADER_GET_PARAM_VALUE(pcWrappedMsgLeft->Contact, "ha1")) && (pcIMPI = TSIP_HEADER_GET_PARAM_VALUE(pcWrappedMsgLeft->Contact, "impi"))){
 						const_cast<SipSession*>(oCallSessionRight->getWrappedSession())->setAuth(pcHa1, pcIMPI);
 					}
-					
+#if 0 // now using "ssrc.local" and "ssrc.remote"
 					// use same SSRCs to make possible RTCP forwarding
 					if(tsk_striequals("application/sdp", TSIP_MESSAGE_CONTENT_TYPE(pcWrappedMsgLeft))){
 						tsdp_message_t* sdp_ro;
@@ -211,7 +211,7 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 									const tsdp_header_A_t* pcSdpAudioA = tsdp_header_M_findA(pcSdpM, "ssrc");
 									if(pcSdpAudioA){
 										if(sscanf(pcSdpAudioA->value, "%u %*s", &ssrc) != EOF){
-											TSK_DEBUG_INFO("Using audio SSRC = %u", ssrc);
+											TSK_DEBUG_INFO("Using %s SSRC = %u", __ssrc_media_names[ssrc_i], ssrc);
 											const_cast<CallSession*>(oCallSessionRight->getWrappedCallSession())->setMediaSSRC(__ssrc_media_types[ssrc_i], ssrc);
 										}
 									}
@@ -220,6 +220,7 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 							TSK_OBJECT_SAFE_FREE(sdp_ro);
 						}
 					}
+#endif
 					
 					// filter codecs if transcoding is disabled
 					if(MediaSessionMgr::defaultsGetByPassEncoding()){

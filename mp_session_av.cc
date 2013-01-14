@@ -57,7 +57,7 @@ void MPSipSessionAV::setState(MPSessionState_t eState)
 				if(!m_oRtcpCallback && MediaSessionMgr::defaultsGetByPassEncoding() && MediaSessionMgr::defaultsGetByPassDecoding()){
 					TSK_DEBUG_INFO("Media encoding/decoding is bypassed -> install RTCP callbacks for forwarding");
 					m_oRtcpCallback = new MPSipSessionAVRtcpCallback(this);
-					const_cast<CallSession*>(getWrappedCallSession())->setRtcpCallback(*m_oRtcpCallback, MPMediaType_GetNative(m_eMediaType));
+					const_cast<CallSession*>(getWrappedCallSession())->setRtcpCallback(*m_oRtcpCallback, /*FIXME: MPMediaType_GetNative(m_eMediaType)*/twrap_media_video);
 				}
 				break;
 			}
@@ -72,8 +72,9 @@ void MPSipSessionAV::setState(MPSessionState_t eState)
 int MPSipSessionAV::onRtcpEventCallback(const RtcpCallbackData* pcEvent)const
 {
 	if(pcEvent && m_oSessionOpposite){
-		return const_cast<CallSession*>(m_oSessionOpposite->getWrappedCallSession())->sendRtcpEvent(pcEvent->getType(), MPMediaType_GetNative(m_eMediaType), pcEvent->getSSRC());
+		return const_cast<CallSession*>(m_oSessionOpposite->getWrappedCallSession())->sendRtcpEvent(pcEvent->getType(), /*FIXME: MPMediaType_GetNative(m_eMediaType)*/twrap_media_video);
 	}
+	TSK_DEBUG_INFO("Not sending RTCP event (event null or no oposite)");
 	return 0;
 }
 

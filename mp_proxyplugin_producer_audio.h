@@ -37,7 +37,13 @@ class MPProxyPluginProducerAudio : public MPProxyPlugin
 public:
 	MPProxyPluginProducerAudio(uint64_t nId, const ProxyAudioProducer* pcProducer);
 	virtual ~MPProxyPluginProducerAudio();
-	MP_INLINE int push(const void* buffer, unsigned size){ return (m_pcWrappedProducer ? const_cast<ProxyAudioProducer*>(m_pcWrappedProducer)->push(buffer, size) : -1); }
+	MP_INLINE int push(const void* buffer, unsigned size){ 
+		if(m_bStarted){
+			return (m_pcWrappedProducer ? const_cast<ProxyAudioProducer*>(m_pcWrappedProducer)->push(buffer, size) : -1);
+		}
+		TSK_DEBUG_INFO("Audio producer not started yet");
+		return 0;
+	}
 	MP_INLINE int getPtime() { return m_nPtime; }
 	MP_INLINE int getRate() { return m_nRate; }
 	MP_INLINE int getChannels() { return m_nChannels; }
