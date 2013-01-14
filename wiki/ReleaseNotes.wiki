@@ -3,6 +3,13 @@
 
 <wiki:toc max_depth="2" />
 
+==2.2.0==
+ * SVN: 44
+ * Requires Doubango IMS Framework 807 or later to be fully featured
+ * Date: January 14, 2013
+ * Adds support for Firefox Nightly
+ * Fix issue 47 and issue 48
+
 ==2.1.0==
  * SVN: 38
  * Requires Doubango IMS Framework 804 or later to be fully featured
