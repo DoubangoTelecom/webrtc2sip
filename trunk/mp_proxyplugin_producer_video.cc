@@ -80,8 +80,11 @@ int MPProxyPluginProducerVideo::stopCallback()
 
 int MPProxyPluginProducerVideo::push(const void* pcBuffer, unsigned nBufferSize, unsigned nFrameWidth, unsigned nFrameHeight)
 {
-	int ret = 0;
-
+	if(!m_bStarted){
+		TSK_DEBUG_INFO("Video producer not started yet");
+		return 0;
+	}
+	
 	if(m_pcWrappedProducer && isValid()){
 		if(m_nWidth != nFrameWidth || m_nHeight != nFrameHeight){
 			if(!const_cast<ProxyVideoProducer*>(m_pcWrappedProducer)->setActualCameraOutputSize(nFrameWidth, nFrameHeight)){
@@ -91,10 +94,10 @@ int MPProxyPluginProducerVideo::push(const void* pcBuffer, unsigned nBufferSize,
 			m_nWidth = nFrameWidth;
 			m_nHeight = nFrameHeight;
 		}
-		ret = const_cast<ProxyVideoProducer*>(m_pcWrappedProducer)->push(pcBuffer, nBufferSize);
+		return const_cast<ProxyVideoProducer*>(m_pcWrappedProducer)->push(pcBuffer, nBufferSize);
 	}
 		
-	return ret;
+	return 0;
 }
 
 

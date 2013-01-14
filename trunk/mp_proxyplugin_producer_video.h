@@ -43,10 +43,18 @@ public:
 	int push(const void* pcBuffer, unsigned nBufferSize, unsigned nFrameWidth, unsigned nFrameHeight);
 	// Send "AS IS"
 	int sendRaw(const void* pcBuffer, unsigned nSize, unsigned nDuration, bool bMarker){
-		return m_pcWrappedProducer ? const_cast<ProxyVideoProducer*>(m_pcWrappedProducer)->sendRaw(pcBuffer, nSize, nDuration, bMarker) : 0;
+		if(m_bStarted){
+			return m_pcWrappedProducer ? const_cast<ProxyVideoProducer*>(m_pcWrappedProducer)->sendRaw(pcBuffer, nSize, nDuration, bMarker) : 0;
+		}
+		TSK_DEBUG_INFO("Video producer not started yet");
+		return 0;
 	}
 	int sendRaw(const void* pcBuffer, unsigned nSize, const void* pcProtoHdr){
-		return m_pcWrappedProducer ? const_cast<ProxyVideoProducer*>(m_pcWrappedProducer)->sendRaw(pcBuffer, nSize, pcProtoHdr) : 0;
+		if(m_bStarted){
+			return m_pcWrappedProducer ? const_cast<ProxyVideoProducer*>(m_pcWrappedProducer)->sendRaw(pcBuffer, nSize, pcProtoHdr) : 0;
+		}
+		TSK_DEBUG_INFO("Video producer not started yet");
+		return 0;
 	}
 	bool setActualCameraOutputSize(unsigned nWidth, unsigned nHeight){
 		return m_pcWrappedProducer ? const_cast<ProxyVideoProducer*>(m_pcWrappedProducer)->setActualCameraOutputSize(nWidth, nHeight) : 0;
