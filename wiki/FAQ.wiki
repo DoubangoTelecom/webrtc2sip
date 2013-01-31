@@ -6,3 +6,6 @@
 == I see "a=crypto in RTP/AVP, refer to RFC 3711" on my console when calling FreeSWITCH. How can I fix this? ==
 ~~Edit the config.xml file and change the *srtp-mode* from _optional_ to _mandatory_.~~ <br />
 Starting version [http://code.google.com/p/webrtc2sip/wiki/ReleaseNotes#2.1.0 2.1.0], it's no longer required to change config.xml.
+
+== Why do I have delay on H.264 stream from webrtc2sip? ==
+When the media coder module is enabled we use FFmpeg and libx264 to encode the stream. libx264 uses presets to define some default configuration parameters. Setting these presets from FFmpeg wrapper seems to be useless as the values are never forwarded to libx264. To fix his issue, you need to apply the patch at [http://code.google.com/p/doubango/source/browse/branches/2.0/doubango/thirdparties/patches/ffmpeg_libx264_git.patch]
