@@ -194,7 +194,9 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 					// authentication token
 					const char *pcHa1, *pcIMPI;
 					if((pcHa1 = TSIP_HEADER_GET_PARAM_VALUE(pcWrappedMsgLeft->Contact, "ha1")) && (pcIMPI = TSIP_HEADER_GET_PARAM_VALUE(pcWrappedMsgLeft->Contact, "impi"))){
-						const_cast<SipSession*>(oCallSessionRight->getWrappedSession())->setAuth(pcHa1, pcIMPI);
+						char* pIMPI = tsk_url_decode(pcIMPI);
+						const_cast<SipSession*>(oCallSessionRight->getWrappedSession())->setAuth(pcHa1, pIMPI);
+						TSK_FREE(pIMPI);
 					}
 #if 0 // now using "ssrc.local" and "ssrc.remote"
 					// use same SSRCs to make possible RTCP forwarding
