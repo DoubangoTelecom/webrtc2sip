@@ -165,6 +165,7 @@ cd ffmpeg
 --enable-encoder=mpeg4 --enable-decoder=mpeg4 \
 \
 --enable-libx264 --enable-encoder=libx264 --enable-decoder=h264
+make && make install
 }}}
 
 ===Building Doubango===
