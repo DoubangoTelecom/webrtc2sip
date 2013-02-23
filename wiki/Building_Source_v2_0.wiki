@@ -94,6 +94,7 @@ cp -rf include/libyuv/*.h /usr/local/include/libyuv/libyuv
 *opencore-amr* is optional. Adds support for *AMR* audio codec.
 {{{
 git clone git://opencore-amr.git.sourceforge.net/gitroot/opencore-amr/opencore-amr
+cd opencore-amr
 autoreconf --install && ./configure && make && make install
 }}}
 
