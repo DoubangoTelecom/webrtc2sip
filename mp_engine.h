@@ -24,8 +24,13 @@
 #include "mp_mutex.h"
 #include "mp_wrap.h"
 #include "mp_peer.h"
+#include "mp_c2c.h"
+#include "mp_mail.h"
+#include "db/mp_db.h"
+#include "db/mp_db_model.h"
 
 #include <map>
+#include <list>
 
 namespace webrtc2sip {
 
@@ -43,7 +48,7 @@ public:
 	virtual MP_INLINE bool isValid(){ return  m_bValid; }
 	virtual MP_INLINE bool isStarted(){ return m_bStarted; }
 	virtual bool setDebugLevel(const char* pcLevel);
-	virtual bool addTransport(const char* pTransport, uint16_t pLocalPort, const char* pLocalIP = tsk_null);
+	virtual bool addTransport(const char* pTransport, uint16_t nLocalPort, const char* pcLocalIP = tsk_null);
 	virtual bool setRtpSymetricEnabled(bool bEnabled);
 	virtual bool set100relEnabled(bool bEnabled);
 	virtual bool setMediaCoderEnabled(bool bEnabled);
@@ -51,13 +56,19 @@ public:
 	virtual bool setRtpBuffSize(int32_t nSize);
 	virtual bool setAvpfTail(int32_t nMin, int32_t nMax);
 	virtual bool setPrefVideoSize(const char* pcPrefVideoSize);
-	virtual bool setSSLCertificate(const char* pcPrivateKey, const char* pcPublicKey, const char* pcCA, bool bVerify = false);
+	virtual bool setSSLCertificates(const char* pcPrivateKey, const char* pcPublicKey, const char* pcCA, bool bVerify = false);
 	virtual bool setCodecs(int64_t nCodecs);
 	virtual bool setSRTPMode(const char* pcMode);
 	virtual bool setSRTPType(const char* pcTypesCommaSep);
 	virtual bool addDNSServer(const char* pcDNSServer);
+	virtual bool setDbInfo(const char* pcDbType, const char* pcDbConnectionInfo);
+	virtual bool setMailAccountInfo(const char* pcScheme, const char* pcLocalIP, unsigned short nLocalPort, const char* pcSmtpHost, unsigned short nSmtpPort, const char* pcEmail, const char* pcAuthName, const char* pcAuthPwd);
+	virtual bool addAccountSipCaller(const char* pcDisplayName, const char* pcImpu, const char* pcImpi, const char* pcRealm, const char* pcPassword);
+	virtual MPObjectWrapper<MPDbAccountSipCaller*> findAccountSipCallerByRealm(const char* pcRealm);
 	virtual bool start();
 	virtual bool stop();
+
+	virtual MP_INLINE MPObjectWrapper<MPDb*> getDB() { return m_oDb; }
 
 	static MPObjectWrapper<MPEngine*> New();
 
@@ -72,10 +83,22 @@ protected:
 private:
 	MPObjectWrapper<MPMutex*> m_oMutex;
 	MPObjectWrapper<MPSipCallback*> m_oCallback;
-	MPObjectWrapper<MPSipStack*> m_oStack;
+	MPObjectWrapper<MPSipStack*> m_oSipStack;
+	MPObjectWrapper<MPDb*> m_oDb;
+
 
 	std::map<uint64_t, MPObjectWrapper<MPPeer*> > m_Peers;
+	std::list<MPObjectWrapper<MPC2CTransport*> > m_C2CTransports;
+	MPObjectWrapper<MPMailTransport*> m_oMailTransport;
 	MPObjectWrapper<MPMutex*> m_oMutexPeers;
+	std::list<MPObjectWrapper<MPDbAccountSipCaller*> > m_oAccountSipCallers;
+
+	struct{
+		char* pPrivateKey; 
+		char* pPublicKey;
+		char* pCA;
+		bool bVerify;
+	} m_SSL;
 
 	bool m_bStarted;
 	bool m_bValid;

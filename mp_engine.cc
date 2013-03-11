@@ -18,6 +18,7 @@
 */
 #include "mp_engine.h"
 #include "mp_proxyplugin_mgr.h"
+#include "db/sqlite/mp_db_sqlite.h"
 
 #include "SipStack.h"
 #include "MediaSessionMgr.h"
@@ -27,7 +28,7 @@
 #include <algorithm>
 
 #if !defined(MP_USER_AGENT_STR)
-#	define	MP_USER_AGENT_STR	"webrtc2sip Media Server 2.0"
+#	define	MP_USER_AGENT_STR	"webrtc2sip Media Server " WEBRTC2SIP_VERSION_STRING
 #endif
 
 #if !defined(MP_REALM)
@@ -68,13 +69,16 @@ MPEngine::MPEngine(const char* pRealmUri, const char* pPrivateIdentity, const ch
 	m_oMutex = MPMutex::New();
 	m_oMutexPeers = MPMutex::New();
 
+	m_SSL.pPrivateKey = m_SSL.pPublicKey = m_SSL.pCA = NULL;
+	m_SSL.bVerify = false;
+
 	if((m_oCallback = MPSipCallback::New(this))){
-		if((m_oStack = MPSipStack::New(m_oCallback, pRealmUri, pPrivateIdentity, pPublicIdentity))){
-			if(!const_cast<SipStack*>(m_oStack->getWrappedStack())->setMode(tsip_stack_mode_webrtc2sip)){
+		if((m_oSipStack = MPSipStack::New(m_oCallback, pRealmUri, pPrivateIdentity, pPublicIdentity))){
+			if(!const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setMode(tsip_stack_mode_webrtc2sip)){
 				TSK_DEBUG_ERROR("SipStack::setModeServer failed");
 				return;
 			}
-			const_cast<SipStack*>(m_oStack->getWrappedStack())->addHeader("User-Agent", MP_USER_AGENT_STR);
+			const_cast<SipStack*>(m_oSipStack->getWrappedStack())->addHeader("User-Agent", MP_USER_AGENT_STR);
 			m_bValid = true;
 		}
 	}
@@ -83,7 +87,13 @@ MPEngine::MPEngine(const char* pRealmUri, const char* pPrivateIdentity, const ch
 
 MPEngine::~MPEngine()
 {
-	
+	m_oAccountSipCallers.clear();
+	m_Peers.clear();
+	m_C2CTransports.clear();
+
+	TSK_FREE(m_SSL.pPrivateKey);
+	TSK_FREE(m_SSL.pPublicKey);
+	TSK_FREE(m_SSL.pCA);
 }
 
 bool MPEngine::setDebugLevel(const char* pcLevel)
@@ -107,16 +117,29 @@ bool MPEngine::setDebugLevel(const char* pcLevel)
 	return false;
 }
 
-bool MPEngine::addTransport(const char* pTransport, uint16_t pLocalPort, const char* pLocalIP /*= tsk_null*/)
+bool MPEngine::addTransport(const char* pTransport, uint16_t nLocalPort, const char* pcLocalIP /*= tsk_null*/)
 {
 	if(!isValid())
 	{
 		TSK_DEBUG_ERROR("Engine not valid");
 		return false;
 	}
-	bool bRet = const_cast<SipStack*>(m_oStack->getWrappedStack())->setLocalIP(pLocalIP, pTransport);
-	bRet &= const_cast<SipStack*>(m_oStack->getWrappedStack())->setLocalPort(pLocalPort, pTransport);
-	return bRet;
+
+	if(tsk_striequals(pTransport, "c2c") || tsk_striequals(pTransport, "c2cs")){
+		bool isSecure = tsk_striequals(pTransport, "c2cs");
+		MPObjectWrapper<MPC2CTransport*>oNetTransport = new MPC2CTransport(isSecure, pcLocalIP, nLocalPort);
+		if(!oNetTransport){
+			return false;
+		}
+		oNetTransport->setDb(m_oDb);
+		m_C2CTransports.push_back(oNetTransport);
+		return true;
+	}
+	else{
+		bool bRet = const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setLocalIP(pcLocalIP, pTransport);
+		bRet &= const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setLocalPort(nLocalPort, pTransport);
+		return bRet;
+	}
 }
 
 bool MPEngine::setRtpSymetricEnabled(bool bEnabled)
@@ -196,14 +219,20 @@ bool MPEngine::setPrefVideoSize(const char* pcPrefVideoSize)
 	return false;
 }
 
-bool MPEngine::setSSLCertificate(const char* pcPrivateKey, const char* pcPublicKey, const char* pcCA, bool bVerify /*= false*/)
+bool MPEngine::setSSLCertificates(const char* pcPrivateKey, const char* pcPublicKey, const char* pcCA, bool bVerify /*= false*/)
 {
 	if(!isValid())
 	{
 		TSK_DEBUG_ERROR("Engine not valid");
 		return false;
 	}
-	return const_cast<SipStack*>(m_oStack->getWrappedStack())->setSSLCretificates(
+
+	tsk_strupdate(&m_SSL.pPrivateKey, pcPrivateKey);
+	tsk_strupdate(&m_SSL.pPublicKey, pcPublicKey);
+	tsk_strupdate(&m_SSL.pCA, pcCA);
+	m_SSL.bVerify = bVerify;
+
+	return const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setSSLCertificates(
 				pcPrivateKey,
 				pcPublicKey,
 				pcCA,
@@ -218,7 +247,7 @@ bool MPEngine::setCodecs(int64_t nCodecs)
 		TSK_DEBUG_ERROR("Engine not valid");
 		return false;
 	}
-	const_cast<SipStack*>(m_oStack->getWrappedStack())->setCodecs_2(nCodecs);
+	const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setCodecs_2(nCodecs);
 	return true;
 }
 
@@ -272,57 +301,213 @@ bool MPEngine::addDNSServer(const char* pcDNSServer)
 		TSK_DEBUG_ERROR("Engine not valid");
 		return false;
 	}
-	return const_cast<SipStack*>(m_oStack->getWrappedStack())->addDnsServer(pcDNSServer);
+	return const_cast<SipStack*>(m_oSipStack->getWrappedStack())->addDnsServer(pcDNSServer);
+}
+
+bool MPEngine::setDbInfo(const char* pcDbType, const char* pcDbConnectionInfo)
+{
+	if(m_oDb)
+	{
+		TSK_DEBUG_ERROR("Database information already defined");
+		return false;
+	}
+
+	if(tsk_striequals(pcDbType, "sqlite"))
+	{
+		if(tsk_strnullORempty(pcDbConnectionInfo))
+		{
+			TSK_DEBUG_ERROR("Invalid parameter");
+			return false;
+		}
+		m_oDb = new MPDbSQLite(pcDbConnectionInfo);		
+		return true;
+	}
+	TSK_DEBUG_ERROR("%s not supported as valid database type");
+	return false;
+}
+
+bool MPEngine::setMailAccountInfo(const char* pcScheme, const char* pcLocalIP, unsigned short nLocalPort, const char* pcSmtpHost, unsigned short nSmtpPort, const char* pcEmail, const char* pcAuthName, const char* pcAuthPwd)
+{
+	bool bSecure = false;
+	if(m_oMailTransport)
+	{
+		TSK_DEBUG_ERROR("Mail account info already defined");
+		return false;
+	}
+
+	if(!pcSmtpHost || !nSmtpPort || !pcAuthName || !pcAuthPwd)
+	{
+		TSK_DEBUG_ERROR("Invalid parameter");
+		return false;
+	}
+
+	if(!tsk_striequals(pcScheme, "smtp") && !(bSecure = tsk_striequals(pcScheme, "smtps")))
+	{
+		TSK_DEBUG_ERROR("%s not valid as SMTP scheme");
+		return false;
+	}
+
+	m_oMailTransport = new MPMailTransport(bSecure, pcLocalIP, nLocalPort, pcSmtpHost, nSmtpPort, pcEmail, pcAuthName, pcAuthPwd);
+	return !!m_oMailTransport;
+}
+
+bool MPEngine::addAccountSipCaller(const char* pcDisplayName, const char* pcImpu, const char* pcImpi, const char* pcRealm, const char* pcPassword)
+{
+	assert(pcImpu && pcImpi && pcRealm);
+	// compute Ha1
+	char *pStr = NULL;
+	tsk_md5string_t ha1;
+	tsk_sprintf(&pStr, "%s:%s:%s", pcImpi, pcRealm, pcPassword);
+	tsk_md5compute(pStr, tsk_strlen(pStr), &ha1);
+
+	MPObjectWrapper<MPDbAccountSipCaller*> oAccountSipCaller = new MPDbAccountSipCaller(
+		MPDB_ACCOUNT_SIP_INVALID_ID,
+		pcDisplayName,
+		pcImpu,
+		pcImpi,
+		pcRealm,
+		(const char*)ha1,
+		MPDB_ACCOUNT_INVALID_ID);
+
+	if(oAccountSipCaller)
+	{
+		m_oAccountSipCallers.push_back(oAccountSipCaller);
+		return true;
+	}
+	return false;
+}
+
+MPObjectWrapper<MPDbAccountSipCaller*> MPEngine::findAccountSipCallerByRealm(const char* pcRealm)
+{
+	assert(pcRealm);
+
+	std::list<MPObjectWrapper<MPDbAccountSipCaller*> >::iterator iter;
+	iter = m_oAccountSipCallers.begin();
+	for(; iter != m_oAccountSipCallers.end(); ++iter)
+	{
+		if(tsk_striequals((*iter)->getRealm(), pcRealm))
+		{
+			return (*iter);
+		}
+	}
+	return NULL;
 }
 
 bool MPEngine::start()
 {
 	int ret = 0;
+	std::list<MPObjectWrapper<MPC2CTransport*> >::iterator iter;
+
 	m_oMutex->lock();
 
-	if(isStarted()){
+	if(isStarted())
+	{
 		goto bail;
 	}
 
-	if(!isValid()){
+	if(!isValid())
+	{
 		TSK_DEBUG_ERROR("Engine not valid");
 		ret = -1;
 		goto bail;
 	}
-	if(const_cast<SipStack*>(m_oStack->getWrappedStack())->start()){
+
+	// open Database
+	if(m_oDb && !m_oDb->open())
+	{
+		return false;
+	}
+
+	// start all click2call transports
+	iter = m_C2CTransports.begin();
+	for(; iter != m_C2CTransports.end(); ++iter)
+	{
+		(*iter)->setDb(m_oDb);
+		(*iter)->setMailTransport(m_oMailTransport);
+		(*iter)->setSSLCertificates(m_SSL.pPrivateKey, m_SSL.pPublicKey, m_SSL.pCA, m_SSL.bVerify);
+		if((*iter)->start() != true)
+		{
+			ret = -3;
+			goto bail;
+		}
+	}
+
+	// start mail transport
+	if(m_oMailTransport)
+	{
+		m_oMailTransport->setSSLCertificates(m_SSL.pPrivateKey, m_SSL.pPublicKey, m_SSL.pCA, m_SSL.bVerify);
+		if(!m_oMailTransport->start())
+		{
+			ret = -4;
+			goto bail;
+		}
+	}
+
+	// start SIP stack
+	if(const_cast<SipStack*>(m_oSipStack->getWrappedStack())->start())
+	{
 		setStarted(true);
 	}
-	else{
-		TSK_DEBUG_ERROR("Failed to start SIP stack");
+	else
+	{
 		ret = -2;
 		goto bail;
 	}
 
 bail:
 	m_oMutex->unlock();
+
+	if(ret != 0){
+		TSK_DEBUG_ERROR("Failed to start SIP stack");
+	}
+
 	return (ret == 0);
 }
 
 bool MPEngine::stop()
 {
 	int ret = 0;
+	std::list<MPObjectWrapper<MPC2CTransport*> >::iterator iter;
 
 	m_oMutex->lock();
 
-	if(!isStarted()){
+	if(!isStarted())
+	{
 		goto bail;
 	}
 
-	if(!isValid()){
+	if(!isValid())
+	{
 		TSK_DEBUG_ERROR("Engine not valid");
 		ret = -1;
 		goto bail;
 	}
 
-	if(const_cast<SipStack*>(m_oStack->getWrappedStack())->stop()){
+	// close Database
+	if(m_oDb)
+	{
+		m_oDb->close();
+	}
+
+	// stop all click2call transports
+	iter = m_C2CTransports.begin();
+	for(; iter != m_C2CTransports.end(); ++iter){
+		ret = (*iter)->stop();
+	}
+
+	// stop Mail transport
+	if(m_oMailTransport)
+	{
+		ret = m_oMailTransport->stop();
+	}
+
+	// stop SIP stack
+	if(const_cast<SipStack*>(m_oSipStack->getWrappedStack())->stop())
+	{
 		setStarted(false);
 	}
-	else{
+	else
+	{
 		TSK_DEBUG_ERROR("Failed to stop SIP stack");
 		ret = -2;
 		goto bail;

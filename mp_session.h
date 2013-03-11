@@ -21,6 +21,7 @@
 
 #include "mp_config.h"
 #include "mp_object.h"
+#include "mp_common.h"
 
 #include "SipSession.h"
 

@@ -20,8 +20,18 @@
 #define _MEDIAPROXY_COMMON_H_
 
 #include "mp_config.h"
+#include "mp_object.h"
 
 #include "Common.h"
+
+#define MP_CAT_(A, B) A ## B
+#define MP_CAT(A, B) MP_CAT_(A, B)
+#define MP_STRING_(A) #A
+#define MP_STRING(A) MP_STRING_(A)
+
+typedef int32_t MPNetFd;
+#define MPNetFd_IsValid(self)	((self) > 0)
+#define kMPNetFdInvalid			-1
 
 namespace webrtc2sip {
 
@@ -64,15 +74,90 @@ typedef enum MPSessionState_e
 }
 MPSessionState_t;
 
-static MPSessionState_t MPPeerState_GetSessionState(MPPeerState_t eState)
+typedef enum MPDbType_e
 {
-	switch(eState){
+	MPDbType_None = 0x00,
+	MPDbType_File = (0x01 << 0),
+	MPDbType_Server =  (0x01 << 1),
+
+	MPDbType_SQLite = (MPDbType_File | (0x01 << 2)),
+	MPDbType_MySql = (MPDbType_Server | (0x01 << 3)),
+	MPDbType_Oracle = (MPDbType_Server | (0x01 << 4)),
+	MPDbType_SqlServer = (MPDbType_Server | (0x01 << 5))
+}
+MPDbType_t;
+
+typedef enum MPNetTransporType_e
+{
+	MPNetTransporType_None,
+	MPNetTransporType_TCP,
+	MPNetTransporType_TLS
+}
+MPNetTransporType_t;
+
+static bool MPNetTransporType_isStream(MPNetTransporType_t eType)
+{
+	switch(eType)
+	{
+	case MPNetTransporType_TCP:
+	case MPNetTransporType_TLS:
+		return true;
+	default:
+		return false;
+	}
+}
+
+static MPSessionState_t MPPeerState_getSessionState(MPPeerState_t eState)
+{
+	switch(eState)
+	{
 		case MPPeerState_Connecting: return MPSessionState_Connecting;
 		case MPPeerState_Connected: return MPSessionState_Connected;
 		case MPSessionState_Terminated: return MPSessionState_Terminated;
 		default: return MPSessionState_None;
 	}
 }
+
+//
+//	MPData
+//
+class MPData : public MPObject
+{
+public:
+	MPData(void** ppData, size_t nDataSize, bool bTakeOwnership = true)
+		: m_pDataPtr(NULL)
+		, m_nDataSize(0)
+		, m_bHaveOwnership(bTakeOwnership)
+	{
+		if(ppData)
+		{
+			m_pDataPtr = *ppData;
+			m_nDataSize = nDataSize;
+			if(m_bHaveOwnership)
+			{
+				*ppData = NULL;
+			}
+		}
+	}
+	virtual ~MPData()
+	{
+		if(m_bHaveOwnership)
+		{
+			if(m_pDataPtr)
+			{
+				free(m_pDataPtr);
+			}
+		}
+	}
+	virtual MP_INLINE const char* getObjectId() { return "MPData"; }
+	virtual MP_INLINE const void* getDataPtr(){ return m_pDataPtr; }
+	virtual MP_INLINE size_t getDataSize(){ return m_nDataSize; }
+
+private:
+	void* m_pDataPtr;
+	size_t m_nDataSize;
+	bool m_bHaveOwnership;
+};
 
 } // namespace
 #endif /* _MEDIAPROXY_COMMON_H_ */

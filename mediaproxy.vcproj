@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\doubango\branches\2.0\Doubango\bindings\_common;..\doubango\branches\2.0\Doubango\tinySAK\src;..\doubango\branches\2.0\Doubango\tinyNET\src;..\doubango\branches\2.0\Doubango\tinyHTTP\include;..\doubango\branches\2.0\Doubango\tinySIP\include;..\doubango\branches\2.0\Doubango\tinyDAV\include;..\doubango\branches\2.0\Doubango\tinySDP\include;..\doubango\branches\2.0\Doubango\tinyMEDIA\include;..\doubango\branches\2.0\Doubango\tinyXCAP\include;..\doubango\branches\2.0\Doubango\tinySMS\include;..\doubango\branches\2.0\Doubango\tinyMSRP\include;..\doubango\branches\2.0\Doubango\tinyRTP\include"
+				AdditionalIncludeDirectories=".;..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\doubango\branches\2.0\Doubango\bindings\_common;..\doubango\branches\2.0\Doubango\tinySAK\src;..\doubango\branches\2.0\Doubango\tinyNET\src;..\doubango\branches\2.0\Doubango\tinyHTTP\include;..\doubango\branches\2.0\Doubango\tinySIP\include;..\doubango\branches\2.0\Doubango\tinyDAV\include;..\doubango\branches\2.0\Doubango\tinySDP\include;..\doubango\branches\2.0\Doubango\tinyMEDIA\include;..\doubango\branches\2.0\Doubango\tinyXCAP\include;..\doubango\branches\2.0\Doubango\tinySMS\include;..\doubango\branches\2.0\Doubango\tinyMSRP\include;..\doubango\branches\2.0\Doubango\tinyRTP\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;TINYWRAP_EXPORTS;DEBUG_LEVEL=DEBUG_LEVEL_INFO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -173,7 +173,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\mp_c2c.cc"
+				>
+			</File>
+			<File
 				RelativePath=".\mp_engine.cc"
+				>
+			</File>
+			<File
+				RelativePath=".\mp_mail.cc"
 				>
 			</File>
 			<File
@@ -182,6 +190,10 @@
 			</File>
 			<File
 				RelativePath=".\mp_mutex.cc"
+				>
+			</File>
+			<File
+				RelativePath=".\mp_net_transport.cc"
 				>
 			</File>
 			<File
@@ -304,12 +316,48 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="json"
+				>
+				<File
+					RelativePath=".\jsoncpp\jsoncpp.cc"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="db"
+				>
+				<File
+					RelativePath=".\db\mp_db.cc"
+					>
+				</File>
+				<File
+					RelativePath=".\db\mp_db_model.cc"
+					>
+				</File>
+				<Filter
+					Name="sqlite"
+					>
+					<File
+						RelativePath=".\db\sqlite\mp_db_sqlite.cc"
+						>
+					</File>
+					<File
+						RelativePath=".\db\sqlite\sqlite3.c"
+						>
+					</File>
+				</Filter>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\mp_c2c.h"
+				>
+			</File>
 			<File
 				RelativePath=".\mp_common.h"
 				>
@@ -323,7 +371,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\mp_mail.h"
+				>
+			</File>
+			<File
 				RelativePath=".\mp_mutex.h"
+				>
+			</File>
+			<File
+				RelativePath=".\mp_net_transport.h"
 				>
 			</File>
 			<File
@@ -450,6 +506,46 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="db"
+				>
+				<File
+					RelativePath=".\db\mp_db.h"
+					>
+				</File>
+				<File
+					RelativePath=".\db\mp_db_model.h"
+					>
+				</File>
+				<Filter
+					Name="sqlite"
+					>
+					<File
+						RelativePath=".\db\sqlite\mp_db_sqlite.h"
+						>
+					</File>
+					<File
+						RelativePath=".\db\sqlite\sqlite3.h"
+						>
+					</File>
+					<File
+						RelativePath=".\db\sqlite\sqlite3ext.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="json"
+				>
+				<File
+					RelativePath=".\jsoncpp\json\json-forwards.h"
+					>
+				</File>
+				<File
+					RelativePath=".\jsoncpp\json\json.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"
@@ -457,6 +553,14 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
+		<Filter
+			Name="sql"
+			>
+		</Filter>
+		<File
+			RelativePath=".\config.xml"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

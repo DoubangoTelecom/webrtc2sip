@@ -24,12 +24,14 @@
 #include "mp_proxyplugin_consumer_video.h"
 #include "mp_proxyplugin_producer_audio.h"
 #include "mp_proxyplugin_producer_video.h"
+#include "db/mp_db_model.h"
 
 #include "SipSession.h"
 #include "SipEvent.h"
 #include "ProxyPluginMgr.h"
 #include "MediaSessionMgr.h"
 #include "SipMessage.h"
+#include "SipUri.h"
 
 #include <assert.h>
 
@@ -155,8 +157,17 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 			assert(e->getSession() == NULL);
 			assert(e->getSipMessage() != NULL);
 
+			#define MP_REJECT_CALL(pcSession, nCode, pcPhrase) \
+			{ \
+				ActionConfig* config = new ActionConfig(); \
+				config->setResponseLine(nCode, pcPhrase); \
+				const_cast<CallSession*>(pcSession)->reject(config); \
+				if(config) delete config, config = tsk_null; \
+			} \
+
 			CallSession *pCallSessionLeft = NULL;
-			if((pCallSessionLeft = e->takeCallSessionOwnership())){
+			if((pCallSessionLeft = e->takeCallSessionOwnership()))
+			{
 				// Before accepting the call "link it with the bridge"
 				const MediaSessionMgr* pcMediaSessionMgrLeft = pCallSessionLeft->getMediaMgr();
 				const SipMessage* pcMsgLeft = e->getSipMessage();
@@ -164,17 +175,106 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 
 				const tsip_message_t* pcWrappedMsgLeft = const_cast<SipMessage*>(pcMsgLeft)->getWrappedSipMessage();
 				static const bool g_bSessionLeft = true;
-				char* pDstUri = const_cast<SipMessage*>(pcMsgLeft)->getSipHeaderValue("t");
-				char* pSrcUri = const_cast<SipMessage*>(pcMsgLeft)->getSipHeaderValue("f");
+				bool bClick2Call = false;
+				char *pDstUri = NULL, *pSrcUri = NULL, *pEmail = NULL, *pHa1 = NULL, *pImpi = NULL;
+				MPObjectWrapper<MPSipSessionAV*> oCallSessionLeft;
 				bool bHaveAudio = false, bHaveVideo = false;
-
 				MPMediaType_t eMediaType = MPMediaType_None;
+
+
+				// check whether it's a click2call request or not
+				if((bClick2Call = tsk_striequals(tsk_params_get_param_value(pcWrappedMsgLeft->Contact->uri->params, "click2call"), "yes")))
+				{
+					const char* pcEmail64 = pcWrappedMsgLeft->From->uri->user_name; // base64 encoded email address
+					const char* pcSipAddress64 = pcWrappedMsgLeft->To->uri->user_name; // base64 encoded SIP address
+					TSK_DEBUG_INFO("click2call('%s' -> '%s')", pcEmail64, pcSipAddress64);
+					// check database validity
+					if(!m_oEngine->getDB())
+					{
+						TSK_DEBUG_ERROR("No database to look into for the click2call operation");
+						MP_REJECT_CALL(pCallSessionLeft, 500, "No database to look into for the click2call operation");
+						goto end_of_new_i_call;
+					}
+					// decode email
+					tsk_base64_decode((const uint8_t*)pcEmail64, tsk_strlen(pcEmail64), &pEmail);
+					// find user account (email is store without being encoded to speedup JSON processing)
+					MPObjectWrapper<MPDbAccount*> oAccount= m_oEngine->getDB()->selectAccountByEmail(pEmail);
+					if(!oAccount)
+					{
+						TSK_DEBUG_ERROR("Failed to find user account with eamil = %s", pEmail);
+						MP_REJECT_CALL(pCallSessionLeft, 404, "Fail to find user account (click2call operation)");
+						goto end_of_new_i_call;
+					}
+					// make sure the account is activated
+					if(!oAccount->isActivated())
+					{
+						TSK_DEBUG_ERROR("Account with eamil = '%s' is not activated", pEmail);
+						MP_REJECT_CALL(pCallSessionLeft, 403, "Account not activated (click2call operation)");
+						goto end_of_new_i_call;
+					}
+					// find SIP account (SIP address is stored base64 encoded and is the email) - address could be the email (from==to)
+					MPObjectWrapper<MPDbAccountSip*> oAccountSip = m_oEngine->getDB()->selectAccountSipByAccountIdAndAddress(oAccount->getId(), pcSipAddress64);
+					if(!oAccountSip)
+					{
+						// probably (from==to) -> find first SIP address
+						oAccountSip = m_oEngine->getDB()->selectAccountSipByAccountId(oAccount->getId());
+						if(!oAccountSip)
+						{
+							TSK_DEBUG_ERROR("Failed to find SIP account with address = %s", pcSipAddress64);
+							MP_REJECT_CALL(pCallSessionLeft, 404, "Fail to find SIP address (click2call operation)");
+							goto end_of_new_i_call;
+						}
+					}
+					// decode SIP address
+					tsk_base64_decode((const uint8_t*)oAccountSip->getAddress64(), tsk_strlen(oAccountSip->getAddress64()), &pDstUri);
+					TSK_DEBUG_INFO("click2call('%s' -> '%s')", pEmail, pDstUri);
+					
+					SipUri oDstUri(pDstUri);
+					if(!oDstUri.isValid())
+					{
+						TSK_DEBUG_ERROR("Failed to parse SIP address = %s", pDstUri);
+						MP_REJECT_CALL(pCallSessionLeft, 483, "Fail to parse SIP address (click2call operation)");
+						goto end_of_new_i_call;
+					}
+
+					// find SIP caller from the database
+					MPObjectWrapper<MPDbAccountSipCaller*> oAccountSipCaller = m_oEngine->getDB()->selectAccountSipCallerByAccountSipId(oAccountSip->getId());
+
+					// find SIP caller from 'config.xml'
+					if(!oAccountSipCaller)
+					{
+						oAccountSipCaller = m_oEngine->findAccountSipCallerByRealm(oDstUri.getHost());
+						if(!oAccountSipCaller)
+						{
+							TSK_DEBUG_ERROR("Failed to find SIP caller for domain = %s", oDstUri.getHost());
+							MP_REJECT_CALL(pCallSessionLeft, 404, "Fail to find SIP caller account (click2call operation)");
+							goto end_of_new_i_call;
+						}
+					}
+					pSrcUri = tsk_strdup(oAccountSipCaller->getImpu());
+					pHa1 = tsk_strdup(oAccountSipCaller->getHa1());
+					pImpi = tsk_strdup(oAccountSipCaller->getImpi());
+				}
+				else
+				{
+					pSrcUri = const_cast<SipMessage*>(pcMsgLeft)->getSipHeaderValue("f");
+					pDstUri = const_cast<SipMessage*>(pcMsgLeft)->getSipHeaderValue("t");
+					pHa1 = tsk_strdup(TSIP_HEADER_GET_PARAM_VALUE(pcWrappedMsgLeft->Contact, "ha1"));
+					const char* pcImpi = TSIP_HEADER_GET_PARAM_VALUE(pcWrappedMsgLeft->Contact, "impi");
+					if(pcImpi)
+					{
+						pImpi = tsk_url_decode(pcImpi);
+					}
+				}
+				
+				
 				if(e->getMediaType() & twrap_media_audio){ eMediaType = (MPMediaType_t)(eMediaType | MPMediaType_Audio); bHaveAudio = true; }
 				if(e->getMediaType() & twrap_media_video){ eMediaType = (MPMediaType_t)(eMediaType | MPMediaType_Video); bHaveVideo = true; }
 
-				MPObjectWrapper<MPSipSessionAV*> oCallSessionLeft = new MPSipSessionAV(&pCallSessionLeft, eMediaType);
+				oCallSessionLeft = new MPSipSessionAV(&pCallSessionLeft, eMediaType);
 				
-				if(pDstUri && pcMediaSessionMgrLeft && (eMediaType != MPMediaType_None)){
+				if(pDstUri && pcMediaSessionMgrLeft && (eMediaType != MPMediaType_None))
+				{
 					// find peer associated to this session (must be null)
 					MPObjectWrapper<MPPeer*> oPeer = m_oEngine->getPeerBySessionId(oCallSessionLeft->getWrappedSession()->getId(), g_bSessionLeft);
 					assert(!oPeer);
@@ -185,19 +285,12 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 					m_oEngine->insertPeer(oPeer);
 					
 					// make call to the right leg
-					CallSession* pCallSessionRight = new CallSession(const_cast<SipStack*>(m_oEngine->m_oStack->getWrappedStack()));
+					CallSession* pCallSessionRight = new CallSession(const_cast<SipStack*>(m_oEngine->m_oSipStack->getWrappedStack()));
 					MPObjectWrapper<MPSipSessionAV*> oCallSessionRight = new MPSipSessionAV(&pCallSessionRight, eMediaType);
 					oCallSessionRight->setSessionOpposite(oCallSessionLeft);
 					oCallSessionLeft->setSessionOpposite(oCallSessionRight);
 					const_cast<SipSession*>(oCallSessionRight->getWrappedSession())->setFromUri(pSrcUri);
-
-					// authentication token
-					const char *pcHa1, *pcIMPI;
-					if((pcHa1 = TSIP_HEADER_GET_PARAM_VALUE(pcWrappedMsgLeft->Contact, "ha1")) && (pcIMPI = TSIP_HEADER_GET_PARAM_VALUE(pcWrappedMsgLeft->Contact, "impi"))){
-						char* pIMPI = tsk_url_decode(pcIMPI);
-						const_cast<SipSession*>(oCallSessionRight->getWrappedSession())->setAuth(pcHa1, pIMPI);
-						TSK_FREE(pIMPI);
-					}
+					const_cast<SipSession*>(oCallSessionRight->getWrappedSession())->setAuth(pHa1, pImpi);
 #if 0 // now using "ssrc.local" and "ssrc.remote"
 					// use same SSRCs to make possible RTCP forwarding
 					if(tsk_striequals("application/sdp", TSIP_MESSAGE_CONTENT_TYPE(pcWrappedMsgLeft))){
@@ -277,18 +370,18 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 					}
 				}
 				else{
-					ActionConfig* config = new ActionConfig();
-					config->setResponseLine(500, "Server error 501");
-					const_cast<InviteSession*>(oCallSessionLeft->getWrappedInviteSession())->reject(config);
-					if(config) delete config, config = tsk_null;
+					MP_REJECT_CALL(pCallSessionLeft, 500, "Server error 501");
 				}
-
+end_of_new_i_call:
 				if(pCallSessionLeft){
 					delete pCallSessionLeft, pCallSessionLeft = NULL;
 				}
-
+				
 				TSK_FREE(pDstUri);
 				TSK_FREE(pSrcUri);
+				TSK_FREE(pEmail);
+				TSK_FREE(pHa1);
+				TSK_FREE(pImpi);
 			}
 			break;
 		}

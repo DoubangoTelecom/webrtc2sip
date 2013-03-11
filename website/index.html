@@ -67,9 +67,9 @@
         <p><b>webrtc2sip</b> is a smart and powerful gateway using <a href="http://en.wikipedia.org/wiki/WebRTC">RTCWeb</a> and SIP to turn your browser into a phone with audio, video and SMS capabilities. 
             The gateway allows your web browser to make and receive calls from/to any SIP-legacy network or PSTN. <br />
             As an example, you will be able to make a call from your preferred web browser to a SIP-legacy softphone (e.g. <a href="http://www.counterpath.com/x-lite.html">xlite</a>) or mobile/fixed phone.<br />
-            The gateway contains three modules: <a href="#aSipProxy">SIP Proxy</a> | <a href="#aRTCWebBreaker">RTCWeb Breaker</a> | <a href="#aMediaCoder">Media Coder</a>. <br />
+            The gateway contains four modules: <a href="#aSipProxy">SIP Proxy</a> | <a href="#aRTCWebBreaker">RTCWeb Breaker</a> | <a href="#aMediaCoder">Media Coder</a> | <a href="#aClickToCall">Click-to-Call</a>. <br />
         </p>
-        <p><a class="btn btn-primary btn-large" href="http://sipml5.org/call.htm?svn=15" target="_blank">Enjoy our live demo &raquo;</a></p>
+        <p><a class="btn btn-primary btn-large" href="http://sipml5.org/call.htm?svn=170" target="_blank">Enjoy our live demo &raquo;</a></p>
       </div>
 
       <table>
@@ -113,13 +113,28 @@
           </table>
       </td></tr>
 
+      <tr class="spaceUnder"><td>
+            <table>
+              <tr><td><h2><a name="aClickToCall">Click-to-Call</a></h2></td></tr>
+              <tr class="spaceUnder"><td><p>
+                   This is more a service than a module as it’s a complete SIP <a target=_blank href="http://en.wikipedia.org/wiki/Click-to-call">click-to-call</a> solution based on the three other components. The goal is to allow any person receiving your mails, visiting your website, reading your twitts, watching your Facebook/Google+ profile to call you on your mobile phone with a single click.
+                   <br /> <br />
+                   <a class="btn btn-secondary btn-medium" href="http://click2dial.org/" target="_blank">Enjoy our live click-to-call demo &raquo;</a>
+               </p></td></tr>
+              <tr><td align="center"><img alt="Click-to-Call Components" src="http://webrtc2sip.googlecode.com/svn/trunk/documentation/images/module_click-to-call.png"/></td></tr>
+              <tr><td align="center"><i><u>Click-to-Call Components</u></i></td></tr>
+          </table>
+      </td></tr>
+
       </table>
 
 
        <br />
          
     <hr />
-    <g:plus href="https://plus.google.com/107177632824809995368" rel="author"></g:plus>
+    <g:plus href="https://plus.google.com/107177632824809995368" rel="author"></g:plus> <br />
+    <a href="https://twitter.com/DoubangoTelecom" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @DoubangoTelecom</a>  
+    <hr />  
     <footer>
         <p>
             &copy; Doubango Telecom 2011-2012</p>
@@ -160,18 +175,24 @@
         })();
 
     </script>
+
+    <!-- click-to-call widget -->
+    <script type='text/javascript' src='http://click2dial.org/c2c-api.js'></script>
+    <script type='text/javascript'>
+	    c2c.from = 'ZGlvcG1hbWFkb3VAZG91YmFuZ28ub3Jn';
+	    c2c.text = 'call us &raquo;';
+	    c2c.cls = 'btn btn-large btn-success';
+        c2c.glass = true;
+	    c2c.config = {
+    		    http_service_url: null,
+    		    websocket_proxy_url: null,
+    		    sip_outbound_proxy_url: null
+	    };
+	    c2c.init();
+    </script>
     
      <!-- TWITTER -->
-    <script src='http://www.go2web20.net/twitterfollowbadge/1.0/badge.js' type='text/javascript'></script><script type='text/javascript' charset='utf-8'>
-        <!--
-        tfb.account = 'DoubangoTelecom';
-        tfb.label = 'follow-us';
-        tfb.color = '#35ccff';
-        tfb.side = 'r';
-        tfb.top = 136;
-        tfb.showbadge();
-        -->
-    </script>
+    <script type='text/javascript'>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
   </body>
 </html>
