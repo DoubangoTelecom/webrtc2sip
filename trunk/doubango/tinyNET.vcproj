@@ -206,6 +206,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\doubango\branches\2.0\doubango\tinyNET\src\tnet_transport_cfsocket.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyNET\src\tnet_transport_poll.c"
 				>
 			</File>

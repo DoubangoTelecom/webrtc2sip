@@ -22,6 +22,10 @@
 #include <libxml/tree.h>
 
 static char* sConfigXmlPath = NULL;
+#define kSQLiteConnectionInfo  "./c2c_sqlite.db"
+#define kSQLiteName "sqlite"
+#define kMySQLConnectionInfo  NULL
+#define kMySQLName "mysql"
 
 #define mp_list_count(list)		tsk_list_count((list), tsk_null, tsk_null)
 #define mp_str_is(str, val)		tsk_striequals((const char*)(str), val)
@@ -170,7 +174,7 @@ static int parseConfigNode(xmlNode *pNode, MPObjectWrapper<MPEngine*> oEngine)
 							const char* pcVerify = pParams->head->next->next->next ? ((const tsk_param_t*)pParams->head->next->next->next->data)->name : "no"; // available since 2.1.0
 							TSK_DEBUG_INFO("ssl-certificates = \n%s;\n%s;\n%s;\n%s", pcPrivateKey, pcPublicKey, pcCA, pcVerify);
 
-							if(!oEngine->setSSLCertificate(mp_str_is_star(pcPrivateKey) ? NULL : pcPrivateKey, mp_str_is_star(pcPublicKey) ? NULL : pcPublicKey, mp_str_is_star(pcCA) ? NULL : pcCA, mp_str_is_yes(pcVerify)))
+							if(!oEngine->setSSLCertificates(mp_str_is_star(pcPrivateKey) ? NULL : pcPrivateKey, mp_str_is_star(pcPublicKey) ? NULL : pcPublicKey, mp_str_is_star(pcCA) ? NULL : pcCA, mp_str_is_yes(pcVerify)))
 							{
 								TSK_DEBUG_ERROR("Failed to set 'ssl-certificates': %s;\n%s;\n%s", pcPrivateKey, pcPublicKey, pcCA);
 							}
@@ -234,8 +238,67 @@ static int parseConfigNode(xmlNode *pNode, MPObjectWrapper<MPEngine*> oEngine)
 							TSK_DEBUG_ERROR("Failed to set 'nameserver': %s", pcDNSServer);
 						}
 					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "database")) // available since 2.3.0
+					{
+						if((pParams = tsk_params_fromstring((const char*)pCurrNode->content, ";", tsk_true)) && mp_list_count(pParams) >= 2)
+						{
+							const char* pcDbType = ((const tsk_param_t*)pParams->head->data)->name;
+							const char* pcDbConnectionInfo = ((const tsk_param_t*)pParams->head->next->data)->name;
+							TSK_DEBUG_INFO("database = %s;%s", pcDbType, pcDbConnectionInfo);
 
+							if(mp_str_is_star(pcDbConnectionInfo))
+							{
+								if(tsk_striequals(kSQLiteName, pcDbType))
+								{
+									pcDbConnectionInfo = kSQLiteConnectionInfo;
+								}
+								else if(tsk_striequals(kMySQLName, pcDbType))
+								{
+									pcDbConnectionInfo = kMySQLConnectionInfo;
+								}
+							}
 
+							if(!oEngine->setDbInfo(pcDbType, pcDbConnectionInfo))
+							{
+								TSK_DEBUG_ERROR("Failed to set 'database': %s", (const char*)pCurrNode->content);
+							}
+						}
+					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "account-mail")) // available since 2.3.0
+					{
+						if((pParams = tsk_params_fromstring((const char*)pCurrNode->content, ";", tsk_true)) && mp_list_count(pParams) >= 7)
+						{
+							const char* pcSmtpScheme = ((const tsk_param_t*)pParams->head->data)->name;
+							const char* pcLocalIP = ((const tsk_param_t*)pParams->head->next->data)->name;
+							const char* pcLocalPort = ((const tsk_param_t*)pParams->head->next->next->data)->name;
+							const char* pcSmtpHost = ((const tsk_param_t*)pParams->head->next->next->next->data)->name;
+							const char* pcSmtpPort = ((const tsk_param_t*)pParams->head->next->next->next->next->data)->name;
+							const char* pcEmail = ((const tsk_param_t*)pParams->head->next->next->next->next->next->data)->name;
+							const char* pcAuthName = ((const tsk_param_t*)pParams->head->next->next->next->next->next->next->data)->name;
+							const char* pcAuthPassword = ((const tsk_param_t*)pParams->head->next->next->next->next->next->next->next->data)->name;
+							TSK_DEBUG_INFO("account-mail = %s;%s;%s;%s;%s;%s;password", pcSmtpScheme, pcLocalIP, pcLocalPort, pcSmtpHost, pcSmtpPort, pcAuthName);
+							if(!oEngine->setMailAccountInfo(pcSmtpScheme, mp_str_is_star(pcLocalIP) ? NULL : pcLocalIP, mp_str_is_star(pcLocalPort) ? 0 : atoi(pcLocalPort), pcSmtpHost, atoi(pcSmtpPort), pcEmail, pcAuthName, pcAuthPassword))
+							{
+								TSK_DEBUG_ERROR("Failed to set 'account-mail': %s", (const char*)pCurrNode->content);
+							}
+						}
+					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "account-sip-caller")) // available since 2.3.0
+					{
+						if((pParams = tsk_params_fromstring((const char*)pCurrNode->content, ";", tsk_true)) && mp_list_count(pParams) >= 5)
+						{
+							const char* pcDisplayName = ((const tsk_param_t*)pParams->head->data)->name;
+							const char* pcImpu = ((const tsk_param_t*)pParams->head->next->data)->name;
+							const char* pcImpi = ((const tsk_param_t*)pParams->head->next->next->data)->name;
+							const char* pcRealm = ((const tsk_param_t*)pParams->head->next->next->next->data)->name;
+							const char* pcPassword = ((const tsk_param_t*)pParams->head->next->next->next->next->data)->name;
+							TSK_DEBUG_INFO("account-sip-caller = %s;%s;%s;%s;password", pcDisplayName, pcImpu, pcImpi, pcRealm);
+							if(!oEngine->addAccountSipCaller(mp_str_is_star(pcDisplayName) ? NULL : pcDisplayName, pcImpu, pcImpi, pcRealm, pcPassword))
+							{
+								TSK_DEBUG_ERROR("Failed to add 'account-sip-caller': %s", (const char*)pCurrNode->content);
+							}
+						}
+					}
 				break;
 			}
 		}
@@ -368,11 +431,12 @@ int main(int argc, char** argv)
 
 	printf("*******************************************************************\n"
 		"Copyright (C) 2012-2013 Doubango Telecom <http://www.doubango.org>\n"
+		"HOME PAGE: http://webrtc2sip.org\n"
 		"LICENCE: GPLv3 or proprietary\n"
-		"VERSION: %d.%d.%d\n"
+		"VERSION: %s\n"
 		"'quit' to quit the application.\n"
 		"*******************************************************************\n\n"
-		, WEBRTC2SIP_VERSION_MAJOR, WEBRTC2SIP_VERSION_MINOR, WEBRTC2SIP_VERSION_MICRO);
+		, WEBRTC2SIP_VERSION_STRING);
 
 	// parse command arguments
 	if((iRet = parseArguments(argc, argv)) != 0){

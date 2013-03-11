@@ -21,6 +21,7 @@
 
 #include "mp_config.h"
 #include "mp_object.h"
+#include "mp_common.h"
 #include "mp_session_av.h"
 
 namespace webrtc2sip {
@@ -59,13 +60,13 @@ public:
 	MP_INLINE void setSessionLeftState(MPPeerState_t eState){ 
 		m_eSessionLeftState = eState; 
 		if(m_oCallSessionLeft){
-			m_oCallSessionLeft->setState(MPPeerState_GetSessionState(eState));
+			m_oCallSessionLeft->setState(MPPeerState_getSessionState(eState));
 		}
 	}
 	MP_INLINE void setSessionRightState(MPPeerState_t eState){
 		m_eSessionRightState = eState; 
 		if(m_oCallSessionRight){
-			m_oCallSessionRight->setState(MPPeerState_GetSessionState(eState));
+			m_oCallSessionRight->setState(MPPeerState_getSessionState(eState));
 		}
 	}
 	MP_INLINE MPPeerState_t getSessionLeftState(){ return m_eSessionLeftState; }

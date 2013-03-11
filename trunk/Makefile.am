@@ -36,9 +36,12 @@ webrtc2sip_LDADD = \
 
 
 webrtc2sip_SOURCES  = \
+	mp_c2c.cc\
 	mp_engine.cc\
+	mp_mail.cc\
 	mp_mediaproxy.cc\
 	mp_mutex.cc\
+	mp_net_transport.cc\
 	mp_object.cc\
 	mp_peer.cc\
 	mp_proxyplugin.cc\
@@ -50,6 +53,15 @@ webrtc2sip_SOURCES  = \
 	mp_session.cc\
 	mp_session_av.cc\
 	mp_wrap.cc
+
+webrtc2sip_SOURCES  += \
+	db/sqlite/mp_db_sqlite.cc\
+	db/sqlite/sqlite3.c\
+	db/mp_db.cc\
+	db/mp_db_model.cc
+
+webrtc2sip_SOURCES  += \
+	jsoncpp/jsoncpp.cc
 
 webrtc2sip_SOURCES  += \
 	tinywrap/ActionConfig.cxx\

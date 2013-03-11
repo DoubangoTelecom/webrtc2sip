@@ -22,6 +22,7 @@
 #include "mp_config.h"
 #include "mp_object.h"
 #include "mp_mutex.h"
+#include "mp_common.h"
 
 #include "ProxyPluginMgr.h"
 
