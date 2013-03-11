@@ -34,7 +34,7 @@
 
   <transport>c2c;*;10070</transport>
   <transport>c2cs;*;10072</transport>
-  <database>sqlite;/tmp/c2c_sqlite.db</database>
+  <database>sqlite;*</database>
   <!--account-mail>smtps;*;*;auth.smtp.1and1.fr;465;noreply@example.com;noreply@example.com;mysecret</account-mail-->
   <!--account-sip-caller>*;sip:a@example.com;a;example.com;mysecret</account-sip-caller-->
 
