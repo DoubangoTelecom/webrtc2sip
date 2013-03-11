@@ -54,6 +54,7 @@ public:
 private:
 	virtual MPObjectWrapper<MPDbAccountSipCaller*> selectAccountSipCaller(int64_t nId, bool bByAccountSipId);
 	static int dbStep(void* pCompiledStatement);
+	int dbTransacExec(const char* pcQuery);
 
 private:
 	struct sqlite3* m_pEngine;

@@ -51,11 +51,15 @@ bool MPDbSQLite::open()
 		TSK_DEBUG_ERROR("Failed to open SQLite database with error code = %d and connectionInfo=%s", ret, m_pConnectionInfo);
 		return false;
 	}
+
+	TSK_DEBUG_INFO("sqlite3_threadsafe = %d", sqlite3_threadsafe());
 	
 	char* err = NULL;
 
 	// http://www.sqlite.org/draft/wal.html
 	ret = sqlite3_exec(m_pEngine, "PRAGMA journal_mode = WAL;", NULL, NULL, &err);
+	ret = sqlite3_exec(m_pEngine, "PRAGMA page_size = 4096;", NULL, NULL, &err);
+	ret = sqlite3_exec(m_pEngine, "PRAGMA synchronous = FULL;", NULL, NULL, &err);
 	if(!(m_bOpened = (ret == SQLITE_OK)))
 	{
 		TSK_DEBUG_ERROR("Failed to set journal_mode value to WAL [%s]", err);
@@ -91,10 +95,12 @@ bool MPDbSQLite::updateAccount(MPObjectWrapper<MPDbAccount*> oAccount)
 	sqlite3_stmt* pCompiledStatement = NULL;
 	int ret;
 
+	ret = dbTransacExec("BEGIN IMMEDIATE TRANSACTION;");
+
 	if((ret = sqlite3_prepare_v2(m_pEngine, MPDb::sSQL_UpdateAccountById, -1, &pCompiledStatement, NULL)) != SQLITE_OK)
 	{
 		TSK_DEBUG_ERROR("Failed to prepare sqlQuery = [%s] error code = %d", MPDb::sSQL_UpdateAccountById, ret);
-		return false;
+		goto bail;
 	}
 
 	ret += sqlite3_bind_int(pCompiledStatement, 1, oAccount->getSoftVersion());
@@ -115,6 +121,8 @@ bool MPDbSQLite::updateAccount(MPObjectWrapper<MPDbAccount*> oAccount)
 	}
 	sqlite3_finalize(pCompiledStatement);
 
+bail:
+	dbTransacExec("COMMIT TRANSACTION;");
 	return (ret == SQLITE_DONE);
 }
 
@@ -125,22 +133,27 @@ bool MPDbSQLite::killZombieAccounts(uint64_t nMaxLifeTimeExpectancyInMillis)
 
 	sqlite3_stmt* pCompiledStatement = NULL;
 	int ret;
+	uint64_t nEpochTimeFromWhichAZombieMustDie;
 
 	TSK_DEBUG_INFO("MPDbSQLite::killZombieAccounts(%llu)", nMaxLifeTimeExpectancyInMillis);
+
+	ret = dbTransacExec("BEGIN IMMEDIATE TRANSACTION;");
 
 	if((ret = sqlite3_prepare_v2(m_pEngine, MPDb::sSQL_DeleteZombies, -1, &pCompiledStatement, NULL)) != SQLITE_OK)
 	{
 		TSK_DEBUG_ERROR("Failed to prepare sqlQuery = [%s] error code = %d", MPDb::sSQL_DeleteZombies, ret);
-		return false;
+		goto bail;
 	}
 	
-	uint64_t nEpochTimeFromWhichAZombieMustDie = (tsk_time_epoch() - nMaxLifeTimeExpectancyInMillis);
+	nEpochTimeFromWhichAZombieMustDie = (tsk_time_epoch() - nMaxLifeTimeExpectancyInMillis);
 	if((ret = sqlite3_bind_int64(pCompiledStatement, 1, nEpochTimeFromWhichAZombieMustDie)) == SQLITE_OK)
 	{
 		ret = MPDbSQLite::dbStep(pCompiledStatement);
 	}
 	sqlite3_finalize(pCompiledStatement);
 
+bail:
+	ret = dbTransacExec("COMMIT TRANSACTION;");
 	return (ret == SQLITE_DONE);
 }
 
@@ -153,10 +166,12 @@ bool MPDbSQLite::addAccount(MPObjectWrapper<MPDbAccount*> oAccount)
 	sqlite3_stmt* pCompiledStatement = NULL;
 	int ret;
 
+	ret = dbTransacExec("BEGIN IMMEDIATE TRANSACTION;");
+
 	if((ret = sqlite3_prepare_v2(m_pEngine, MPDb::sSQL_InsertAccount, -1, &pCompiledStatement, NULL)) != SQLITE_OK)
 	{
 		TSK_DEBUG_ERROR("Failed to prepare sqlQuery = [%s] error code = %d", MPDb::sSQL_InsertAccount, ret);
-		return false;
+		goto bail;
 	}
 
 	ret += sqlite3_bind_int(pCompiledStatement, 1, oAccount->getSoftVersion());
@@ -175,6 +190,9 @@ bool MPDbSQLite::addAccount(MPObjectWrapper<MPDbAccount*> oAccount)
 	}
 	sqlite3_finalize(pCompiledStatement);
 
+
+bail:
+	dbTransacExec("COMMIT TRANSACTION;");
 	return (ret == SQLITE_DONE);
 }
 
@@ -187,10 +205,12 @@ bool MPDbSQLite::addAccountSip(MPObjectWrapper<MPDbAccountSip*> oAccountSip)
 	sqlite3_stmt* pCompiledStatement = NULL;
 	int ret;
 
+	ret = dbTransacExec("BEGIN IMMEDIATE TRANSACTION;");
+
 	if((ret = sqlite3_prepare_v2(m_pEngine, MPDb::sSQL_InsertAccountSip, -1, &pCompiledStatement, NULL)) != SQLITE_OK)
 	{
 		TSK_DEBUG_ERROR("Failed to prepare sqlQuery = [%s] error code = %d", MPDb::sSQL_InsertAccountSip, ret);
-		return false;
+		goto bail;
 	}
 
 	ret += sqlite3_bind_text(pCompiledStatement, 1, oAccountSip->getAddress64(), -1, SQLITE_TRANSIENT);
@@ -202,6 +222,8 @@ bool MPDbSQLite::addAccountSip(MPObjectWrapper<MPDbAccountSip*> oAccountSip)
 	}
 	sqlite3_finalize(pCompiledStatement);
 
+bail:
+	dbTransacExec("COMMIT TRANSACTION;");
 	return (ret == SQLITE_DONE);
 }
 
@@ -213,10 +235,12 @@ bool MPDbSQLite::addAccountSipCaller(MPObjectWrapper<MPDbAccountSipCaller*> oAcc
 	sqlite3_stmt* pCompiledStatement = NULL;
 	int ret;
 
+	ret = dbTransacExec("BEGIN IMMEDIATE TRANSACTION;");
+
 	if((ret = sqlite3_prepare_v2(m_pEngine, MPDb::sSQL_InsertAccountSipCaller, -1, &pCompiledStatement, NULL)) != SQLITE_OK)
 	{
 		TSK_DEBUG_ERROR("Failed to prepare sqlQuery = [%s] error code = %d", MPDb::sSQL_InsertAccountSipCaller, ret);
-		return false;
+		goto bail;
 	}
 
 	ret += sqlite3_bind_text(pCompiledStatement, 1, oAccountSipCaller->getDisplayName(), -1, SQLITE_TRANSIENT);
@@ -232,6 +256,8 @@ bool MPDbSQLite::addAccountSipCaller(MPObjectWrapper<MPDbAccountSipCaller*> oAcc
 	}
 	sqlite3_finalize(pCompiledStatement);
 
+bail:
+	dbTransacExec("COMMIT TRANSACTION;");
 	return (ret == SQLITE_DONE);
 }
 
@@ -482,6 +508,25 @@ MPObjectWrapper<MPDbAccountSipCaller*> MPDbSQLite::selectAccountSipCaller(int64_
 }
 
 // private
+int MPDbSQLite::dbTransacExec(const char* pcQuery)
+{
+	assert(isOpened() && pcQuery);
+
+	int ret;
+	uint64_t nTimeOut = 200;
+
+	while(nTimeOut < (200 << 5) && (ret = sqlite3_exec(m_pEngine, pcQuery, 0, 0, 0)) == SQLITE_BUSY)
+	{
+		TSK_DEBUG_INFO("dbTransacExec::SQLITE_BUSY");
+		// 200, 400, 800, 1600, 3200
+		tsk_thread_sleep(nTimeOut);
+		nTimeOut <<= 1;
+	}
+
+	return ret;
+}
+
+// private
 int MPDbSQLite::dbStep(void* pCompiledStatement)
 {
 	assert(pCompiledStatement);
@@ -489,8 +534,9 @@ int MPDbSQLite::dbStep(void* pCompiledStatement)
 	int ret;
 	uint64_t nTimeOut = 200;
 
-	while(nTimeOut < 3200 && (ret = sqlite3_step((struct sqlite3_stmt*)pCompiledStatement)) == SQLITE_BUSY)
+	while(nTimeOut < (200 << 5) && (ret = sqlite3_step((struct sqlite3_stmt*)pCompiledStatement)) == SQLITE_BUSY)
 	{
+		TSK_DEBUG_INFO("dbStep::SQLITE_BUSY");
 		// 200, 400, 800, 1600, 3200
 		tsk_thread_sleep(nTimeOut);
 		nTimeOut <<= 1;
