@@ -8,6 +8,7 @@ AC_CONFIG_SRCDIR([mp_mediaproxy.cc])
 dnl find suitable C and C++ compilers
 AC_PROG_CC
 AC_PROG_CXX
+AM_PROG_CC_C_O
 
 AC_PROG_INSTALL
 
