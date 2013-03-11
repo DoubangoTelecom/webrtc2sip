@@ -51,9 +51,17 @@ bool MPDbSQLite::open()
 		TSK_DEBUG_ERROR("Failed to open SQLite database with error code = %d and connectionInfo=%s", ret, m_pConnectionInfo);
 		return false;
 	}
-
-	// set database version
+	
 	char* err = NULL;
+
+	// http://www.sqlite.org/draft/wal.html
+	ret = sqlite3_exec(m_pEngine, "PRAGMA journal_mode = WAL;", NULL, NULL, &err);
+	if(!(m_bOpened = (ret == SQLITE_OK)))
+	{
+		TSK_DEBUG_ERROR("Failed to set journal_mode value to WAL [%s]", err);
+		return false;
+	}
+	// set database version
 	ret = sqlite3_exec(m_pEngine, "PRAGMA user_version = 0;", NULL, NULL, &err);
 	if(!(m_bOpened = (ret == SQLITE_OK)))
 	{
