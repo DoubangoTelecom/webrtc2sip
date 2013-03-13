@@ -7,6 +7,8 @@
   <transport>udp;*;10060</transport>
   <transport>ws;*;10060</transport>
   <transport>wss;*;10062</transport>
+  <!--transport>tcp;*;10063</transport-->
+  <!--transport>tls;*;10064</transport-->
 
   <enable-rtp-symetric>yes</enable-rtp-symetric>
   <enable-100rel>no</enable-100rel>
