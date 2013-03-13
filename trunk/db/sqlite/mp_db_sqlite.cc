@@ -58,19 +58,19 @@ bool MPDbSQLite::open()
 
 	// http://www.sqlite.org/draft/wal.html
 	ret = sqlite3_exec(m_pEngine, "PRAGMA journal_mode = WAL;", NULL, NULL, &err);
-	ret = sqlite3_exec(m_pEngine, "PRAGMA page_size = 4096;", NULL, NULL, &err);
-	ret = sqlite3_exec(m_pEngine, "PRAGMA synchronous = FULL;", NULL, NULL, &err);
+	//ret = sqlite3_exec(m_pEngine, "PRAGMA page_size = 4096;", NULL, NULL, &err);
+	//ret = sqlite3_exec(m_pEngine, "PRAGMA synchronous = FULL;", NULL, NULL, &err);
 	if(!(m_bOpened = (ret == SQLITE_OK)))
 	{
 		TSK_DEBUG_ERROR("Failed to set journal_mode value to WAL [%s]", err);
-		return false;
+		//return false;
 	}
 	// set database version
 	ret = sqlite3_exec(m_pEngine, "PRAGMA user_version = 0;", NULL, NULL, &err);
 	if(!(m_bOpened = (ret == SQLITE_OK)))
 	{
 		TSK_DEBUG_ERROR("Failed to set SQLite database version [%s]", err);
-		return false;
+		//return false;
 	}
 
 	// create tables

@@ -240,13 +240,63 @@ bool MPEngine::setSSLCertificates(const char* pcPrivateKey, const char* pcPublic
 			);
 }
 
-bool MPEngine::setCodecs(int64_t nCodecs)
+bool MPEngine::setCodecs(const char* pcCodecs)
 {
 	if(!isValid())
 	{
 		TSK_DEBUG_ERROR("Engine not valid");
 		return false;
 	}
+
+	int i;
+	struct codec{ const char* name; tmedia_codec_id_t id; };
+	static const codec aCodecNames[] = { 
+		{"pcma", tmedia_codec_id_pcma}, 
+		{"pcmu", tmedia_codec_id_pcmu}, 
+		{"amr-nb-be", tmedia_codec_id_amr_nb_be},
+		{"amr-nb-oa", tmedia_codec_id_amr_nb_oa},
+		{"speex-nb", tmedia_codec_id_speex_nb}, 
+		{"speex-wb", tmedia_codec_id_speex_wb}, 
+		{"speex-uwb", tmedia_codec_id_speex_uwb}, 
+		{"g729", tmedia_codec_id_g729ab}, 
+		{"gsm", tmedia_codec_id_gsm}, 
+		{"g722", tmedia_codec_id_g722}, 
+		{"ilbc", tmedia_codec_id_ilbc},
+		{"h264-bp", tmedia_codec_id_h264_bp}, 
+		{"h264-mp", tmedia_codec_id_h264_mp}, 
+		{"vp8", tmedia_codec_id_vp8}, 
+		{"h263", tmedia_codec_id_h263}, 
+		{"h263+", tmedia_codec_id_h263p}, 
+		{"theora", tmedia_codec_id_theora}, 
+		{"mp4v-es", tmedia_codec_id_mp4ves_es} 
+	};
+	static const int nCodecsCount = sizeof(aCodecNames) / sizeof(aCodecNames[0]);
+
+	int64_t nCodecs = (int64_t)tmedia_codec_id_none;
+	tsk_params_L_t* pParams;
+
+	if((pParams = tsk_params_fromstring(pcCodecs, ";", tsk_true)))
+	{
+		const tsk_list_item_t* item;
+		tsk_list_foreach(item, pParams)
+		{	
+			const char* pcCodecName = ((const tsk_param_t*)item->data)->name;
+			for(i = 0; i < nCodecsCount; ++i)
+			{
+				if(tsk_striequals(aCodecNames[i].name, pcCodecName))
+				{
+					nCodecs |= (int64_t)aCodecNames[i].id;
+					if(!tdav_codec_is_supported((tdav_codec_id_t)aCodecNames[i].id)){
+						TSK_DEBUG_INFO("'%s' codec enabled but not supported", aCodecNames[i].name);
+					}
+					break;
+				}
+			}
+		}
+	}
+
+	TSK_OBJECT_SAFE_FREE(pParams);
+
 	const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setCodecs_2(nCodecs);
 	return true;
 }

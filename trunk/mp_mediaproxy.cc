@@ -182,50 +182,12 @@ static int parseConfigNode(xmlNode *pNode, MPObjectWrapper<MPEngine*> oEngine)
 					}
 					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "codecs")) // available since 2.0.0
 					{
-						int i;
-						struct codec{ const char* name; tmedia_codec_id_t id; };
-						static const codec aCodecNames[] = { 
-							{"pcma", tmedia_codec_id_pcma}, 
-							{"pcmu", tmedia_codec_id_pcmu}, 
-							{"amr-nb-be", tmedia_codec_id_amr_nb_be},
-							{"amr-nb-oa", tmedia_codec_id_amr_nb_oa},
-							{"speex-nb", tmedia_codec_id_speex_nb}, 
-							{"speex-wb", tmedia_codec_id_speex_wb}, 
-							{"speex-uwb", tmedia_codec_id_speex_uwb}, 
-							{"g729", tmedia_codec_id_g729ab}, 
-							{"gsm", tmedia_codec_id_gsm}, 
-							{"g722", tmedia_codec_id_g722}, 
-							{"ilbc", tmedia_codec_id_ilbc},
-							{"h264-bp", tmedia_codec_id_h264_bp}, 
-							{"h264-mp", tmedia_codec_id_h264_mp}, 
-							{"vp8", tmedia_codec_id_vp8}, 
-							{"h263", tmedia_codec_id_h263}, 
-							{"h263+", tmedia_codec_id_h263p}, 
-							{"theora", tmedia_codec_id_theora}, 
-							{"mp4v-es", tmedia_codec_id_mp4ves_es} 
-						};
-						static const int nCodecsCount = sizeof(aCodecNames) / sizeof(aCodecNames[0]);
-					
-						int64_t nCodecs = (int64_t)tmedia_codec_id_none;
-						
-						if((pParams = tsk_params_fromstring((const char*)pCurrNode->content, ";", tsk_true)))
+						const char* pcCodecs = (const char*)pCurrNode->content;
+						TSK_DEBUG_INFO("codecs = %s", pcCodecs);
+						if(!oEngine->setCodecs(pcCodecs))
 						{
-							const tsk_list_item_t* item;
-							tsk_list_foreach(item, pParams)
-							{	
-								const char* pcCodecName = ((const tsk_param_t*)item->data)->name;
-								for(i = 0; i < nCodecsCount; ++i)
-								{
-									if(tsk_striequals(aCodecNames[i].name, pcCodecName))
-									{
-										nCodecs |= (int64_t)aCodecNames[i].id;
-										break;
-									}
-								}
-							}
+							TSK_DEBUG_ERROR("Failed to set 'codecs': %s", pcCodecs);
 						}
-						TSK_DEBUG_INFO("codecs = %lld: %s", nCodecs, (const char*)pCurrNode->content);
-						oEngine->setCodecs(nCodecs);
 						break;
 					}
 					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "nameserver")) // available since 2.0.0
