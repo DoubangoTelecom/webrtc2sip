@@ -192,7 +192,7 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 				const char* pcContent = (const char*)TSIP_MESSAGE_CONTENT_DATA(pcWrappedSipMessage);
 				size_t nContentLength = (size_t)TSIP_MESSAGE_CONTENT_DATA_LENGTH(pcWrappedSipMessage);
 				TSK_DEBUG_INFO("Processing INFO(dtmf-relay, %s->%s): %.*s", (bFromLeftToRight ? "Left" : "Right"), (bFromLeftToRight ? "Right" : "Left"), nContentLength, pcContent);
-				if(pcContent && pcContent)
+				if(pcContent && nContentLength)
 				{
 					// find call session (receiver side)
 					const CallSession* pcCallSession = bFromLeftToRight 
@@ -205,7 +205,7 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 						TSK_DEBUG_INFO("Gtw configured to relay DTMF using out-band(rfc2833) mode");
 						if(!const_cast<CallSession*>(pcCallSession)->sendInfo(pcContent, nContentLength))
 						{
-							TSK_DEBUG_INFO("Failed to relay the DTMF digit - 'rfc2833'");
+							TSK_DEBUG_ERROR("Failed to relay the DTMF digit - 'rfc2833'");
 						}
 					}
 					else /* in-band (rfc4733) */
@@ -220,7 +220,7 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 						}
 						const char cSignal = pcContent[nSignalIndex + 7];
 
-						// RFC 4733 code maping
+						// RFC 4733 code mapping
 						typedef struct dtmf_code_s { int code; char v; } dtmf_code_t;
 						static const dtmf_code_t __dtmf_codes[16] = { {0, '0'}, {1, '1'}, {2, '2'}, {3, '3'}, {4, '4'}, {5, '5'}, {6, '6'}, {7, '7'}, {8, '8'}, {9, '9'}, {10, '*'}, {11, '#'}, {12, 'A'}, {13, 'B'}, {14, 'C'}, {15, 'D'} };
 						static const size_t __dtmf_codes_count = (sizeof(__dtmf_codes)/sizeof(__dtmf_codes[0]));
