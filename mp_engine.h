@@ -60,6 +60,7 @@ public:
 	virtual bool setCodecs(const char* pcCodecs);
 	virtual bool setSRTPMode(const char* pcMode);
 	virtual bool setSRTPType(const char* pcTypesCommaSep);
+	virtual bool setDtmfType(const char* pcDtmfType);
 	virtual bool addDNSServer(const char* pcDNSServer);
 	virtual bool setDbInfo(const char* pcDbType, const char* pcDbConnectionInfo);
 	virtual bool setMailAccountInfo(const char* pcScheme, const char* pcLocalIP, unsigned short nLocalPort, const char* pcSmtpHost, unsigned short nSmtpPort, const char* pcEmail, const char* pcAuthName, const char* pcAuthPwd);
@@ -99,6 +100,8 @@ private:
 		char* pCA;
 		bool bVerify;
 	} m_SSL;
+
+	char* m_pDtmfType;
 
 	bool m_bStarted;
 	bool m_bValid;
