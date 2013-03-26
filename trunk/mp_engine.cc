@@ -59,6 +59,7 @@ struct _PeerBySessionIdRight: public std::binary_function< std::pair<uint64_t, M
 MPEngine::MPEngine(const char* pRealmUri, const char* pPrivateIdentity, const char* pPublicIdentity)
 : m_bStarted(false)
 , m_bValid(false)
+, m_pDtmfType(NULL)
 {
 	if(!MPEngine::g_bInitialized){
 		SipStack::initialize();
@@ -94,6 +95,7 @@ MPEngine::~MPEngine()
 	TSK_FREE(m_SSL.pPrivateKey);
 	TSK_FREE(m_SSL.pPublicKey);
 	TSK_FREE(m_SSL.pCA);
+	TSK_FREE(m_pDtmfType);
 }
 
 bool MPEngine::setDebugLevel(const char* pcLevel)
@@ -342,6 +344,20 @@ bool MPEngine::setSRTPType(const char* pcTypesCommaSep)
 	}
 
 	return MediaSessionMgr::defaultsSetSRtpType(srtp_type);
+}
+
+bool MPEngine::setDtmfType(const char* pcDtmfType)
+{
+	if(!pcDtmfType){
+		TSK_DEBUG_ERROR("Invalid parameter");
+		return false;
+	}
+	if(!tsk_striequals(pcDtmfType, MP_DTMF_TYPE_RFC2833) && !tsk_striequals(pcDtmfType, MP_DTMF_TYPE_RFC4733)){
+		TSK_DEBUG_ERROR("%s not valid DTMF type", pcDtmfType);
+		return false;
+	}
+	tsk_strupdate(&m_pDtmfType, pcDtmfType);
+	return true;
 }
 
 bool MPEngine::addDNSServer(const char* pcDNSServer)

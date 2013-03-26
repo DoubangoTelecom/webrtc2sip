@@ -33,6 +33,13 @@ typedef int32_t MPNetFd;
 #define MPNetFd_IsValid(self)	((self) > 0)
 #define kMPNetFdInvalid			-1
 
+#if !defined(MP_DTMF_TYPE_RFC4733)
+#	define MP_DTMF_TYPE_RFC4733 "rfc4733"
+#endif
+#if !defined(MP_DTMF_TYPE_RFC2833)
+#	define MP_DTMF_TYPE_RFC2833 "rfc2833"
+#endif
+
 namespace webrtc2sip {
 
 typedef enum MPMediaType_e

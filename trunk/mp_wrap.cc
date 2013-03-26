@@ -35,6 +35,10 @@
 
 #include <assert.h>
 
+#if !defined(MP_DTMF_CONTENT_TYPE)
+#	define MP_DTMF_CONTENT_TYPE "application/dtmf-relay"
+#endif /* MP_DTMF_CONTENT_TYPE */
+
 namespace webrtc2sip {
 
 
@@ -151,7 +155,102 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 	switch(e->getType())
 	{
         default: break;
+
+		/* INCOMING REQUEST */
+		case tsip_i_request:
+		{
+			const SipMessage* pcSipMessage;
+			const tsip_message_t* pcWrappedSipMessage;
+			assert((pcSipMessage = e->getSipMessage()) && (pcWrappedSipMessage = pcSipMessage->getWrappedSipMessage()));			
+			
+			// Incoming INFO(dtmf-relay) ?
+			if(TSIP_REQUEST_IS_INFO(pcWrappedSipMessage) && TSIP_MESSAGE_HAS_CONTENT(pcWrappedSipMessage) && tsk_striequals(TSIP_MESSAGE_CONTENT_TYPE(pcWrappedSipMessage), MP_DTMF_CONTENT_TYPE)){
+				MPObjectWrapper<MPPeer*> oPeer;
+				bool bFromLeftToRight = false;
+				static const bool sIsLeftTrue = true;
+				static const bool sIsLeftFalse = false;
+				const InviteSession* pcInviteSession;
+				
+				// get the INVITE session associated to this event
+				if(!(pcInviteSession = e->getSession()))
+				{
+					TSK_DEBUG_WARN("No INVITE session associated to this event");
+					break;
+				}
+				uint64_t nSessionId = (uint64_t)pcInviteSession->getId();
+
+				if((oPeer = m_oEngine->getPeerBySessionId(nSessionId, sIsLeftTrue)))
+				{
+					bFromLeftToRight = true;
+				}
+				else if(!(oPeer = m_oEngine->getPeerBySessionId(nSessionId, sIsLeftFalse)))
+				{
+					TSK_DEBUG_WARN("Failed to find peer hosting session with id = %llu", nSessionId);
+					break;
+				}
+				
+				const char* pcContent = (const char*)TSIP_MESSAGE_CONTENT_DATA(pcWrappedSipMessage);
+				size_t nContentLength = (size_t)TSIP_MESSAGE_CONTENT_DATA_LENGTH(pcWrappedSipMessage);
+				TSK_DEBUG_INFO("Processing INFO(dtmf-relay, %s->%s): %.*s", (bFromLeftToRight ? "Left" : "Right"), (bFromLeftToRight ? "Right" : "Left"), nContentLength, pcContent);
+				if(pcContent && pcContent)
+				{
+					// find call session (receiver side)
+					const CallSession* pcCallSession = bFromLeftToRight 
+						? oPeer->getCallSessionRight()->getWrappedCallSession()
+						: oPeer->getCallSessionLeft()->getWrappedCallSession();
+					assert(pcCallSession);
+
+					if(tsk_striequals(m_oEngine->m_pDtmfType, MP_DTMF_TYPE_RFC2833)) /* out-band (rfc2833) */
+					{
+						TSK_DEBUG_INFO("Gtw configured to relay DTMF using out-band(rfc2833) mode");
+						if(!const_cast<CallSession*>(pcCallSession)->sendInfo(pcContent, nContentLength))
+						{
+							TSK_DEBUG_INFO("Failed to relay the DTMF digit - 'rfc2833'");
+						}
+					}
+					else /* in-band (rfc4733) */
+					{
+						TSK_DEBUG_INFO("Gtw configured to relay DTMF using in-band(rfc4733) mode");
+
+						int nSignalIndex = tsk_strindexOf(pcContent, nContentLength, "Signal=");
+						if(nSignalIndex == -1)
+						{
+							TSK_DEBUG_ERROR("Failed to find 'Signal=' in the INFO content");
+							break;
+						}
+						const char cSignal = pcContent[nSignalIndex + 7];
+
+						// RFC 4733 code maping
+						typedef struct dtmf_code_s { int code; char v; } dtmf_code_t;
+						static const dtmf_code_t __dtmf_codes[16] = { {0, '0'}, {1, '1'}, {2, '2'}, {3, '3'}, {4, '4'}, {5, '5'}, {6, '6'}, {7, '7'}, {8, '8'}, {9, '9'}, {10, '*'}, {11, '#'}, {12, 'A'}, {13, 'B'}, {14, 'C'}, {15, 'D'} };
+						static const size_t __dtmf_codes_count = (sizeof(__dtmf_codes)/sizeof(__dtmf_codes[0]));
+						// find the code
+						size_t i;
+						int dtmfCode = -1;
+						for(i = 0; i<__dtmf_codes_count; ++i)
+						{
+							if(__dtmf_codes[i].v == cSignal)
+							{
+								dtmfCode = __dtmf_codes[i].code;
+							}
+						}
+						if(dtmfCode == -1)
+						{
+							TSK_DEBUG_ERROR("Failed to map dtmf code with signal = '%c'", cSignal);
+							break;
+						}
+						if(!const_cast<CallSession*>(pcCallSession)->sendDTMF(dtmfCode))
+						{
+							TSK_DEBUG_INFO("Failed to relay the DTMF digit - 'rfc4733'");
+						}
+					}
+				}
+			}
+
+			break;
+		}
             
+		/* INCOMING NEW CALL (INVITE) */
 		case tsip_i_newcall:
 		{
 			assert(e->getSession() == NULL);

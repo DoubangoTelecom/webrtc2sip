@@ -19,6 +19,7 @@
   <avpf-tail-length>100;400</avpf-tail-length>
   <srtp-mode>optional</srtp-mode>
   <srtp-type>sdes;dtls</srtp-type>
+  <dtmf-type>rfc4733</dtmf-type>
 
   <codecs>pcma;pcmu;gsm;vp8;h264-bp;h264-mp;h263;h263+</codecs>
 

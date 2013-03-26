@@ -261,6 +261,15 @@ static int parseConfigNode(xmlNode *pNode, MPObjectWrapper<MPEngine*> oEngine)
 							}
 						}
 					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "dtmf-type")) // available since 2.4.0
+					{
+						const char* pcDtmfType = (const char*)pCurrNode->content;
+						TSK_DEBUG_INFO("dtmf-type = %s", pcDtmfType);
+						if(!oEngine->setDtmfType(pcDtmfType))
+						{
+							TSK_DEBUG_ERROR("Failed to set 'dtmf-type': %s", pcDtmfType);
+						}
+					}
 				break;
 			}
 		}
