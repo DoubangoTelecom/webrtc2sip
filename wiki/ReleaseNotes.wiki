@@ -3,6 +3,21 @@
 
 <wiki:toc max_depth="2" />
 
+==2.4.0==
+ * SVN: 64
+ * Requires Doubango IMS Framework 856+ or later to be fully featured
+ * Date: March 26, 2013
+ * Adds support for DTMF relaying
+ * Adds support for TCP/TLS outbound
+ * Fix issue issue 64, issue 66, issue 70 and issue 71
+
+==2.3.0==
+ * SVN: 53
+ * Requires Doubango IMS Framework 838+ or later to be fully featured
+ * Date: March 11, 2013
+ * Adds click-to-call service (http://click2dial.org)
+ * Fix issue 58, issue 59 and issue 60
+
 ==2.2.0==
  * SVN: 44
  * Requires Doubango IMS Framework 808+ or later to be fully featured
