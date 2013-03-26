@@ -11,7 +11,7 @@ We highly recommend reading the [http://webrtc2sip.org/technical-guide-1.0.pdf T
 ==Preparing the system==
 {{{
 sudo yum update
-sudo yum install make libtool autoconf subversion git wget
+sudo yum install make libtool autoconf subversion git wget libogg-devel
 }}}
 
 ==Building Doubango IMS Framework and 3rd-party libraries==
