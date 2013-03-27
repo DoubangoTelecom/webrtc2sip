@@ -203,9 +203,18 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 					if(tsk_striequals(m_oEngine->m_pDtmfType, MP_DTMF_TYPE_RFC2833)) /* out-band (rfc2833) */
 					{
 						TSK_DEBUG_INFO("Gtw configured to relay DTMF using out-band(rfc2833) mode");
-						if(!const_cast<CallSession*>(pcCallSession)->sendInfo(pcContent, nContentLength))
+						ActionConfig* pConfig = new ActionConfig();
+						if(pConfig)
+						{
+							pConfig->addHeader("Content-Type", MP_DTMF_CONTENT_TYPE);
+						}
+						if(!const_cast<CallSession*>(pcCallSession)->sendInfo(pcContent, nContentLength, pConfig))
 						{
 							TSK_DEBUG_ERROR("Failed to relay the DTMF digit - 'rfc2833'");
+						}
+						if(pConfig)
+						{
+							delete pConfig; pConfig = NULL;
 						}
 					}
 					else /* in-band (rfc4733) */
