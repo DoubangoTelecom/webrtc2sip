@@ -11,7 +11,7 @@ We highly recommend reading the [http://webrtc2sip.org/technical-guide-1.0.pdf T
 ==Preparing the system==
 {{{
 sudo yum update
-sudo yum install make libtool autoconf subversion git wget libogg-devel
+sudo yum install make libtool autoconf subversion git cvs wget libogg-devel
 }}}
 
 ==Building Doubango IMS Framework and 3rd-party libraries==
@@ -24,8 +24,7 @@ svn checkout http://doubango.googlecode.com/svn/branches/2.0/doubango doubango
 ===Building libsrtp===
 libsrtp is required.
 {{{
-wget http://downloads.sourceforge.net/project/srtp/srtp/1.4.4/srtp-1.4.4.tgz
-tar -xvzf srtp-1.4.4.tgz
+cvs -d:pserver:anonymous@srtp.cvs.sourceforge.net:/cvsroot/srtp co -P srtp
 cd srtp
 ./configure --enable-pic && make && make install
 }}}
