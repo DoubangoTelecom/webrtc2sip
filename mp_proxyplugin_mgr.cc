@@ -51,6 +51,8 @@ void MPProxyPluginMgr::initialize()
 
 		ProxyVideoConsumer::setDefaultChroma(tmedia_chroma_yuv420p);
 		ProxyVideoProducer::setDefaultChroma(tmedia_chroma_yuv420p);
+		// do not try to resize incoming video packets to match negotiated size
+		ProxyVideoConsumer::setDefaultAutoResizeDisplay(true);
 
 		// up to the remote peers
 		MediaSessionMgr::defaultsSetEchoSuppEnabled(false);
