@@ -177,7 +177,7 @@ make && make install
 }}}
  * Recommended build
 {{{
-cd doubango && ./autogen.sh && ./configure --with-ssl --with-srtp --with-speexdsp --enable-speexjb --with-ffmpeg --with-h264
+cd doubango && ./autogen.sh && ./configure --with-ssl --with-srtp --with-vpx --with-speexdsp --enable-speexjb --with-ffmpeg --with-h264
 make && make install
 }}}
  * Full build
