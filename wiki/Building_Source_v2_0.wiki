@@ -89,6 +89,15 @@ cp -rf include/libyuv.h /usr/local/include/libyuv
 cp -rf include/libyuv/*.h /usr/local/include/libyuv/libyuv
 }}}
 
+===Building libopus===
+*libopus* is optional but highly recommended as it’s an MTI codec for WebRTC. Adds support for [http://www.opus-codec.org/ Opus audio codec].
+{{{
+wget http://downloads.xiph.org/releases/opus/opus-1.0.2.tar.gz
+tar -xvzf opus-1.0.2.tar.gz
+cd opus-1.0.2
+./configure --with-pic --enable-float-approx && make && make install
+}}}
+
 ===Building opencore-amr===
 *opencore-amr* is optional. Adds support for *AMR* audio codec.
 {{{
