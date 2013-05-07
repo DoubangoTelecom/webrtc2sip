@@ -152,6 +152,9 @@ void MPSipCallback::attachMediaProxyPlugins(MPObjectWrapper<MPPeer*> oPeer)
 /* @override SipCallback::OnInviteEvent */
 int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 { 
+	static const bool sIsLeftTrue = true;
+	static const bool sIsLeftFalse = false;
+
 	switch(e->getType())
 	{
         default: break;
@@ -164,11 +167,11 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 			assert((pcSipMessage = e->getSipMessage()) && (pcWrappedSipMessage = pcSipMessage->getWrappedSipMessage()));			
 			
 			// Incoming INFO(dtmf-relay) ?
-			if(TSIP_REQUEST_IS_INFO(pcWrappedSipMessage) && TSIP_MESSAGE_HAS_CONTENT(pcWrappedSipMessage) && tsk_striequals(TSIP_MESSAGE_CONTENT_TYPE(pcWrappedSipMessage), MP_DTMF_CONTENT_TYPE)){
+			if(TSIP_REQUEST_IS_INFO(pcWrappedSipMessage) && TSIP_MESSAGE_HAS_CONTENT(pcWrappedSipMessage) && tsk_striequals(TSIP_MESSAGE_CONTENT_TYPE(pcWrappedSipMessage), MP_DTMF_CONTENT_TYPE))
+			{
 				MPObjectWrapper<MPPeer*> oPeer;
 				bool bFromLeftToRight = false;
-				static const bool sIsLeftTrue = true;
-				static const bool sIsLeftFalse = false;
+				
 				const InviteSession* pcInviteSession;
 				
 				// get the INVITE session associated to this event
@@ -257,7 +260,7 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 			}
 
 			break;
-		}
+		}//case tsip_i_request:
             
 		/* INCOMING NEW CALL (INVITE) */
 		case tsip_i_newcall:
@@ -492,7 +495,62 @@ end_of_new_i_call:
 				TSK_FREE(pImpi);
 			}
 			break;
+		}//case tsip_i_newcall:
+
+		/* ANSWER TO OUTGOING REQUEST */
+		case tsip_ao_request:
+		{
+			/*const SipMessage* pcSipMessage;
+			const InviteSession* pcInviteSession;
+			const tsip_message_t* pcWrappedSipMessage;
+
+			// get the INVITE session associated to this event
+			if(!(pcInviteSession = e->getSession()))
+			{
+				TSK_DEBUG_WARN("No INVITE session associated to this event");
+				break;
+			}
+
+			assert((pcSipMessage = e->getSipMessage()) && (pcWrappedSipMessage = pcSipMessage->getWrappedSipMessage()));
+
+			// make sure the response is for an INVITE from the left to the right leg
+			if(!(TSIP_RESPONSE_IS_TO_INVITE(pcWrappedSipMessage)))
+			{
+				// could be response to PRACK, UPDATE... sent from the gw
+				break;
+			}
+
+			// only provisional responses will be forwarded from the right to the left leg
+			// final responses will be forwarded using the onDialogEvent: 2xx when connected, 3xx-6xx when terminated, 401/407 will be handled by the gateway
+			const short nSipresponseCode = TSIP_RESPONSE_CODE(pcWrappedSipMessage);
+			const char* pcSipResponsePhrase = TSIP_RESPONSE_PHRASE(pcWrappedSipMessage);
+			if(nSipresponseCode > 99 && nSipresponseCode < 200)
+			{
+				uint64_t nSessionId = (uint64_t)pcInviteSession->getId();
+				bool bFromLeftToRight = false;
+
+				if((oPeer = m_oEngine->getPeerBySessionId(nSessionId, sIsLeftTrue)))
+				{
+					bFromLeftToRight = true;
+				}
+				else if(!(oPeer = m_oEngine->getPeerBySessionId(nSessionId, sIsLeftFalse)))
+				{
+					TSK_DEBUG_WARN("Failed to find peer hosting session with id = %llu", nSessionId);
+					break;
+				}
+				// find call session (receiver side)
+				const CallSession* pcCallSession = bFromLeftToRight 
+					? oPeer->getCallSessionRight()->getWrappedCallSession()
+					: oPeer->getCallSessionLeft()->getWrappedCallSession();
+				if(!pcCallSession)
+				{
+					TSK_DEBUG_WARN("failed to find call session");
+					break;
+				}
+			}*/
+			break;
 		}
+
 	}
 	return 0; 
 }
@@ -530,27 +588,33 @@ int MPSipCallback::OnDialogEvent(const DialogEvent* e)
 						pcPhrase = const_cast<SipMessage*>(pcMsg)->getResponsePhrase();
 					}
 
-					if(bIsleft){
+					if(bIsleft)
+					{
 						oPeer->setSessionLeftState(MPPeerState_Terminated);
 						oPeer->setLastSipResponseLeft(nSipCode);
 					}
-					else{
+					else
+					{
 						oPeer->setSessionRightState(MPPeerState_Terminated);
 						oPeer->setLastSipResponseRight(nSipCode);
 					}
 					
 					ActionConfig* config = new ActionConfig();
-					if(config && nSipCode > 0){
+					if(config && nSipCode > 0)
+					{
 						config->setResponseLine(nSipCode, pcPhrase);
 					}
 					
-					if(oPeer->isSessionLeftActive() && oPeer->getCallSessionLeft()){
+					if(oPeer->isSessionLeftActive() && oPeer->getCallSessionLeft())
+					{
 						const_cast<InviteSession*>(oPeer->getCallSessionLeft()->getWrappedInviteSession())->hangup(config);
 					}
-					if(oPeer->isSessionRightActive() && oPeer->getCallSessionRight()){
+					if(oPeer->isSessionRightActive() && oPeer->getCallSessionRight())
+					{
 						const_cast<InviteSession*>(oPeer->getCallSessionRight()->getWrappedInviteSession())->hangup(config);
 					}
-					if(!oPeer->isSessionLeftActive() && !oPeer->isSessionRightActive()){
+					if(!oPeer->isSessionLeftActive() && !oPeer->isSessionRightActive())
+					{
 						m_oEngine->removePeer(oPeer->getId());
 					}
 					
@@ -565,24 +629,30 @@ int MPSipCallback::OnDialogEvent(const DialogEvent* e)
 				MPObjectWrapper<MPPeer*> oPeer = m_oEngine->getPeerBySessionId(nId, true);
 				bool bIsleft = !!oPeer;
 
-				if(!oPeer){
+				if(!oPeer)
+				{
 					oPeer = m_oEngine->getPeerBySessionId(nId, false);
 				}
 
-				if(oPeer){
-					if(bIsleft){
+				if(oPeer)
+				{
+					if(bIsleft)
+					{
 						oPeer->setSessionLeftState(MPPeerState_Connected);
 					}
-					else{
+					else
+					{
 						oPeer->setSessionRightState(MPPeerState_Connected);
 						// right accepted the call -> accept left
-						if(!oPeer->isSessionLeftConnected() && oPeer->getCallSessionLeft()){
+						if(!oPeer->isSessionLeftConnected() && oPeer->getCallSessionLeft())
+						{
 							const_cast<InviteSession*>(oPeer->getCallSessionLeft()->getWrappedInviteSession())->accept();
 						}
 					}
 
 					// attach media proxy plugins
-					if(oPeer->isSessionLeftConnected() && oPeer->isSessionRightConnected()){
+					if(oPeer->isSessionLeftConnected() && oPeer->isSessionRightConnected())
+					{
 						attachMediaProxyPlugins(oPeer);
 					}
 				}

@@ -37,8 +37,18 @@ class MPProxyPluginProducerAudio : public MPProxyPlugin
 public:
 	MPProxyPluginProducerAudio(uint64_t nId, const ProxyAudioProducer* pcProducer);
 	virtual ~MPProxyPluginProducerAudio();
-	MP_INLINE int push(const void* buffer, unsigned size){ 
+	int push(const void* buffer, unsigned size, int32_t nPtime, int32_t nRate, int32_t nChannels){ 
 		if(m_bStarted){
+			if(m_nPtime != nPtime || m_nRate != nRate || m_nChannels != nChannels){
+				TSK_DEBUG_INFO("Consumer audio params different than producer expected input...request resampler");
+				m_nPtime = nPtime;
+				m_nRate = nRate;
+				m_nChannels = nChannels;
+				if(!const_cast<ProxyAudioProducer*>(m_pcWrappedProducer)->setActualSndCardRecordParams(m_nPtime, m_nRate, m_nChannels)){
+					TSK_DEBUG_ERROR("setActualSndCardRecordParams(%d, %d, %d) failed", nPtime, nRate, nChannels);
+					return -1;
+				}
+			}
 			return (m_pcWrappedProducer ? const_cast<ProxyAudioProducer*>(m_pcWrappedProducer)->push(buffer, size) : -1);
 		}
 		TSK_DEBUG_INFO("Audio producer not started yet");

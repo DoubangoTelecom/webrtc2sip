@@ -83,7 +83,7 @@ int MPProxyPluginConsumerAudio::stopCallback()
 int MPProxyPluginConsumerAudio::consumeCallback(const void* buffer_ptr, tsk_size_t buffer_size, const tsk_object_t* proto_hdr)
 {
 	if(m_oProducerOpposite && m_oProducerOpposite->isValid()){
-		return m_oProducerOpposite->push(buffer_ptr, buffer_size);
+		return m_oProducerOpposite->push(buffer_ptr, buffer_size, m_nPtime, m_nRate, m_nChannels);
 	}
 	return 0;
 }

@@ -58,6 +58,7 @@ public:
 	virtual bool setPrefVideoSize(const char* pcPrefVideoSize);
 	virtual bool setSSLCertificates(const char* pcPrivateKey, const char* pcPublicKey, const char* pcCA, bool bVerify = false);
 	virtual bool setCodecs(const char* pcCodecs);
+	virtual bool setCodecOpusMaxRates(int32_t nPlaybackMaxRate, int32_t nCaptureMaxRate);
 	virtual bool setSRTPMode(const char* pcMode);
 	virtual bool setSRTPType(const char* pcTypesCommaSep);
 	virtual bool setDtmfType(const char* pcDtmfType);

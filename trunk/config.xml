@@ -21,7 +21,8 @@
   <srtp-type>sdes;dtls</srtp-type>
   <dtmf-type>rfc4733</dtmf-type>
 
-  <codecs>pcma;pcmu;gsm;vp8;h264-bp;h264-mp;h263;h263+</codecs>
+  <codecs>pcma;pcmu;opus;gsm;vp8;h264-bp;h264-mp;h263;h263+</codecs>
+  <codec-opus-maxrates>48000;48000</codec-opus-maxrates>
 
 
   <!--nameserver>66.66.66.6</nameserver-->

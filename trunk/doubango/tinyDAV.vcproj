@@ -41,8 +41,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(PSDK_DIR)include&quot;;&quot;$(DXSDK_DIR)include&quot;;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\tinyDAV\include;..\..\doubango\branches\2.0\Doubango\tinyMSRP\include;..\..\doubango\branches\2.0\Doubango\tinyRTP\include;..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include;..\..\doubango\branches\2.0\Doubango\tinySDP\include;..\..\doubango\branches\2.0\Doubango\tinyNET\src;..\..\doubango\branches\2.0\Doubango\tinyDSHOW\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include\BroadVoice16\bvcommon;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include\BroadVoice16\bv16"
-				PreprocessorDefinitions="TELEPRESENCE=1;HAVE_SRTP=1;HAVE_G729=0;HAVE_BV16=0;HAVE_OPENCORE_AMR=0;HAVE_ILBC=0;HAVE_LIBGSM=0;HAVE_TINYDSHOW=0;HAVE_DSOUND_H=0;HAVE_WAVE_API=0;HAVE_FFMPEG=1;HAVE_SWSSCALE=0;HAVE_H264=1;HAVE_LIBVPX=1;HAVE_SPEEX_DSP=1;HAVE_SPEEX_JB=1;HAVE_LIB_SPEEX=0;FLIP_ENCODED_PICT=0;FLIP_DECODED_PICT=0;G192BITSTREAM=0;DEBUG_LEVEL=DEBUG_LEVEL_INFO;WIN32;_DEBUG;_WINDOWS;_USRDLL;_WIN32_WINNT=0x0501;TINYDAV_EXPORTS"
+				AdditionalIncludeDirectories="&quot;$(PSDK_DIR)include&quot;;&quot;$(DXSDK_DIR)include&quot;;..\..\doubango\branches\2.0\Doubango\thirdparties\common\include;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\tinyDAV\include;..\..\doubango\branches\2.0\Doubango\tinyMSRP\include;..\..\doubango\branches\2.0\Doubango\tinyRTP\include;..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include;..\..\doubango\branches\2.0\Doubango\tinySDP\include;..\..\doubango\branches\2.0\Doubango\tinyNET\src;..\..\doubango\branches\2.0\Doubango\tinyDSHOW\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include\BroadVoice16\bvcommon;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include\BroadVoice16\bv16"
+				PreprocessorDefinitions="TELEPRESENCE=1;HAVE_SRTP=1;HAVE_G729=0;HAVE_BV16=0;HAVE_LIBOPUS=1;HAVE_OPENCORE_AMR=0;HAVE_ILBC=0;HAVE_LIBGSM=0;HAVE_TINYDSHOW=0;HAVE_DSOUND_H=0;HAVE_WAVE_API=0;HAVE_FFMPEG=1;HAVE_SWSSCALE=0;HAVE_H264=1;HAVE_LIBVPX=1;HAVE_SPEEX_DSP=1;HAVE_SPEEX_JB=1;HAVE_LIB_SPEEX=0;FLIP_ENCODED_PICT=0;FLIP_DECODED_PICT=0;G192BITSTREAM=0;DEBUG_LEVEL=DEBUG_LEVEL_INFO;WIN32;_DEBUG;_WINDOWS;_USRDLL;_WIN32_WINNT=0x0501;TINYDAV_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -64,7 +64,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Winmm.lib $(OutDir)\tinySAK.lib $(OutDir)\tinyNET.lib $(OutDir)\tinyRTP.lib $(OutDir)\tinyMSRP.lib $(OutDir)\tinySDP.lib $(OutDir)\tinyMEDIA.lib &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\vpx\vpxmt.lib&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\speex\libspeexdsp.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\libgcc.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\libmingwex.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\ffmpeg\libavcodec.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\ffmpeg\libavutil.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\ffmpeg\libswscale.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\ffmpeg\libavcore.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\ffmpeg\libx264.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\ffmpeg\libtheora.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\ffmpeg\libogg.a&quot;"
+				AdditionalDependencies="Winmm.lib $(OutDir)\tinySAK.lib $(OutDir)\tinyNET.lib $(OutDir)\tinyRTP.lib $(OutDir)\tinyMSRP.lib $(OutDir)\tinySDP.lib $(OutDir)\tinyMEDIA.lib &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\vpx\vpxmt.lib&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\speex\libspeexdsp.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\libgcc.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\libmingwex.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\ffmpeg\libavcodec.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\ffmpeg\libavutil.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\ffmpeg\libswscale.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\ffmpeg\libavcore.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\ffmpeg\libx264.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\ffmpeg\libtheora.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\ffmpeg\libogg.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\opus\libopus.a&quot;"
 				LinkIncremental="2"
 				IgnoreDefaultLibraryNames="MSVCRT;LIBCMTD;LIBCMT"
 				GenerateDebugInformation="true"
@@ -723,6 +723,14 @@
 					>
 					<File
 						RelativePath="..\..\doubango\branches\2.0\doubango\tinyDAV\src\codecs\t140\tdav_codec_t140.c"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="opus"
+					>
+					<File
+						RelativePath="..\..\doubango\branches\2.0\doubango\tinyDAV\src\codecs\opus\tdav_codec_opus.c"
 						>
 					</File>
 				</Filter>
