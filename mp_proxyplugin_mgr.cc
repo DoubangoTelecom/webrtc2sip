@@ -96,6 +96,9 @@ void MPProxyPluginMgr::initialize()
 				tmedia_codec_id_h263 |
 				tmedia_codec_id_h263p)
 		);
+		// Opus code sample rates
+		MediaSessionMgr::defaultsSetOpusMaxCaptureRate(48000);
+		MediaSessionMgr::defaultsSetOpusMaxPlaybackRate(48000);
 
 		MPProxyPluginMgr::g_pPluginMgrCallback = new MPProxyPluginMgrCallback();
 		MPProxyPluginMgr::g_pPluginMgr = ProxyPluginMgr::createInstance(MPProxyPluginMgr::g_pPluginMgrCallback);

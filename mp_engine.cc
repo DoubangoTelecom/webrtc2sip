@@ -167,7 +167,7 @@ bool MPEngine::setMediaCoderEnabled(bool bEnabled)
 
 bool MPEngine::setVideoJbEnabled(bool bEnabled)
 {
-	return MediaSessionMgr::defaultsSetVideoJbEnabled(false);
+	return MediaSessionMgr::defaultsSetVideoJbEnabled(bEnabled);
 }
 
 bool MPEngine::setRtpBuffSize(int32_t nSize)
@@ -254,7 +254,8 @@ bool MPEngine::setCodecs(const char* pcCodecs)
 	struct codec{ const char* name; tmedia_codec_id_t id; };
 	static const codec aCodecNames[] = { 
 		{"pcma", tmedia_codec_id_pcma}, 
-		{"pcmu", tmedia_codec_id_pcmu}, 
+		{"pcmu", tmedia_codec_id_pcmu},
+		{"opus", tmedia_codec_id_opus},
 		{"amr-nb-be", tmedia_codec_id_amr_nb_be},
 		{"amr-nb-oa", tmedia_codec_id_amr_nb_oa},
 		{"speex-nb", tmedia_codec_id_speex_nb}, 
@@ -276,6 +277,7 @@ bool MPEngine::setCodecs(const char* pcCodecs)
 
 	int64_t nCodecs = (int64_t)tmedia_codec_id_none;
 	tsk_params_L_t* pParams;
+	int nPriority = 0;
 
 	if((pParams = tsk_params_fromstring(pcCodecs, ";", tsk_true)))
 	{
@@ -291,6 +293,9 @@ bool MPEngine::setCodecs(const char* pcCodecs)
 					if(!tdav_codec_is_supported((tdav_codec_id_t)aCodecNames[i].id)){
 						TSK_DEBUG_INFO("'%s' codec enabled but not supported", aCodecNames[i].name);
 					}
+					else{
+						tdav_codec_set_priority((tdav_codec_id_t)aCodecNames[i].id, nPriority++);
+					}
 					break;
 				}
 			}
@@ -301,6 +306,11 @@ bool MPEngine::setCodecs(const char* pcCodecs)
 
 	const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setCodecs_2(nCodecs);
 	return true;
+}
+
+bool MPEngine::setCodecOpusMaxRates(int32_t nPlaybackMaxRate, int32_t nCaptureMaxRate)
+{
+	return MediaSessionMgr::defaultsSetOpusMaxPlaybackRate(nPlaybackMaxRate) && MediaSessionMgr::defaultsSetOpusMaxCaptureRate(nCaptureMaxRate);
 }
 
 bool MPEngine::setSRTPMode(const char* pcMode)

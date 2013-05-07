@@ -190,6 +190,20 @@ static int parseConfigNode(xmlNode *pNode, MPObjectWrapper<MPEngine*> oEngine)
 						}
 						break;
 					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "codec-opus-maxrates")) // available since 2.5.0
+					{
+						if((pParams = tsk_params_fromstring((const char*)pCurrNode->content, ";", tsk_true)) && mp_list_count(pParams) == 2)
+						{
+							const char* pcMaxPlaybackRate = ((const tsk_param_t*)pParams->head->data)->name;
+							const char* pcMaxCaptureRate = ((const tsk_param_t*)pParams->head->next->data)->name;
+							TSK_DEBUG_INFO("codec-opus-maxrates = %s;%s", pcMaxPlaybackRate, pcMaxCaptureRate);
+							if(!oEngine->setCodecOpusMaxRates(atoi(pcMaxPlaybackRate), atoi(pcMaxCaptureRate)))
+							{
+								TSK_DEBUG_ERROR("Failed to set 'codec-opus-maxrates': %s;%s", pcMaxPlaybackRate, pcMaxCaptureRate);
+							}
+						}
+						break;
+					}
 					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "nameserver")) // available since 2.0.0
 					{
 						const char* pcDNSServer = (const char*)pCurrNode->content;
