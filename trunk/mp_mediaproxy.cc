@@ -66,7 +66,7 @@ static int parseConfigNode(xmlNode *pNode, MPObjectWrapper<MPEngine*> oEngine)
 					{
 						TSK_DEBUG_INFO("debug-level = %s\n", (const char*)pCurrNode->content);
 						if(!oEngine->setDebugLevel((const char*)pCurrNode->content)){
-							TSK_DEBUG_INFO("Failed to set debug-level = %s\n", (const char*)pCurrNode->content);
+							TSK_DEBUG_ERROR("Failed to set debug-level = %s\n", (const char*)pCurrNode->content);
 						}
 					}
 					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "transport"))
@@ -416,6 +416,7 @@ int main(int argc, char** argv)
 
 	printf("*******************************************************************\n"
 		"Copyright (C) 2012-2013 Doubango Telecom <http://www.doubango.org>\n"
+		"PRODUCT: webrtc2sip\n"
 		"HOME PAGE: http://webrtc2sip.org\n"
 		"LICENCE: GPLv3 or proprietary\n"
 		"VERSION: %s\n"

@@ -73,9 +73,12 @@ MPEngine::MPEngine(const char* pRealmUri, const char* pPrivateIdentity, const ch
 	m_SSL.pPrivateKey = m_SSL.pPublicKey = m_SSL.pCA = NULL;
 	m_SSL.bVerify = false;
 
-	if((m_oCallback = MPSipCallback::New(this))){
-		if((m_oSipStack = MPSipStack::New(m_oCallback, pRealmUri, pPrivateIdentity, pPublicIdentity))){
-			if(!const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setMode(tsip_stack_mode_webrtc2sip)){
+	if((m_oCallback = MPSipCallback::New(this)))
+	{
+		if((m_oSipStack = MPSipStack::New(m_oCallback, pRealmUri, pPrivateIdentity, pPublicIdentity)))
+		{
+			if(!const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setMode(tsip_stack_mode_webrtc2sip))
+			{
 				TSK_DEBUG_ERROR("SipStack::setModeServer failed");
 				return;
 			}

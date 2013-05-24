@@ -113,26 +113,26 @@ void MPSipCallback::attachMediaProxyPlugins(MPObjectWrapper<MPPeer*> oPeer)
 				oMPProxyPluginConsumerVideoLeft = *((MPObjectWrapper<MPProxyPluginConsumerVideo*>*)&oMPProxyPlugin);
 			}
 			else{
-				TSK_DEBUG_ERROR("cannot find video consumer for left leg");
+				TSK_DEBUG_WARN("cannot find video consumer for left leg");
 			}
 			if((pcProxyPlugin = pcMediaSessionMgrLeft->findProxyPluginProducer(twrap_media_video)) && (oMPProxyPlugin = MPProxyPluginMgr::findPlugin(pcProxyPlugin->getId()))){
 				oMPProxyPluginProducerVideoLeft = *((MPObjectWrapper<MPProxyPluginProducerVideo*>*)&oMPProxyPlugin);
 			}
 			else{
-				TSK_DEBUG_ERROR("cannot find video producer for left leg");
+				TSK_DEBUG_WARN("cannot find video producer for left leg");
 			}
 
 			if((pcProxyPlugin = pcMediaSessionMgrRight->findProxyPluginConsumer(twrap_media_video)) && (oMPProxyPlugin = MPProxyPluginMgr::findPlugin(pcProxyPlugin->getId()))){
 				oMPProxyPluginConsumerVideoRight = *((MPObjectWrapper<MPProxyPluginConsumerVideo*>*)&oMPProxyPlugin);
 			}
 			else{
-				TSK_DEBUG_ERROR("cannot find video consumer for right leg");
+				TSK_DEBUG_WARN("cannot find video consumer for right leg");
 			}
 			if((pcProxyPlugin = pcMediaSessionMgrRight->findProxyPluginProducer(twrap_media_video)) && (oMPProxyPlugin = MPProxyPluginMgr::findPlugin(pcProxyPlugin->getId()))){
 				oMPProxyPluginProducerVideoRight = *((MPObjectWrapper<MPProxyPluginProducerVideo*>*)&oMPProxyPlugin);
 			}
 			else{
-				TSK_DEBUG_ERROR("cannot find video producer for right leg");
+				TSK_DEBUG_WARN("cannot find video producer for right leg");
 			}
 
 			// attach consumers and producers
@@ -428,7 +428,7 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 					}
 #endif
 					
-					// filter codecs if transcoding is disabled
+					// filter codecs if media coder is OFF
 					if(MediaSessionMgr::defaultsGetByPassEncoding()){
 						int32_t nNegCodecs = const_cast<CallSession*>(oCallSessionLeft->getWrappedCallSession())->getNegotiatedCodecs();
 						TSK_DEBUG_INFO("Negotiated codecs with the left leg = %d", nNegCodecs);
@@ -643,10 +643,18 @@ int MPSipCallback::OnDialogEvent(const DialogEvent* e)
 					else
 					{
 						oPeer->setSessionRightState(MPPeerState_Connected);
+						MPObjectWrapper<MPSipSessionAV*> oCallSessionLeft = oPeer->getCallSessionLeft();
+						MPObjectWrapper<MPSipSessionAV*> oCallSessionRight = oPeer->getCallSessionRight();
 						// right accepted the call -> accept left
-						if(!oPeer->isSessionLeftConnected() && oPeer->getCallSessionLeft())
+						if(!oPeer->isSessionLeftConnected() && oCallSessionLeft && oCallSessionRight)
 						{
-							const_cast<InviteSession*>(oPeer->getCallSessionLeft()->getWrappedInviteSession())->accept();
+							// filter codecs if media coder is OFF
+							if(MediaSessionMgr::defaultsGetByPassEncoding()){
+								int32_t nNegCodecs = const_cast<CallSession*>(oCallSessionRight->getWrappedCallSession())->getNegotiatedCodecs();
+								TSK_DEBUG_INFO("Negotiated codecs with the right leg = %d", nNegCodecs);
+								const_cast<CallSession*>(oCallSessionLeft->getWrappedCallSession())->setSupportedCodecs(nNegCodecs);
+							}
+							const_cast<InviteSession*>(oCallSessionLeft->getWrappedInviteSession())->accept();
 						}
 					}
 

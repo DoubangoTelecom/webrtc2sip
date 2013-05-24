@@ -43,7 +43,7 @@ protected:
 	MPSipCallback(MPObjectWrapper<MPEngine*> oEngine);
 public:
 	virtual ~MPSipCallback();
-	virtual MP_INLINE const char* getObjectId() { return "Callback"; }
+	virtual MP_INLINE const char* getObjectId() { return "MPSipCallback"; }
 	virtual void attachMediaProxyPlugins(MPObjectWrapper<MPPeer*> oPeer);
 	static MPObjectWrapper<MPSipCallback*> New(MPObjectWrapper<MPEngine*> oEngine);
 
@@ -58,7 +58,7 @@ private:
 
 
 //
-//	Stack
+//	MPSipStack
 //
 class MPSipStack : public MPObject
 {
@@ -66,7 +66,7 @@ protected:
 	MPSipStack(MPObjectWrapper<MPSipCallback*> oCallback, const char* pRealmUri, const char* pPrivateId, const char* pPublicId);
 public:
 	virtual ~MPSipStack();
-	virtual MP_INLINE const char* getObjectId() { return "Stack"; }
+	virtual MP_INLINE const char* getObjectId() { return "MPSipStack"; }
 	const SipStack* getWrappedStack();
 	bool isValid();
 	static MPObjectWrapper<MPSipStack*> New(MPObjectWrapper<MPSipCallback*> oCallback, const char* pRealmUri, const char* pPrivateId, const char* pPublicId);
