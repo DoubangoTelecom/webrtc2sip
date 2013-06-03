@@ -7,7 +7,7 @@
  * SVN: 90+
  * Requires Doubango IMS Framework 895+ or later to be fully featured
  * Date: June 03, 2013
- * Fix issue 62, issue 92 and issue 95
+ * Fix issue 62, issue 92 and issue 96
 
 ==2.5.0==
  * SVN: 86+
