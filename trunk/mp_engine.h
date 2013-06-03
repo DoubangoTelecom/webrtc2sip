@@ -62,6 +62,8 @@ public:
 	virtual bool setSRTPMode(const char* pcMode);
 	virtual bool setSRTPType(const char* pcTypesCommaSep);
 	virtual bool setDtmfType(const char* pcDtmfType);
+	virtual bool setStunServer(const char* pcIP, unsigned short nPort, const char* pcUsrName, const char* pcUsrPwd);
+	virtual bool setIceStunEnabled(bool bEnabled);
 	virtual bool addDNSServer(const char* pcDNSServer);
 	virtual bool setDbInfo(const char* pcDbType, const char* pcDbConnectionInfo);
 	virtual bool setMailAccountInfo(const char* pcScheme, const char* pcLocalIP, unsigned short nLocalPort, const char* pcSmtpHost, unsigned short nSmtpPort, const char* pcEmail, const char* pcAuthName, const char* pcAuthPwd);
