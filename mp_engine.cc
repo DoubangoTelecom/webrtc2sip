@@ -373,6 +373,28 @@ bool MPEngine::setDtmfType(const char* pcDtmfType)
 	return true;
 }
 
+bool MPEngine::setStunServer(const char* pcIP, unsigned short nPort, const char* pcUsrName, const char* pcUsrPwd)
+{
+	if(m_oSipStack)
+	{
+		if(isValid())
+		{
+			const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setSTUNServer(pcIP, nPort);
+			const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setSTUNCred(pcUsrName, pcUsrPwd);
+		}
+	}
+	return MediaSessionMgr::defaultsSetStunServer(pcIP, nPort, pcUsrName, pcUsrPwd);
+}
+
+bool MPEngine::setIceStunEnabled(bool bEnabled)
+{
+	if(isValid())
+	{
+		const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setSTUNEnabledForICE(bEnabled);
+	}
+	return MediaSessionMgr::defaultsSetIceStunEnabled(bEnabled);
+}
+
 bool MPEngine::addDNSServer(const char* pcDNSServer)
 {
 	if(!isValid())

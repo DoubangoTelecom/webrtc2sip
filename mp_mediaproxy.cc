@@ -204,11 +204,35 @@ static int parseConfigNode(xmlNode *pNode, MPObjectWrapper<MPEngine*> oEngine)
 						}
 						break;
 					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "stun-server")) // available since 2.5.1
+					{
+						size_t nCount;
+						if((pParams = tsk_params_fromstring((const char*)pCurrNode->content, ";", tsk_true)) && (nCount = mp_list_count(pParams)) >= 2)
+						{
+							const char* pcServerIP = ((const tsk_param_t*)pParams->head->data)->name;
+							const char* pcServerPort = ((const tsk_param_t*)pParams->head->next->data)->name;
+							const char* pcUsrName = (nCount >= 3) ? ((const tsk_param_t*)pParams->head->next->next->data)->name : NULL;
+							const char* pcUsrPwd = (nCount >= 4) ? ((const tsk_param_t*)pParams->head->next->next->next->data)->name : NULL;
+							TSK_DEBUG_INFO("stun-server = %s;%s;-;-", pcServerIP, pcServerPort);
+							if(!oEngine->setStunServer(pcServerIP, atoi(pcServerPort), mp_str_is_star(pcUsrName) ? NULL : pcUsrName, mp_str_is_star(pcUsrPwd) ? NULL : pcUsrPwd))
+							{
+								TSK_DEBUG_ERROR("Failed to set 'stun-server': %s;%s;-;-", pcServerIP, pcServerPort);
+							}
+						}
+					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "enable-icestun")) // available since 2.5.1
+					{
+						const char* pcEnabled = (const char*)pCurrNode->content;
+						TSK_DEBUG_INFO("enable-icestun = %s", pcEnabled);
+						if(!oEngine->setIceStunEnabled(mp_str_is_yes(pcEnabled)))
+						{
+							TSK_DEBUG_ERROR("Failed to set 'enable-icestun': %s", pcEnabled);
+						}
+					}
 					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "nameserver")) // available since 2.0.0
 					{
 						const char* pcDNSServer = (const char*)pCurrNode->content;
 						TSK_DEBUG_INFO("nameserver = %s", pcDNSServer);
-
 						if(!oEngine->addDNSServer(pcDNSServer))
 						{
 							TSK_DEBUG_ERROR("Failed to set 'nameserver': %s", pcDNSServer);
@@ -442,12 +466,15 @@ int main(int argc, char** argv)
 	
 	while(true)
 	{
-		if((quit[i & 3] = getchar()) == 't'){
-			if(quit[(i + 1) & 3] == 'q' && quit[(i + 2) & 3] == 'u' && quit[(i + 3) & 3] == 'i'){
+		if((quit[i & 3] = getchar()) == 't')
+		{
+			if(quit[(i + 1) & 3] == 'q' && quit[(i + 2) & 3] == 'u' && quit[(i + 3) & 3] == 'i')
+			{
 				break;
 			}
 		}
-		
+		// FIXME: https://code.google.com/p/webrtc2sip/issues/detail?id=96
+		tsk_thread_sleep(1);
 		++i;
 	}
 
