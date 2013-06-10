@@ -210,7 +210,6 @@ yum install libxml2-devel
 ===Building webrtc2sip===
 {{{
 export PREFIX=/opt/webrtc2sip
-# use --with-doubango=PATH to set path to the doubango installation (‘lib’ and ‘include’ folders).
 cd webrtc2sip && ./autogen.sh && ./configure --prefix=$PREFIX
 make clean && make && make install
 cp -f ./config.xml $PREFIX/sbin/config.xml
