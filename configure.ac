@@ -26,7 +26,7 @@ AC_PROG_MAKE_SET
 PKG_PROG_PKG_CONFIG
 
 # DOUBANGO MINI REQUIRED VERSION
-AC_SUBST(DOUBANGO_MIN_VER, 2.0.898)
+AC_SUBST(DOUBANGO_MINVER, 2.0.898)
 
 #echo Setting up build environment for ${target_cpu}${target_os}
 
@@ -95,19 +95,19 @@ AC_SUBST(have_tinysms, no)
 AC_SUBST(have_tinymsrp, no)
 AC_SUBST(have_tinyrtp, no)
 AC_SUBST(have_tinyipsec, no) AC_SUBST(TINYIPSEC_LIBS,-ltinyIPSec) AC_SUBST(TINYIPSEC_CFLAGS,-Itinyipsec)
-PKG_CHECK_MODULES(TINYSAK, tinySAK >= ${DOUBANGO_MIN_VER}, AC_SUBST(have_tinysak, yes), AC_MSG_WARN(Cannot find tinySAK >= ${DOUBANGO_MIN_VER} using pkg-config))
-PKG_CHECK_MODULES(TINYNET, tinyNET >= ${DOUBANGO_MIN_VER}, AC_SUBST(have_tinynet, yes), AC_MSG_WARN(Cannot find tinyNET >= ${DOUBANGO_MIN_VER} using pkg-config))
-PKG_CHECK_MODULES(TINYHTTP, tinyHTTP >= ${DOUBANGO_MIN_VER}, AC_SUBST(have_tinyhttp, yes), AC_MSG_WARN(Cannot find tinyHTTP >= ${DOUBANGO_MIN_VER} using pkg-config))
-PKG_CHECK_MODULES(TINYSIP, tinySIP >= ${DOUBANGO_MIN_VER}, AC_SUBST(have_tinysip, yes), AC_MSG_WARN(Cannot find tinySIP >= ${DOUBANGO_MIN_VER} using pkg-config))
-PKG_CHECK_MODULES(TINYDAV, tinyDAV >= ${DOUBANGO_MIN_VER}, AC_SUBST(have_tinydav, yes), AC_MSG_WARN(Cannot find tinyDAV >= ${DOUBANGO_MIN_VER} using pkg-config))
-PKG_CHECK_MODULES(TINYSDP, tinySDP >= ${DOUBANGO_MIN_VER}, AC_SUBST(have_tinysdp, yes), AC_MSG_WARN(Cannot find tinySDP >= ${DOUBANGO_MIN_VER} using pkg-config))
-PKG_CHECK_MODULES(TINYSIGCOMP, tinySIGCOMP >= ${DOUBANGO_MIN_VER}, AC_SUBST(have_tinysigcomp, yes), AC_MSG_WARN(Cannot find tinySIGCOMP >= ${DOUBANGO_MIN_VER} using pkg-config))
-PKG_CHECK_MODULES(TINYMEDIA, tinyMEDIA >= ${DOUBANGO_MIN_VER}, AC_SUBST(have_tinymedia, yes), AC_MSG_WARN(Cannot find tinyMEDIA >= ${DOUBANGO_MIN_VER} using pkg-config))
-PKG_CHECK_MODULES(TINYXCAP, tinyXCAP >= ${DOUBANGO_MIN_VER}, AC_SUBST(have_tinyxcap, yes), AC_MSG_WARN(Cannot find tinyxcap >= ${DOUBANGO_MIN_VER} using pkg-config))
-PKG_CHECK_MODULES(TINYSMS, tinySMS >= ${DOUBANGO_MIN_VER}, AC_SUBST(have_tinysms, yes), AC_MSG_WARN(Cannot find tinySMS >= ${DOUBANGO_MIN_VER} using pkg-config))
-PKG_CHECK_MODULES(TINYMSRP, tinyMSRP >= ${DOUBANGO_MIN_VER}, AC_SUBST(have_tinymsrp, yes), AC_MSG_WARN(Cannot find tinyMSRP >= ${DOUBANGO_MIN_VER} using pkg-config))
-PKG_CHECK_MODULES(TINYRTP, tinyRTP >= ${DOUBANGO_MIN_VER}, AC_SUBST(have_tinyrtp, yes), AC_MSG_WARN(Cannot find tinyRTP >= ${DOUBANGO_MIN_VER} using pkg-config))
-PKG_CHECK_MODULES(TINYIPSEC, tinyIPSec >= ${DOUBANGO_MIN_VER}, AC_SUBST(have_tinyipsec, yes), AC_MSG_WARN(Cannot find tinyIPSec >= ${DOUBANGO_MIN_VER} using pkg-config))
+PKG_CHECK_MODULES(TINYSAK, tinySAK >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinysak, yes), AC_MSG_WARN(Cannot find tinySAK >= ${DOUBANGO_MINVER} using pkg-config))
+PKG_CHECK_MODULES(TINYNET, tinyNET >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinynet, yes), AC_MSG_WARN(Cannot find tinyNET >= ${DOUBANGO_MINVER} using pkg-config))
+PKG_CHECK_MODULES(TINYHTTP, tinyHTTP >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinyhttp, yes), AC_MSG_WARN(Cannot find tinyHTTP >= ${DOUBANGO_MINVER} using pkg-config))
+PKG_CHECK_MODULES(TINYSIP, tinySIP >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinysip, yes), AC_MSG_WARN(Cannot find tinySIP >= ${DOUBANGO_MINVER} using pkg-config))
+PKG_CHECK_MODULES(TINYDAV, tinyDAV >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinydav, yes), AC_MSG_WARN(Cannot find tinyDAV >= ${DOUBANGO_MINVER} using pkg-config))
+PKG_CHECK_MODULES(TINYSDP, tinySDP >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinysdp, yes), AC_MSG_WARN(Cannot find tinySDP >= ${DOUBANGO_MINVER} using pkg-config))
+PKG_CHECK_MODULES(TINYSIGCOMP, tinySIGCOMP >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinysigcomp, yes), AC_MSG_WARN(Cannot find tinySIGCOMP >= ${DOUBANGO_MINVER} using pkg-config))
+PKG_CHECK_MODULES(TINYMEDIA, tinyMEDIA >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinymedia, yes), AC_MSG_WARN(Cannot find tinyMEDIA >= ${DOUBANGO_MINVER} using pkg-config))
+PKG_CHECK_MODULES(TINYXCAP, tinyXCAP >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinyxcap, yes), AC_MSG_WARN(Cannot find tinyxcap >= ${DOUBANGO_MINVER} using pkg-config))
+PKG_CHECK_MODULES(TINYSMS, tinySMS >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinysms, yes), AC_MSG_WARN(Cannot find tinySMS >= ${DOUBANGO_MINVER} using pkg-config))
+PKG_CHECK_MODULES(TINYMSRP, tinyMSRP >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinymsrp, yes), AC_MSG_WARN(Cannot find tinyMSRP >= ${DOUBANGO_MINVER} using pkg-config))
+PKG_CHECK_MODULES(TINYRTP, tinyRTP >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinyrtp, yes), AC_MSG_WARN(Cannot find tinyRTP >= ${DOUBANGO_MINVER} using pkg-config))
+PKG_CHECK_MODULES(TINYIPSEC, tinyIPSec >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinyipsec, yes), AC_MSG_WARN(Cannot find tinyIPSec >= ${DOUBANGO_MINVER} using pkg-config))
 
 if test $have_tinysak:$have_tinynet:$have_tinyhttp:$have_tinysip:$have_tinydav:$have_tinysdp:$have_tinysigcomp:$have_tinymedia:$have_tinyxcap:$have_tinysms:$have_tinymsrp:$have_tinyrtp:$have_tinyipsec != yes:yes:yes:yes:yes:yes:yes:yes:yes:yes:yes:yes:yes ; then
 	AC_MSG_WARN([
