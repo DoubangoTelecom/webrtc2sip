@@ -170,8 +170,10 @@ _Date: December 2, 2012_ <br />
 {{{
 git clone git://source.ffmpeg.org/ffmpeg.git ffmpeg
 cd ffmpeg
+
 # grap a release branch
 git checkout n1.2
+
 # configure source code
 ./configure \
 --extra-cflags="-fPIC" \
@@ -185,6 +187,7 @@ git checkout n1.2
 --enable-gpl \
 \
 --disable-debug
+
 # build and install
 make && make install
 }}}
@@ -197,7 +200,7 @@ make && make install
 }}}
  * Recommended build
 {{{
-cd doubango && ./autogen.sh && ./configure --with-ssl --with-srtp --with-vpx --with-speexdsp --with-ffmpeg --with-opus --with-h264
+cd doubango && ./autogen.sh && ./configure --with-ssl --with-srtp --with-vpx --with-speexdsp --with-ffmpeg --with-opus
 make && make install
 }}}
  * Full build
