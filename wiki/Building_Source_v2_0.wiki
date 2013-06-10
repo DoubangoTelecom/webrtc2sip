@@ -75,7 +75,7 @@ _Date: December 1, 2012_ <br />
 
 You can install the devel packages:
 {{{
-sudo yum install libvpx
+sudo yum install libvpx-devel
 }}}
 Or build the source by yourself:
 {{{
