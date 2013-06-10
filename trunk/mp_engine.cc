@@ -375,14 +375,12 @@ bool MPEngine::setDtmfType(const char* pcDtmfType)
 
 bool MPEngine::setStunServer(const char* pcIP, unsigned short nPort, const char* pcUsrName, const char* pcUsrPwd)
 {
-	if(m_oSipStack)
+	if(isValid())
 	{
-		if(isValid())
-		{
-			const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setSTUNServer(pcIP, nPort);
-			const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setSTUNCred(pcUsrName, pcUsrPwd);
-		}
+		const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setSTUNServer(pcIP, nPort);
+		const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setSTUNCred(pcUsrName, pcUsrPwd);
 	}
+	
 	return MediaSessionMgr::defaultsSetStunServer(pcIP, nPort, pcUsrName, pcUsrPwd);
 }
 
