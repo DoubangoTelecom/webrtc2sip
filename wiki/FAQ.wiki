@@ -12,6 +12,7 @@ We receive tens of messages on our dev-groups and private mailboxes every day. W
 If the report is about building issues:
  * Attach _config.log_ files for both Doubango and webrtc2sip
 you _should_ also:
+ * Provide the network (Wireshark) capture at the server-side
  * Provide the browser logs.
 
 == Address already in use ==
