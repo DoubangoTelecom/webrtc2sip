@@ -13,6 +13,13 @@ tcpkill -i eth0 port XXXX
 # By default webrtc2sip listens on port 10060 and 10062. You should kill both.
 }}}
 
+== I see "Remote party requesting DTLS-DTLS (UDP/TLS/RTP/SAVPF) but this option is not enabled". How can I fix this ==
+DTLS-SRTP is required by some WebRTC implementations (e.g. Firefox). You <b>MUST</b>:
+ # use a new OpenSSL version with support for DTLS-SRTP as explained [Building_Source_v2_0#Building_OpenSSL here]. Linux almost always comes with OpenSSL pre-installed which means building and installing OpenSSL by yourself will most likely duplicate it.
+ # make sure you don't have more than one OpenSSL version installed (look for libssl).
+ # rebuild webrtc2sip and make sure the "CONGRATULATIONS" message says that you have DTLS-SRTP enabled.
+ # make sure you're using SSL certificates in your _config.xml_ (see [http://webrtc2sip.org/technical-guide-1.0.pdf technical documentation] ). DTLS-SRTP requires at least a valid Public Key (could be self signed).
+
 == I see "a=crypto in RTP/AVP, refer to RFC 3711" on my console when calling FreeSWITCH. How can I fix this? ==
 ~~Edit the config.xml file and change the *srtp-mode* from _optional_ to _mandatory_.~~ <br />
 Starting version [http://code.google.com/p/webrtc2sip/wiki/ReleaseNotes#2.1.0 2.1.0], it's no longer required to change config.xml.
