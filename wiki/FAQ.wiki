@@ -3,6 +3,15 @@
 
 <wiki:toc max_depth="2" />
 
+== How to report issue? ==
+We receive tens of messages on our dev-groups or private mails every day. Without a commercial license, we provide a best-effort support on [https://groups.google.com/forum/#!forum/doubango doubango-discuss] and will not spend hours on your issue to understand what's wrong. If you want help, you *must*:
+ * Provide clear technical description of the issue.
+ * Change you _config.xml_ to use INFO debug level.
+ * Attach the logs to the message.
+ * Provide information on the SVN revisions (both Doubango and webrtc2sip).
+you _should_ also:
+ * Provide the browser logs.
+
 == Address already in use ==
 On some Linux distributions, when you try to quickly restart the server then, you can get an error message saying _"the address is already in use"_ even if the process is not active. This happens when the TCP socket enter in *FIN_WAIT* state and pending to be closed by the system. *This is not a bug in webrtc2sip* -we know what _SO_REUSEADDR_ option means ;)-.<br />
 To force the system to close the socket immediately instead of waiting for the timeout to raise (few seconds) you can do the following:
