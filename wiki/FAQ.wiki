@@ -15,6 +15,9 @@ you _should_ also:
  * Provide the network (Wireshark) capture at the server-side
  * Provide the browser logs.
 
+==How to create self-signed SSL certificate?==
+We'd recommend reading [https://groups.google.com/forum/#!topic/doubango/asAfP5ZCgdI this thread].
+
 == Address already in use ==
 On some Linux distributions, when you try to quickly restart the server then, you can get an error message saying _"the address is already in use"_ even if the process is not active. This happens when the TCP socket enter in *FIN_WAIT* state and pending to be closed by the system. *This is not a bug in webrtc2sip* -we know what _SO_REUSEADDR_ option means ;)-.<br />
 To force the system to close the socket immediately instead of waiting for the timeout to raise (few seconds) you can do the following:
