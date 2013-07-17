@@ -15,7 +15,7 @@ you _should_ also:
  * Provide the network (Wireshark) capture at the server-side
  * Provide the browser logs.
 
-==How to create self-signed SSL certificate?==
+==How to create self-signed SSL certificates?==
 We'd recommend reading [https://groups.google.com/forum/#!topic/doubango/asAfP5ZCgdI this thread].
 
 == Address already in use ==
