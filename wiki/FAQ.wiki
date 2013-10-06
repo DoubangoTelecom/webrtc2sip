@@ -25,6 +25,17 @@ DTLS-SRTP is required by some WebRTC implementations (e.g. Firefox). You <b>MUST
  # rebuild webrtc2sip and make sure the "CONGRATULATIONS" message says that you have DTLS-SRTP enabled.
  # make sure you're using SSL certificates in your _config.xml_ (see [http://webrtc2sip.org/technical-guide-1.0.pdf technical documentation] ). DTLS-SRTP requires at least a valid Public Key (could be self signed).
 
+== I see "Too many open files" error when I try to connect a client. How can I fix this?==
+On CentOS, Fedora, Redhat and many other Linux ditros the number of sockets an application could open is limited to *1024*. To check your limit:
+{{{
+ulimit -n
+}}}
+For example, to change this limit (*You must be carefully*) to *2048*:
+{{{
+ulimit -n 2048
+# then restart webrtc2sip
+}}}
+
 == I see "a=crypto in RTP/AVP, refer to RFC 3711" on my console when calling FreeSWITCH. How can I fix this? ==
 ~~Edit the config.xml file and change the *srtp-mode* from _optional_ to _mandatory_.~~ <br />
 Starting version [http://code.google.com/p/webrtc2sip/wiki/ReleaseNotes#2.1.0 2.1.0], it's no longer required to change config.xml.
