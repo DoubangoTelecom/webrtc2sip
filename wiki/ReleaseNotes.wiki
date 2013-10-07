@@ -4,7 +4,7 @@
 <wiki:toc max_depth="2" />
 
 ==2.6.0==
- * SVN: 
+ * SVN: 118+
  * Requires Doubango IMS Framework 1002+ or later to be fully featured
  * Date: October 07, 2013
  * Makes the server more robust to DDoS attacks (contacts us for more technical information).
