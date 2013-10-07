@@ -274,7 +274,8 @@ bool MPMailTransportCallback::onConnectionStateChanged(MPObjectWrapper<MPNetPeer
 	{
 		return const_cast<MPMailTransport*>(m_pcTransport)->sendPendingMails();
 	}
-	else{
+	else
+	{
 		// next time we need to authenticate
 		const_cast<MPMailTransport*>(m_pcTransport)->m_bNeedToAuthenticate = true;
 	}

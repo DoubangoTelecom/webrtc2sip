@@ -229,6 +229,15 @@ static int parseConfigNode(xmlNode *pNode, MPObjectWrapper<MPEngine*> oEngine)
 							TSK_DEBUG_ERROR("Failed to set 'enable-icestun': %s", pcEnabled);
 						}
 					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "max-fds")) // available since 2.6.1
+					{
+						const char* pcMaxFds = (const char*)pCurrNode->content;
+						TSK_DEBUG_INFO("max-fds = %s", pcMaxFds);
+						if(!oEngine->setMaxFds(atoi(pcMaxFds)))
+						{
+							TSK_DEBUG_ERROR("Failed to set 'max-fds': %s", pcMaxFds);
+						}
+					}
 					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "nameserver")) // available since 2.0.0
 					{
 						const char* pcDNSServer = (const char*)pCurrNode->content;

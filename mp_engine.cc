@@ -130,7 +130,8 @@ bool MPEngine::addTransport(const char* pTransport, uint16_t nLocalPort, const c
 		return false;
 	}
 
-	if(tsk_striequals(pTransport, "c2c") || tsk_striequals(pTransport, "c2cs")){
+	if(tsk_striequals(pTransport, "c2c") || tsk_striequals(pTransport, "c2cs"))
+	{
 		bool isSecure = tsk_striequals(pTransport, "c2cs");
 		MPObjectWrapper<MPC2CTransport*>oNetTransport = new MPC2CTransport(isSecure, pcLocalIP, nLocalPort);
 		if(!oNetTransport){
@@ -140,7 +141,8 @@ bool MPEngine::addTransport(const char* pTransport, uint16_t nLocalPort, const c
 		m_C2CTransports.push_back(oNetTransport);
 		return true;
 	}
-	else{
+	else
+	{
 		bool bRet = const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setLocalIP(pcLocalIP, pTransport);
 		bRet &= const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setLocalPort(nLocalPort, pTransport);
 		return bRet;
@@ -393,6 +395,23 @@ bool MPEngine::setIceStunEnabled(bool bEnabled)
 	return MediaSessionMgr::defaultsSetIceStunEnabled(bEnabled);
 }
 
+bool MPEngine::setMaxFds(int32_t nMaxFds)
+{
+	if (nMaxFds > 0)
+	{
+		bool ret;
+		if ((ret = MediaSessionMgr::defaultsSetMaxFds(nMaxFds))) 
+		{
+			if(isValid())
+			{
+				ret = const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setMaxFDs(nMaxFds);
+			}
+		}
+		return ret;
+	}
+	return true;
+}
+
 bool MPEngine::addDNSServer(const char* pcDNSServer)
 {
 	if(!isValid())
@@ -590,7 +609,8 @@ bool MPEngine::stop()
 
 	// stop all click2call transports
 	iter = m_C2CTransports.begin();
-	for(; iter != m_C2CTransports.end(); ++iter){
+	for(; iter != m_C2CTransports.end(); ++iter)
+	{
 		ret = (*iter)->stop();
 	}
 
