@@ -26,7 +26,7 @@ AC_PROG_MAKE_SET
 PKG_PROG_PKG_CONFIG
 
 # DOUBANGO MINI REQUIRED VERSION
-AC_SUBST(DOUBANGO_MINVER, 2.0.898)
+AC_SUBST(DOUBANGO_MINVER, 2.0.1002)
 
 #echo Setting up build environment for ${target_cpu}${target_os}
 
@@ -94,7 +94,7 @@ AC_SUBST(have_tinyxcap, no)
 AC_SUBST(have_tinysms, no)
 AC_SUBST(have_tinymsrp, no)
 AC_SUBST(have_tinyrtp, no)
-AC_SUBST(have_tinyipsec, no) AC_SUBST(TINYIPSEC_LIBS,-ltinyIPSec) AC_SUBST(TINYIPSEC_CFLAGS,-Itinyipsec)
+AC_SUBST(have_tinyipsec, no)
 PKG_CHECK_MODULES(TINYSAK, tinySAK >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinysak, yes), AC_MSG_WARN(Cannot find tinySAK >= ${DOUBANGO_MINVER} using pkg-config))
 PKG_CHECK_MODULES(TINYNET, tinyNET >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinynet, yes), AC_MSG_WARN(Cannot find tinyNET >= ${DOUBANGO_MINVER} using pkg-config))
 PKG_CHECK_MODULES(TINYHTTP, tinyHTTP >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinyhttp, yes), AC_MSG_WARN(Cannot find tinyHTTP >= ${DOUBANGO_MINVER} using pkg-config))
