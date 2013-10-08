@@ -19,7 +19,7 @@ you _should_ also:
 We'd recommend reading [https://groups.google.com/forum/#!topic/doubango/asAfP5ZCgdI this thread].
 
 ==How to redirect the output to a file?==
-webrtc2sip logs the messages to sdterr. To redirect the logs to webrtc2sip.log:
+webrtc2sip logs the messages to *sdterr* and *stdout*. To redirect the logs to webrtc2sip.log:
 {{{
 webrtc2sip >webrtc2sip.log 2>&1
 }}}
