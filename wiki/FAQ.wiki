@@ -18,6 +18,12 @@ you _should_ also:
 ==How to create self-signed SSL certificates?==
 We'd recommend reading [https://groups.google.com/forum/#!topic/doubango/asAfP5ZCgdI this thread].
 
+==How to redirect the output to a file?==
+webrtc2sip logs the messages to sdterr. To redirect the logs to webrtc2sip.log:
+{{{
+webrtc2sip >webrtc2sip.log 2>&1
+}}}
+
 == I see "Remote party requesting DTLS-DTLS (UDP/TLS/RTP/SAVPF) but this option is not enabled". How can I fix this ==
 DTLS-SRTP is required by some WebRTC implementations (e.g. Firefox). You <b>MUST</b>:
  # use a new OpenSSL version with support for DTLS-SRTP as explained [Building_Source_v2_0#Building_OpenSSL here]. Linux almost always comes with OpenSSL pre-installed which means building and installing OpenSSL by yourself will most likely duplicate it.
