@@ -448,7 +448,7 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 					}
 
 					// add WebSocket src connection info in the AoR
-					if(TNET_SOCKET_TYPE_IS_WS(pcWrappedMsgLeft->src_net_type) || TNET_SOCKET_TYPE_IS_WS(pcWrappedMsgLeft->src_net_type)){
+					if(TNET_SOCKET_TYPE_IS_WS(pcWrappedMsgLeft->src_net_type) || TNET_SOCKET_TYPE_IS_WSS(pcWrappedMsgLeft->src_net_type)){
 						tnet_ip_t src_ip;
 						tnet_port_t src_port;
 						if(tnet_get_ip_n_port(pcWrappedMsgLeft->local_fd, tsk_false/*remote*/, &src_ip, &src_port) == 0){
