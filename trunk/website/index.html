@@ -92,7 +92,7 @@
               <tr class="spaceUnder"><td><p>
                    The RTCWeb specifications make support for <b>ICE</b> and <b>DTLS/SRTP</b> mandatory. The problem is that many SIP-legacy endpoints (e.g. PSTN network) do not support these features. 
                     It’s up to the RTCWeb Breaker to negotiate and convert the media stream to allow these two worlds to interop. <br />
-                    For example, <b>FreeSWITCH</b> do not support ICE which means it requires the RTCWeb Breaker in order to be able to connect the browser to a SIP-legacy endpoint. <br /> 
+                    For example, if your server doesn't support ICE this means it requires the RTCWeb Breaker in order to be able to connect the browser to a SIP-legacy endpoint. <br /> 
                     We highly recommend checking the <a href="technical-guide-1.0.pdf" target=_blank>Technical Guide</a> to understand how to avoid <b>security issues</b> when using this module.    
                </p></td></tr>
               <tr><td align="center"><img alt="SIP Proxy architecture" src="http://webrtc2sip.googlecode.com/svn/trunk/documentation/images/module_rtcwebbreaker.png"/></td></tr>
