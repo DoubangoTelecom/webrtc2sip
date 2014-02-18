@@ -186,22 +186,6 @@
 				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyIPSec\src\tipsec.c"
 				>
 			</File>
-			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyIPSec\src\tipsec_common.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyIPSec\src\tipsec_racoon.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyIPSec\src\tipsec_vista.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyIPSec\src\tipsec_xp.c"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="include(*.h)"
@@ -212,22 +196,6 @@
 			</File>
 			<File
 				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyIPSec\src\tipsec.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyIPSec\src\tipsec_common.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyIPSec\src\tipsec_racoon.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyIPSec\src\tipsec_vista.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyIPSec\src\tipsec_xp.h"
 				>
 			</File>
 		</Filter>
