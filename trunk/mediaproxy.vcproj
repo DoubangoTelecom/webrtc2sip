@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".;..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\doubango\branches\2.0\Doubango\bindings\_common;..\doubango\branches\2.0\Doubango\tinySAK\src;..\doubango\branches\2.0\Doubango\tinyNET\src;..\doubango\branches\2.0\Doubango\tinyHTTP\include;..\doubango\branches\2.0\Doubango\tinySIP\include;..\doubango\branches\2.0\Doubango\tinyDAV\include;..\doubango\branches\2.0\Doubango\tinySDP\include;..\doubango\branches\2.0\Doubango\tinyMEDIA\include;..\doubango\branches\2.0\Doubango\tinyXCAP\include;..\doubango\branches\2.0\Doubango\tinySMS\include;..\doubango\branches\2.0\Doubango\tinyMSRP\include;..\doubango\branches\2.0\Doubango\tinyRTP\include"
+				AdditionalIncludeDirectories=".;..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\doubango\branches\2.0\Doubango\thirdparties\common\include;..\doubango\branches\2.0\Doubango\thirdparties\common\include\libxml2;..\doubango\branches\2.0\Doubango\bindings\_common;..\doubango\branches\2.0\Doubango\tinySAK\src;..\doubango\branches\2.0\Doubango\tinyNET\src;..\doubango\branches\2.0\Doubango\tinyHTTP\include;..\doubango\branches\2.0\Doubango\tinySIP\include;..\doubango\branches\2.0\Doubango\tinyDAV\include;..\doubango\branches\2.0\Doubango\tinySDP\include;..\doubango\branches\2.0\Doubango\tinyMEDIA\include;..\doubango\branches\2.0\Doubango\tinyXCAP\include;..\doubango\branches\2.0\Doubango\tinySMS\include;..\doubango\branches\2.0\Doubango\tinyMSRP\include;..\doubango\branches\2.0\Doubango\tinyRTP\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;TINYWRAP_EXPORTS;DEBUG_LEVEL=DEBUG_LEVEL_INFO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\libxml\vs_libxml2.dll.a $(OutDir)\tinySAK.lib $(OutDir)\tinySIP.lib $(OutDir)\tinyNET.lib $(OutDir)\tinyDAV.lib $(OutDir)\tinyMEDIA.lib $(OutDir)\tinyHTTP.lib $(OutDir)\tinyXCAP.lib $(OutDir)\tinySMS.lib $(OutDir)\tinyMSRP.lib $(OutDir)\tinySDP.lib $(OutDir)\tinyRTP.lib"
+				AdditionalDependencies="..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\libxml2\libxml2_a.lib $(OutDir)\tinySAK.lib $(OutDir)\tinySIP.lib $(OutDir)\tinyNET.lib $(OutDir)\tinyDAV.lib $(OutDir)\tinyMEDIA.lib $(OutDir)\tinyHTTP.lib $(OutDir)\tinyXCAP.lib $(OutDir)\tinySMS.lib $(OutDir)\tinyMSRP.lib $(OutDir)\tinySDP.lib $(OutDir)\tinyRTP.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
