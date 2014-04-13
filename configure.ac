@@ -26,7 +26,7 @@ AC_PROG_MAKE_SET
 PKG_PROG_PKG_CONFIG
 
 # DOUBANGO MINI REQUIRED VERSION
-AC_SUBST(DOUBANGO_MINVER, 2.0.1003)
+AC_SUBST(DOUBANGO_MINVER, 2.0.1050)
 
 #echo Setting up build environment for ${target_cpu}${target_os}
 
