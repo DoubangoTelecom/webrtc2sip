@@ -212,7 +212,7 @@ if test $have_tinyrtp != yes; then
 fi
 if test $have_tinyipsec != yes; then
 	AC_CHECK_HEADERS(tinyipsec/tinyipsec_config.h, 
-		AC_CHECK_LIB(tinyIPSec, tipsec_context_create, AC_SUBST(have_tinyipsec, yes) , AC_MSG_ERROR(Failed to find libtinyIPSec), [-ltinySAK ${LIBDL}])
+		AC_CHECK_LIB(tinyIPSec, tipsec_ctx_create, AC_SUBST(have_tinyipsec, yes) , AC_MSG_ERROR(Failed to find libtinyIPSec), [-ltinySAK ${LIBDL}])
 	)
 fi
 
