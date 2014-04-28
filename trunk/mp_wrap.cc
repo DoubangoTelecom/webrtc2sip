@@ -313,7 +313,7 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 					if(!oAccount)
 					{
 						TSK_DEBUG_ERROR("Failed to find user account with eamil = %s", pEmail);
-						MP_REJECT_CALL(pCallSessionLeft, 404, "Fail to find user account (click2call operation)");
+						MP_REJECT_CALL(pCallSessionLeft, 404, "Failed to find user account (click2call operation)");
 						goto end_of_new_i_call;
 					}
 					// make sure the account is activated
@@ -332,7 +332,7 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 						if(!oAccountSip)
 						{
 							TSK_DEBUG_ERROR("Failed to find SIP account with address = %s", pcSipAddress64);
-							MP_REJECT_CALL(pCallSessionLeft, 404, "Fail to find SIP address (click2call operation)");
+							MP_REJECT_CALL(pCallSessionLeft, 404, "Failed to find SIP address (click2call operation)");
 							goto end_of_new_i_call;
 						}
 					}
@@ -344,7 +344,7 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 					if(!oDstUri.isValid())
 					{
 						TSK_DEBUG_ERROR("Failed to parse SIP address = %s", pDstUri);
-						MP_REJECT_CALL(pCallSessionLeft, 483, "Fail to parse SIP address (click2call operation)");
+						MP_REJECT_CALL(pCallSessionLeft, 483, "Failed to parse SIP address (click2call operation)");
 						goto end_of_new_i_call;
 					}
 
@@ -358,7 +358,7 @@ int MPSipCallback::OnInviteEvent(const InviteEvent* e)
 						if(!oAccountSipCaller)
 						{
 							TSK_DEBUG_ERROR("Failed to find SIP caller for domain = %s", oDstUri.getHost());
-							MP_REJECT_CALL(pCallSessionLeft, 404, "Fail to find SIP caller account (click2call operation)");
+							MP_REJECT_CALL(pCallSessionLeft, 404, "Failed to find SIP caller account (click2call operation)");
 							goto end_of_new_i_call;
 						}
 					}
