@@ -81,6 +81,7 @@ void MPProxyPluginMgr::initialize()
 		// NATT traversal options
 		MediaSessionMgr::defaultsSetRtpSymetricEnabled(true);
 		MediaSessionMgr::defaultsSetIceEnabled(true);
+		MediaSessionMgr::defaultsSetIceTurnEnabled(false);
 
 		// enlarge AVPF tail to honor more RTCP-NACK requests
 		MediaSessionMgr::defaultsSetAvpfTail(100, 400);
