@@ -229,11 +229,27 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\doubango\branches\2.0\doubango\tinyNET\src\stun\tnet_stun_attr.c"
+					>
+				</File>
+				<File
 					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyNET\src\stun\tnet_stun_attribute.c"
 					>
 				</File>
 				<File
+					RelativePath="..\..\doubango\branches\2.0\doubango\tinyNET\src\stun\tnet_stun_binding.c"
+					>
+				</File>
+				<File
 					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyNET\src\stun\tnet_stun_message.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\doubango\branches\2.0\doubango\tinyNET\src\stun\tnet_stun_pkt.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\doubango\branches\2.0\doubango\tinyNET\src\stun\tnet_stun_utils.c"
 					>
 				</File>
 			</Filter>
@@ -245,11 +261,19 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\doubango\branches\2.0\doubango\tinyNET\src\turn\tnet_turn_attr.c"
+					>
+				</File>
+				<File
 					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyNET\src\turn\tnet_turn_attribute.c"
 					>
 				</File>
 				<File
 					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyNET\src\turn\tnet_turn_message.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\doubango\branches\2.0\doubango\tinyNET\src\turn\tnet_turn_session.c"
 					>
 				</File>
 			</Filter>

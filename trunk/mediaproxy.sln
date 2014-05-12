@@ -99,6 +99,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tinyXCAP", "doubango\tinyXC
 		{6BC9B796-10C6-4CF7-A6E4-E2DACCDA84DA} = {6BC9B796-10C6-4CF7-A6E4-E2DACCDA84DA}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tinyBFCP", "doubango\tinyBFCP.vcproj", "{78605D89-4D51-41AC-AFE2-061B4CAB81F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -219,6 +221,14 @@ Global
 		{570CF33D-E65F-448F-8AC2-F9AE2F23152F}.Static_Debug|Win32.Build.0 = Debug|Win32
 		{570CF33D-E65F-448F-8AC2-F9AE2F23152F}.Static_Release|Win32.ActiveCfg = Release|Win32
 		{570CF33D-E65F-448F-8AC2-F9AE2F23152F}.Static_Release|Win32.Build.0 = Release|Win32
+		{78605D89-4D51-41AC-AFE2-061B4CAB81F1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{78605D89-4D51-41AC-AFE2-061B4CAB81F1}.Debug|Win32.Build.0 = Debug|Win32
+		{78605D89-4D51-41AC-AFE2-061B4CAB81F1}.Release|Win32.ActiveCfg = Release|Win32
+		{78605D89-4D51-41AC-AFE2-061B4CAB81F1}.Release|Win32.Build.0 = Release|Win32
+		{78605D89-4D51-41AC-AFE2-061B4CAB81F1}.Static_Debug|Win32.ActiveCfg = Debug|Win32
+		{78605D89-4D51-41AC-AFE2-061B4CAB81F1}.Static_Debug|Win32.Build.0 = Debug|Win32
+		{78605D89-4D51-41AC-AFE2-061B4CAB81F1}.Static_Release|Win32.ActiveCfg = Release|Win32
+		{78605D89-4D51-41AC-AFE2-061B4CAB81F1}.Static_Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

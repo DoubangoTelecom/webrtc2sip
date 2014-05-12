@@ -383,7 +383,9 @@ bool MPEngine::setStunServer(const char* pcIP, unsigned short nPort, const char*
 		const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setSTUNCred(pcUsrName, pcUsrPwd);
 	}
 	
-	return MediaSessionMgr::defaultsSetStunServer(pcIP, nPort, pcUsrName, pcUsrPwd);
+	return MediaSessionMgr::defaultsSetStunServer(pcIP, nPort) 
+		&& 
+		MediaSessionMgr::defaultsSetStunCred(pcUsrName, pcUsrPwd);
 }
 
 bool MPEngine::setIceStunEnabled(bool bEnabled)
