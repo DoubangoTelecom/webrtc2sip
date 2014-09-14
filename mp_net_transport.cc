@@ -204,6 +204,7 @@ int MPNetTransport::MPNetTransportCb_Stream(const tnet_transport_event_t* e)
 	switch(e->type)
 	{	
 		case event_closed:
+		case event_removed:
 			{
 				oPeer = (This)->getPeerByFd(e->local_fd);
 				if(oPeer)
