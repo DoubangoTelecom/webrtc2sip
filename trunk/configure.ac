@@ -88,6 +88,7 @@ AC_SUBST(have_tinyhttp, no)
 AC_SUBST(have_tinysip, no)
 AC_SUBST(have_tinydav, no)
 AC_SUBST(have_tinysdp, no)
+AC_SUBST(have_tinybfcp, no)
 AC_SUBST(have_tinysigcomp, no)
 AC_SUBST(have_tinymedia, no)
 AC_SUBST(have_tinyxcap, no)
@@ -101,6 +102,7 @@ PKG_CHECK_MODULES(TINYHTTP, tinyHTTP >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinyht
 PKG_CHECK_MODULES(TINYSIP, tinySIP >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinysip, yes), AC_MSG_WARN(Cannot find tinySIP >= ${DOUBANGO_MINVER} using pkg-config))
 PKG_CHECK_MODULES(TINYDAV, tinyDAV >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinydav, yes), AC_MSG_WARN(Cannot find tinyDAV >= ${DOUBANGO_MINVER} using pkg-config))
 PKG_CHECK_MODULES(TINYSDP, tinySDP >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinysdp, yes), AC_MSG_WARN(Cannot find tinySDP >= ${DOUBANGO_MINVER} using pkg-config))
+PKG_CHECK_MODULES(TINYBFCP, tinyBFCP >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinybfcp, yes), AC_MSG_WARN(Cannot find tinyBFCP >= ${DOUBANGO_MINVER} using pkg-config))
 PKG_CHECK_MODULES(TINYSIGCOMP, tinySIGCOMP >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinysigcomp, yes), AC_MSG_WARN(Cannot find tinySIGCOMP >= ${DOUBANGO_MINVER} using pkg-config))
 PKG_CHECK_MODULES(TINYMEDIA, tinyMEDIA >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinymedia, yes), AC_MSG_WARN(Cannot find tinyMEDIA >= ${DOUBANGO_MINVER} using pkg-config))
 PKG_CHECK_MODULES(TINYXCAP, tinyXCAP >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinyxcap, yes), AC_MSG_WARN(Cannot find tinyxcap >= ${DOUBANGO_MINVER} using pkg-config))
@@ -109,7 +111,7 @@ PKG_CHECK_MODULES(TINYMSRP, tinyMSRP >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinyms
 PKG_CHECK_MODULES(TINYRTP, tinyRTP >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinyrtp, yes), AC_MSG_WARN(Cannot find tinyRTP >= ${DOUBANGO_MINVER} using pkg-config))
 PKG_CHECK_MODULES(TINYIPSEC, tinyIPSec >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinyipsec, yes), AC_MSG_WARN(Cannot find tinyIPSec >= ${DOUBANGO_MINVER} using pkg-config))
 
-if test $have_tinysak:$have_tinynet:$have_tinyhttp:$have_tinysip:$have_tinydav:$have_tinysdp:$have_tinysigcomp:$have_tinymedia:$have_tinyxcap:$have_tinysms:$have_tinymsrp:$have_tinyrtp:$have_tinyipsec != yes:yes:yes:yes:yes:yes:yes:yes:yes:yes:yes:yes:yes ; then
+if test $have_tinysak:$have_tinynet:$have_tinyhttp:$have_tinysip:$have_tinydav:$have_tinysdp:$have_tinybfcp:$have_tinysigcomp:$have_tinymedia:$have_tinyxcap:$have_tinysms:$have_tinymsrp:$have_tinyrtp:$have_tinyipsec != yes:yes:yes:yes:yes:yes:yes:yes:yes:yes:yes:yes:yes ; then
 	AC_MSG_WARN([
 ***
 *** Failed to find all DOUBANGO libraries using pkg-config.
@@ -141,6 +143,7 @@ AC_SUBST(TINYHTTP_LIBS,-ltinyHTTP) AC_SUBST(TINYHTTP_CFLAGS,-I${DOUBANGO_INCLUDE
 AC_SUBST(TINYSIP_LIBS,-ltinySIP) AC_SUBST(TINYSIP_CFLAGS,-I${DOUBANGO_INCLUDES_PATH}/tinysip)
 AC_SUBST(TINYDAV_LIBS,-ltinyDAV) AC_SUBST(TINYDAV_CFLAGS,-I${DOUBANGO_INCLUDES_PATH}/tinydav)
 AC_SUBST(TINYSDP_LIBS,-ltinySDP) AC_SUBST(TINYSDP_CFLAGS,-I${DOUBANGO_INCLUDES_PATH}/tinysdp)
+AC_SUBST(TINYBFCP_LIBS,-ltinyBFCP) AC_SUBST(TINYBFCP_CFLAGS,-I${DOUBANGO_INCLUDES_PATH}/tinybfcp)
 AC_SUBST(TINYSIGCOMP_LIBS,-ltinySIGCOMP) AC_SUBST(TINYSIGCOMP_CFLAGS,-I${DOUBANGO_INCLUDES_PATH}/tinysigcomp)
 AC_SUBST(TINYMEDIA_LIBS,-ltinyMEDIA) AC_SUBST(TINYMEDIA_CFLAGS,-I${DOUBANGO_INCLUDES_PATH}/tinymedia)
 AC_SUBST(TINYXCAP_LIBS,-ltinyXCAP) AC_SUBST(TINYXCAP_CFLAGS,-I${DOUBANGO_INCLUDES_PATH}/tinyxcap)
@@ -178,6 +181,11 @@ fi
 if test $have_tinysdp != yes; then
 	AC_CHECK_HEADERS(tinysdp/tinysdp_config.h, 
 		AC_CHECK_LIB(tinySDP, tsdp_message_create, AC_SUBST(have_tinysdp, yes), AC_MSG_ERROR(Failed to find libtinySDP), [-ltinySAK ${LIBDL}])
+	)
+fi
+if test $have_tinybfcp != yes; then
+	AC_CHECK_HEADERS(tinybfcp/tinybfcp_config.h, 
+		AC_CHECK_LIB(tinyBFCP, tbfcp_pkt_create, AC_SUBST(have_tinybfcp, yes), AC_MSG_ERROR(Failed to find libtinyBFCP), [-ltinySAK -ltinyNET ${LIBDL}])
 	)
 fi
 if test $have_tinysigcomp != yes; then
@@ -273,6 +281,7 @@ DOUBANGO
      TINYSIP:                ${have_tinysip}
      TINYDAV:                ${have_tinydav}
      TINYSDP:                ${have_tinysdp}
+     TINYBFCP:               ${have_tinybfcp}
      TINYSIGCOMP:            ${have_tinysigcomp}
      TINYMEDIA:              ${have_tinymedia}
      TINYMEDIA:              ${have_tinyxcap}
