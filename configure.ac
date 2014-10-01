@@ -111,7 +111,7 @@ PKG_CHECK_MODULES(TINYMSRP, tinyMSRP >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinyms
 PKG_CHECK_MODULES(TINYRTP, tinyRTP >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinyrtp, yes), AC_MSG_WARN(Cannot find tinyRTP >= ${DOUBANGO_MINVER} using pkg-config))
 PKG_CHECK_MODULES(TINYIPSEC, tinyIPSec >= ${DOUBANGO_MINVER}, AC_SUBST(have_tinyipsec, yes), AC_MSG_WARN(Cannot find tinyIPSec >= ${DOUBANGO_MINVER} using pkg-config))
 
-if test $have_tinysak:$have_tinynet:$have_tinyhttp:$have_tinysip:$have_tinydav:$have_tinysdp:$have_tinybfcp:$have_tinysigcomp:$have_tinymedia:$have_tinyxcap:$have_tinysms:$have_tinymsrp:$have_tinyrtp:$have_tinyipsec != yes:yes:yes:yes:yes:yes:yes:yes:yes:yes:yes:yes:yes ; then
+if test $have_tinysak:$have_tinynet:$have_tinyhttp:$have_tinysip:$have_tinydav:$have_tinysdp:$have_tinybfcp:$have_tinysigcomp:$have_tinymedia:$have_tinyxcap:$have_tinysms:$have_tinymsrp:$have_tinyrtp:$have_tinyipsec != yes:yes:yes:yes:yes:yes:yes:yes:yes:yes:yes:yes:yes:yes ; then
 	AC_MSG_WARN([
 ***
 *** Failed to find all DOUBANGO libraries using pkg-config.
