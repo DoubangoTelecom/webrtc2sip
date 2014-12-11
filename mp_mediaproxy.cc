@@ -1,4 +1,4 @@
-/* Copyright (C) 2012-2013 Doubango Telecom <http://www.doubango.org>
+/* Copyright (C) 2012-2015 Doubango Telecom <http://www.doubango.org>
 /* Copyright (C) 2012 Diop Mamadou Ibrahima
 *
 * This file is part of Open Source 'webrtc2sip' project 
@@ -445,10 +445,10 @@ int main(int argc, char** argv)
 {
 	bool bRet;
 	int iRet, i = 0;
-	char quit[4];
+	char command[1024] = { 0 };
 
 	printf("*******************************************************************\n"
-		"Copyright (C) 2012-2013 Doubango Telecom <http://www.doubango.org>\n"
+		"Copyright (C) 2012-2015 Doubango Telecom <http://www.doubango.org>\n"
 		"PRODUCT: webrtc2sip\n"
 		"HOME PAGE: http://webrtc2sip.org\n"
 		"LICENCE: GPLv3 or proprietary\n"
@@ -458,35 +458,28 @@ int main(int argc, char** argv)
 		, WEBRTC2SIP_VERSION_STRING);
 
 	// parse command arguments
-	if((iRet = parseArguments(argc, argv)) != 0){
+	if ((iRet = parseArguments(argc, argv)) != 0) {
 		return iRet;
 	}
 	// create engine
 	MPObjectWrapper<MPEngine*> oEngine = MPEngine::New();
 	// parse "config.xml" file
-	if((iRet = parseConfigRoot(oEngine, sConfigXmlPath)))
-	{
+	if ((iRet = parseConfigRoot(oEngine, sConfigXmlPath))) {
 		return iRet;
 	}	
-	if(!(bRet = oEngine->start()))
-	{
+	if (!(bRet = oEngine->start())) {
 		exit (-1);
 	}
-	
-	while(true)
-	{
-		if((quit[i & 3] = getchar()) == 't')
-		{
-			if(quit[(i + 1) & 3] == 'q' && quit[(i + 2) & 3] == 'u' && quit[(i + 3) & 3] == 'i')
-			{
-				break;
-			}
-		}
+
+	while (fgets(command, sizeof(command), stdin) != NULL) {
+		if (strnicmp(command, "quit", 4) == 0) {
+            printf("+++ quit() +++");
+            break;
+        }
 		// FIXME: https://code.google.com/p/webrtc2sip/issues/detail?id=96
 		tsk_thread_sleep(1);
-		++i;
 	}
-
+	
 	oEngine->stop();
 
 	return 0;
