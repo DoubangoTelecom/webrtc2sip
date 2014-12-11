@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="mediaproxy"
 	ProjectGUID="{19B6D461-7CB9-474F-B7F2-E2DA49904A6B}"
 	RootNamespace="mediaproxy"
@@ -63,6 +63,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\libxml2\libxml2_a.lib $(OutDir)\tinySAK.lib $(OutDir)\tinySIP.lib $(OutDir)\tinyNET.lib $(OutDir)\tinyDAV.lib $(OutDir)\tinyMEDIA.lib $(OutDir)\tinyHTTP.lib $(OutDir)\tinyXCAP.lib $(OutDir)\tinySMS.lib $(OutDir)\tinyMSRP.lib $(OutDir)\tinySDP.lib $(OutDir)\tinyRTP.lib"
 				LinkIncremental="2"
+				IgnoreDefaultLibraryNames="MSVCRT;LIBCMTD;LIBCMT"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"

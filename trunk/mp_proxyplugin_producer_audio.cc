@@ -1,4 +1,4 @@
-/* Copyright (C) 2012 Doubango Telecom <http://www.doubango.org>
+/* Copyright (C) 2012-2015 Doubango Telecom <http://www.doubango.org>
 *
 * This file is part of Open Source 'webrtc2sip' project 
 * <http://code.google.com/p/webrtc2sip/>
