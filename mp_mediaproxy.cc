@@ -472,7 +472,7 @@ int main(int argc, char** argv)
 	}
 
 	while (fgets(command, sizeof(command), stdin) != NULL) {
-		if (strnicmp(command, "quit", 4) == 0) {
+		if (tsk_strnicmp(command, "quit", 4) == 0) {
             printf("+++ quit() +++");
             break;
         }
