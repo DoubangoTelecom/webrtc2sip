@@ -18,7 +18,7 @@ sudo yum install make libtool autoconf subversion git cvs wget libogg-devel gcc 
 Doubango is an IMS framework and contains all signaling protocols (SIP, SDP, WebSocket…) and media engine (RTP stack, audio/video codecs…) required by *webrtc2sip* gateway.<br />
 The first step is to checkout Doubango 2.0 source code:
 {{{
-svn checkout http://doubango.googlecode.com/svn/branches/2.0/doubango doubango
+svn checkout https://doubango.googlecode.com/svn/branches/2.0/doubango doubango
 }}}
 
 ===Building libsrtp===
@@ -227,7 +227,7 @@ make && make install
 *webrtc2sip* depends on Doubango IMS Framework v2.0 and *libxml2*.<br />
 The first step is to checkout the source code:
 {{{
-svn co http://webrtc2sip.googlecode.com/svn/trunk/ webrtc2sip
+svn co https://webrtc2sip.googlecode.com/svn/trunk/ webrtc2sip
 }}}
 
 ===Installing libxml2===
