@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="tinyNET"
 	ProjectGUID="{7522A458-92F4-4259-B906-E84C2A65D9F1}"
 	RootNamespace="tinyNET"
@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\tinyNET\src;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src"
+				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\tinyNET\src;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\thirdparties\common\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src"
 				PreprocessorDefinitions="DEBUG_LEVEL=DEBUG_LEVEL_INFO;HAVE_OPENSSL=1;WIN32;_WIN32_WINNT=0x0501;_DEBUG;_WINDOWS;_USRDLL;TINYNET_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -118,7 +118,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="false"
-				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\tinyNET\src;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src"
+				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\tinyNET\src;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\thirdparties\common\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src"
 				PreprocessorDefinitions="HAVE_OPENSSL=1;WIN32;NDEBUG;_WINDOWS;_USRDLL;TINYNET_EXPORTS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="false"
@@ -195,6 +195,18 @@
 			</File>
 			<File
 				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyNET\src\tnet_poll.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\doubango\branches\2.0\doubango\tinyNET\src\tnet_proxy_node_socks_plugin.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\doubango\branches\2.0\doubango\tinyNET\src\tnet_proxy_plugin.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\doubango\branches\2.0\doubango\tinyNET\src\tnet_proxydetect.c"
 				>
 			</File>
 			<File

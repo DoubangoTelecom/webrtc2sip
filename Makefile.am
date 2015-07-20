@@ -56,6 +56,7 @@ webrtc2sip_SOURCES  = \
 	mp_proxyplugin_mgr.cc\
 	mp_proxyplugin_producer_audio.cc\
 	mp_proxyplugin_producer_video.cc\
+	mp_recaptcha.cc\
 	mp_session.cc\
 	mp_session_av.cc\
 	mp_wrap.cc

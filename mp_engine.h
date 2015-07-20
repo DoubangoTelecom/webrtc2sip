@@ -26,6 +26,7 @@
 #include "mp_peer.h"
 #include "mp_c2c.h"
 #include "mp_mail.h"
+#include "mp_recaptcha.h"
 #include "db/mp_db.h"
 #include "db/mp_db_model.h"
 
@@ -67,6 +68,8 @@ public:
 	virtual bool setMaxFds(int32_t nMaxFds);
 	virtual bool addDNSServer(const char* pcDNSServer);
 	virtual bool setDbInfo(const char* pcDbType, const char* pcDbConnectionInfo);
+	virtual bool setHttpDomain(const char* pcC2CHttpDomain);
+	virtual bool setRecaptchaInfo(const char* pcSiteVerifyUrl, const char* pcSecret);
 	virtual bool setMailAccountInfo(const char* pcScheme, const char* pcLocalIP, unsigned short nLocalPort, const char* pcSmtpHost, unsigned short nSmtpPort, const char* pcEmail, const char* pcAuthName, const char* pcAuthPwd);
 	virtual bool addAccountSipCaller(const char* pcDisplayName, const char* pcImpu, const char* pcImpi, const char* pcRealm, const char* pcPassword);
 	virtual MPObjectWrapper<MPDbAccountSipCaller*> findAccountSipCallerByRealm(const char* pcRealm);
@@ -95,6 +98,7 @@ private:
 	std::map<uint64_t, MPObjectWrapper<MPPeer*> > m_Peers;
 	std::list<MPObjectWrapper<MPC2CTransport*> > m_C2CTransports;
 	MPObjectWrapper<MPMailTransport*> m_oMailTransport;
+	MPObjectWrapper<MPRecaptchaTransport*> m_oRecaptchaTransport;
 	MPObjectWrapper<MPMutex*> m_oMutexPeers;
 	std::list<MPObjectWrapper<MPDbAccountSipCaller*> > m_oAccountSipCallers;
 
@@ -106,6 +110,8 @@ private:
 	} m_SSL;
 
 	char* m_pDtmfType;
+
+	char* m_pC2CHttpDomain;
 
 	bool m_bStarted;
 	bool m_bValid;

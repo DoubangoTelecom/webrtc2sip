@@ -890,6 +890,34 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="directx"
+					>
+					<File
+						RelativePath="..\..\doubango\branches\2.0\doubango\tinyDAV\src\video\directx\tdav_producer_screencast_d3d9.cxx"
+						>
+					</File>
+					<File
+						RelativePath="..\..\doubango\branches\2.0\doubango\tinyDAV\src\video\directx\tdav_producer_screencast_ddraw.cxx"
+						>
+						<FileConfiguration
+							Name="Debug|Win32"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+								CompileAs="2"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release|Win32"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+								CompileAs="2"
+							/>
+						</FileConfiguration>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="msrp"

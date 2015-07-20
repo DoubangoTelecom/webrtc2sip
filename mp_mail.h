@@ -77,7 +77,10 @@ public:
 	MPMailTransport(bool isSecure, const char* pcLocalIP, unsigned short nLocalPort, const char* pcSmtpHost, unsigned short nSmtpPort, const char* pcEmail, const char* pcAuthName, const char* pcAuthPwd);
 	virtual ~MPMailTransport();
 	virtual MP_INLINE const char* getObjectId() { return "MPMailTransport"; }
+	virtual bool setHttpDomain(const char* pcHttpDomain);
 	virtual bool sendMail(const char* pcDstMailAddr, const char* pcSubject, const void* pcDataPr, size_t nDataSize, const char* pcSrcMailAddr = NULL);
+
+	virtual MP_INLINE const char* getHttpDomain() { return m_pHttpDomain; }
 
 private:
 	bool sendMail(MPObjectWrapper<MPMail*> oMail);
@@ -87,6 +90,7 @@ private:
 	MPObjectWrapper<MPMailTransportCallback*> m_oCallback;
 	bool m_bConnectToPending;
 	char* m_pSmtpHost;
+	char* m_pHttpDomain;
 	unsigned short m_nSmtpPort;
 	char* m_pEmail;
 	char* m_pAuthName64;

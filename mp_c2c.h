@@ -23,6 +23,7 @@
 #include "mp_net_transport.h"
 #include "db/mp_db.h"
 #include "mp_mail.h"
+#include "mp_recaptcha.h"
 
 namespace webrtc2sip {
 
@@ -66,28 +67,47 @@ private:
 };
 
 //
+// MPC2CRecaptchaValidationCallback
+//
+class MPC2CRecaptchaValidationCallback: public MPRecaptchaValidationCallback
+{
+public:
+	MPC2CRecaptchaValidationCallback(const MPC2CTransport* pcTransport);
+	virtual ~MPC2CRecaptchaValidationCallback();
+	virtual MP_INLINE const char* getObjectId() { return "MPC2CRecaptchaValidationCallback"; }
+	virtual bool onValidationEvent(bool bSucess, MPObjectWrapper<MPRecaptcha*> oRecaptcha);
+private:
+	const MPC2CTransport* m_pcTransport;
+};
+
+//
 //	MPC2CTransport
 //
 class MPC2CTransport : public MPNetTransport
 {
 	friend class MPC2CTransportCallback;
+	friend class MPC2CRecaptchaValidationCallback;
 public:
 	MPC2CTransport(bool isSecure, const char* pcLocalIP, unsigned short nLocalPort);
 	virtual ~MPC2CTransport();
 	virtual MP_INLINE const char* getObjectId() { return "MPC2CTransport"; }
 	virtual void setDb(MPObjectWrapper<MPDb*> oDb);
 	virtual void setMailTransport(MPObjectWrapper<MPMailTransport*> oMailTransport);
+	virtual void setRecaptchaTransport(MPObjectWrapper<MPRecaptchaTransport*> oRecaptchaTransport);
 
 private:
 	MPObjectWrapper<MPData*> serializeAccount(const char* pcActionId, MPObjectWrapper<MPDbAccount*> oAccount)const;
-	MPObjectWrapper<MPC2CResult*> handleJsonContent(const void* pcDataPtr, size_t nDataSize)const;
+	MPObjectWrapper<MPC2CResult*> handleJsonContent(MPNetFd nFd, const void* pcDataPtr, size_t nDataSize)const;
+	MPObjectWrapper<MPC2CResult*> addAccountAndSendActivationMail(const char* pcEmail, const char* pcName)const;
 	bool sendActivationMail(const char* pcEmail, const char* pcName, const char* pcActivationCode, const char* pcPassword)const;
 	bool sendResult(MPObjectWrapper<MPNetPeer*> oPeer, MPObjectWrapper<MPC2CResult*> oResult)const;
 
 private:
 	MPObjectWrapper<MPC2CTransportCallback*> m_oCallback;
+	MPObjectWrapper<MPC2CRecaptchaValidationCallback*> m_oRecaptchaValidationCallback;
 	MPObjectWrapper<MPDb*> m_oDb;
 	MPObjectWrapper<MPMailTransport*> m_oMailTransport;
+	MPObjectWrapper<MPRecaptchaTransport*> m_oRecaptchaTransport;
 	static uint64_t s_nAccountsCount;
 };
 
