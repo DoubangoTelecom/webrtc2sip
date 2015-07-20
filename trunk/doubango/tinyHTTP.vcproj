@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="tinyHTTP"
 	ProjectGUID="{B3E45009-C7C3-4090-837C-2D30C9058443}"
 	RootNamespace="tinyHTTP"
@@ -195,6 +195,10 @@
 			</File>
 			<File
 				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\thttp_message.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\doubango\branches\2.0\doubango\tinyHTTP\src\thttp_proxy_node_plugin.c"
 				>
 			</File>
 			<File

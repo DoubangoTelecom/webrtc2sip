@@ -45,5 +45,7 @@
   <database>sqlite;*</database>
   <!--account-mail>smtps;*;*;auth.smtp.1and1.fr;465;noreply@example.com;noreply@example.com;mysecret</account-mail-->
   <!--account-sip-caller>*;sip:a@example.com;a;example.com;mysecret</account-sip-caller-->
+  <!--account-http-domain>click2dial.org</account-http-domain-->
+  <!--account-recaptcha>https://www.google.com/recaptcha/api/siteverify;your-secret-here</account-recaptcha-->
 
 </config>

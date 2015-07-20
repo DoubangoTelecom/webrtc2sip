@@ -230,6 +230,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\mp_recaptcha.cc"
+				>
+			</File>
+			<File
 				RelativePath=".\mp_session.cc"
 				>
 			</File>
@@ -416,6 +420,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\mp_recaptcha.h"
+				>
+			</File>
+			<File
 				RelativePath=".\mp_session.h"
 				>
 			</File>
@@ -561,6 +569,22 @@
 		<File
 			RelativePath=".\config.xml"
 			>
+			<FileConfiguration
+				Name="Debug|Win32"
+				ExcludedFromBuild="true"
+				>
+				<Tool
+					Name="VCCustomBuildTool"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Release|Win32"
+				ExcludedFromBuild="true"
+				>
+				<Tool
+					Name="VCCustomBuildTool"
+				/>
+			</FileConfiguration>
 		</File>
 	</Files>
 	<Globals>

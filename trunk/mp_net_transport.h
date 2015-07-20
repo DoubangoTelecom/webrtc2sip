@@ -136,6 +136,7 @@ public:
 	virtual MP_INLINE bool isValid(){ return m_bValid; }
 	virtual MP_INLINE void setCallback(MPObjectWrapper<MPNetTransportCallback*> oCallback) { m_oCallback = oCallback; }
 
+	virtual bool setAllowedRemoteHost(const char* pcAllowedRemoteHost);
 	virtual bool setSSLCertificates(const char* pcPrivateKey, const char* pcPublicKey, const char* pcCA, bool bVerify = false);
 	virtual bool start();
 	virtual MPNetFd connectTo(const char* pcHost, unsigned short nPort);
@@ -143,19 +144,21 @@ public:
 	virtual bool sendData(MPNetFd nFdFrom, const void* pcDataPtr, size_t nDataSize);
 	virtual bool stop();
 
-private:
+protected:
 	MPObjectWrapper<MPNetPeer*> getPeerByFd(MPNetFd nFd);
 	void insertPeer(MPObjectWrapper<MPNetPeer*> oPeer);
 	void removePeer(MPNetFd nFd);
+	bool havePeer(MPNetFd nFd);
 	static int MPNetTransportCb_Stream(const tnet_transport_event_t* e);
 
 protected:
 	tnet_transport_handle_t* m_pWrappedTransport;
 	MPNetTransporType_t m_eType;
-	bool m_bValid, m_bStarted;
+	bool m_bValid, m_bStarted, m_bIPv6;
 	std::map<MPNetFd, MPObjectWrapper<MPNetPeer*> > m_Peers;
 	MPObjectWrapper<MPNetTransportCallback*> m_oCallback;
 	tsk_mutex_handle_t *m_pWrappedPeersMutex;
+	char* m_pAllowedRemoteHost;
 };
 
 

@@ -18,6 +18,10 @@
 */
 #include "mp_net_transport.h"
 
+#include "tsk_string.h"
+#include "tsk_memory.h"
+#include "tsk_debug.h"
+
 #include <assert.h>
 
 #if !defined(kMPMaxStreamBufferSize)
@@ -47,30 +51,31 @@ bool MPNetPeer::sendData(const void* pcDataPtr, size_t nDataSize)
 MPNetTransport::MPNetTransport(MPNetTransporType_t eType, const char* pcLocalIP, unsigned short nLocalPort)
 : m_bValid(false)
 , m_bStarted(false)
+, m_bIPv6(false)
 , m_pWrappedPeersMutex(NULL)
+, m_pAllowedRemoteHost(NULL)
 {
 	m_eType = eType;
 	const char *pcDescription;
 	tnet_socket_type_t eSocketType;
-	bool bIsIPv6 = false;
 	
 	if(pcLocalIP && nLocalPort)
 	{
-		bIsIPv6 = (tnet_get_family(pcLocalIP, nLocalPort) == AF_INET6);
+		m_bIPv6 = (tnet_get_family(pcLocalIP, nLocalPort) == AF_INET6);
 	}
 
 	switch(eType)
 	{
 		case MPNetTransporType_TCP:
 			{
-				pcDescription = bIsIPv6 ? "TCP/IPv6 transport" : "TCP/IPv4 transport";
-				eSocketType = bIsIPv6 ? tnet_socket_type_tcp_ipv6 : tnet_socket_type_tcp_ipv4;
+				pcDescription = m_bIPv6 ? "TCP/IPv6 transport" : "TCP/IPv4 transport";
+				eSocketType = m_bIPv6 ? tnet_socket_type_tcp_ipv6 : tnet_socket_type_tcp_ipv4;
 				break;
 			}
 		case MPNetTransporType_TLS:
 			{
-				pcDescription = bIsIPv6 ? "TLS/IPv6 transport" : "TLS/IPv4 transport";
-				eSocketType = bIsIPv6 ? tnet_socket_type_tls_ipv6 : tnet_socket_type_tls_ipv4;
+				pcDescription = m_bIPv6 ? "TLS/IPv6 transport" : "TLS/IPv4 transport";
+				eSocketType = m_bIPv6 ? tnet_socket_type_tls_ipv6 : tnet_socket_type_tls_ipv4;
 				break;
 			}
 		default:
@@ -106,6 +111,13 @@ MPNetTransport::~MPNetTransport()
 	{
 		tsk_mutex_destroy(&m_pWrappedPeersMutex);
 	}
+	TSK_FREE(m_pAllowedRemoteHost);
+}
+
+bool MPNetTransport::setAllowedRemoteHost(const char* pcAllowedRemoteHost)
+{
+	tsk_strupdate(&m_pAllowedRemoteHost, pcAllowedRemoteHost);
+	return true;
 }
 
 bool MPNetTransport::setSSLCertificates(const char* pcPrivateKey, const char* pcPublicKey, const char* pcCA, bool bVerify /*= false*/)
@@ -116,6 +128,10 @@ bool MPNetTransport::setSSLCertificates(const char* pcPrivateKey, const char* pc
 bool MPNetTransport::start()
 {
 	m_bStarted = (tnet_transport_start(m_pWrappedTransport) == 0);
+	if (m_bStarted) {
+		// Update IPv6 information now that the transport is started
+		m_bIPv6 = TNET_SOCKET_TYPE_IS_IPV6(((const tnet_transport_t*)m_pWrappedTransport)->master->type);
+	}
 	return m_bStarted;
 }
 
@@ -196,6 +212,12 @@ void MPNetTransport::removePeer(MPNetFd nFd)
 	tsk_mutex_unlock(m_pWrappedPeersMutex);
 }
 
+bool MPNetTransport::havePeer(MPNetFd nFd)
+{
+	MPObjectWrapper<MPNetPeer*> oPeer = getPeerByFd(nFd);
+	return !!oPeer;
+}
+
 int MPNetTransport::MPNetTransportCb_Stream(const tnet_transport_event_t* e)
 {
 	MPObjectWrapper<MPNetPeer*> oPeer = NULL;
@@ -205,6 +227,7 @@ int MPNetTransport::MPNetTransportCb_Stream(const tnet_transport_event_t* e)
 	{	
 		case event_closed:
 		case event_removed:
+		case event_error:
 			{
 				oPeer = (This)->getPeerByFd(e->local_fd);
 				if(oPeer)
@@ -221,6 +244,51 @@ int MPNetTransport::MPNetTransportCb_Stream(const tnet_transport_event_t* e)
 		case event_connected:
 		case event_accepted:
 			{
+				TSK_DEBUG_INFO("New incoming connection. AllowedRemoteHost = %s", This->m_pAllowedRemoteHost);
+				if (!tsk_strnullORempty(This->m_pAllowedRemoteHost))
+				{
+#define ERROR_MSG_INVALID_DOMAIN "HTTP/1.1 403 Invalid domain\r\n" \
+		"Server: webrtc2sip Media Server " WEBRTC2SIP_VERSION_STRING "\r\n" \
+		"Access-Control-Allow-Origin: *\r\n" \
+		"Content-Length: %u\r\n" \
+		"Connection: Close\r\n" \
+		"\r\n"
+					tnet_ip_t ip_remote, ip_domain;
+					struct sockaddr_storage addr_domain;
+					int ret;
+					tnet_fd_t local_fd = e->local_fd;
+					static const char _error_msg_invalid_domain_ptr[] = ERROR_MSG_INVALID_DOMAIN;
+					static const size_t _error_msg_invalid_domain_size = sizeof(_error_msg_invalid_domain_ptr);
+					if ((ret = tnet_get_peerip(local_fd, &ip_remote)) != 0)
+					{
+						This->sendData(local_fd, _error_msg_invalid_domain_ptr, _error_msg_invalid_domain_size);
+						TSK_DEBUG_ERROR("tnet_get_peerip(%d) failed", local_fd);
+						tnet_transport_remove_socket(This->m_pWrappedTransport, &local_fd);
+						return ret;
+					}
+					// Update domain each time because it could change (DNS)
+					if ((ret = tnet_sockaddr_init(This->m_pAllowedRemoteHost, 80, ((const tnet_transport_t*)This->m_pWrappedTransport)->master->type, &addr_domain)) != 0)
+					{
+						This->sendData(local_fd, _error_msg_invalid_domain_ptr, _error_msg_invalid_domain_size);
+						TSK_DEBUG_ERROR("tnet_sockaddr_init(%s:%d) failed", This->m_pAllowedRemoteHost, 80);
+						tnet_transport_remove_socket(This->m_pWrappedTransport, &local_fd);
+						return ret;
+					}
+					if ((ret = tnet_get_sockip((const struct sockaddr*)&addr_domain, &ip_domain)) != 0)
+					{
+						This->sendData(local_fd, _error_msg_invalid_domain_ptr, _error_msg_invalid_domain_size);
+						TSK_DEBUG_ERROR("tnet_get_sockip() failed: %d", ret);
+						tnet_transport_remove_socket(This->m_pWrappedTransport, &local_fd);
+						return ret;
+					}
+					if (!tsk_striequals(ip_remote, ip_domain))
+					{
+						This->sendData(local_fd, _error_msg_invalid_domain_ptr, _error_msg_invalid_domain_size);
+						TSK_DEBUG_ERROR("Invalid domain name: %s<>%s", ip_remote, ip_domain);
+						tnet_transport_remove_socket(This->m_pWrappedTransport, &local_fd);
+						return -1;
+					}
+				}
 				oPeer = (This)->getPeerByFd(e->local_fd);
 				if(oPeer)
 				{
@@ -270,8 +338,6 @@ int MPNetTransport::MPNetTransportCb_Stream(const tnet_transport_event_t* e)
 				}
 				break;
 			}
-
-		case event_error:
 		default:
 			{
 				break;

@@ -60,6 +60,7 @@ MPEngine::MPEngine(const char* pRealmUri, const char* pPrivateIdentity, const ch
 : m_bStarted(false)
 , m_bValid(false)
 , m_pDtmfType(NULL)
+, m_pC2CHttpDomain(NULL)
 {
 	if(!MPEngine::g_bInitialized){
 		SipStack::initialize();
@@ -98,7 +99,10 @@ MPEngine::~MPEngine()
 	TSK_FREE(m_SSL.pPrivateKey);
 	TSK_FREE(m_SSL.pPublicKey);
 	TSK_FREE(m_SSL.pCA);
+
 	TSK_FREE(m_pDtmfType);
+
+	TSK_FREE(m_pC2CHttpDomain);
 }
 
 bool MPEngine::setDebugLevel(const char* pcLevel)
@@ -446,6 +450,28 @@ bool MPEngine::setDbInfo(const char* pcDbType, const char* pcDbConnectionInfo)
 	return false;
 }
 
+bool MPEngine::setHttpDomain(const char* pcC2CHttpDomain)
+{
+	tsk_strupdate(&m_pC2CHttpDomain, pcC2CHttpDomain);
+	return true;
+}
+
+bool MPEngine::setRecaptchaInfo(const char* pcSiteVerifyUrl, const char* pcSecret)
+{
+	if(m_oRecaptchaTransport)
+	{
+		TSK_DEBUG_ERROR("Recaptcha info already defined");
+		return false;
+	}
+	if(tsk_strnullORempty(pcSiteVerifyUrl) || tsk_strnullORempty(pcSecret))
+	{
+		TSK_DEBUG_ERROR("Invalid parameter");
+		return false;
+	}
+	m_oRecaptchaTransport = new MPRecaptchaTransport(pcSiteVerifyUrl, pcSecret);
+	return !!m_oRecaptchaTransport;
+}
+
 bool MPEngine::setMailAccountInfo(const char* pcScheme, const char* pcLocalIP, unsigned short nLocalPort, const char* pcSmtpHost, unsigned short nSmtpPort, const char* pcEmail, const char* pcAuthName, const char* pcAuthPwd)
 {
 	bool bSecure = false;
@@ -544,10 +570,24 @@ bool MPEngine::start()
 	{
 		(*iter)->setDb(m_oDb);
 		(*iter)->setMailTransport(m_oMailTransport);
+		(*iter)->setRecaptchaTransport(m_oRecaptchaTransport);
 		(*iter)->setSSLCertificates(m_SSL.pPrivateKey, m_SSL.pPublicKey, m_SSL.pCA, m_SSL.bVerify);
+		(*iter)->setAllowedRemoteHost(m_pC2CHttpDomain);
 		if((*iter)->start() != true)
 		{
 			ret = -3;
+			goto bail;
+		}
+	}
+
+	// start reCAPTCHA transport
+	if (m_oRecaptchaTransport)
+	{
+		m_oRecaptchaTransport->setSSLCertificates(m_SSL.pPrivateKey, m_SSL.pPublicKey, m_SSL.pCA, m_SSL.bVerify);
+		m_oRecaptchaTransport->setAllowedRemoteHost(m_pC2CHttpDomain);
+		if(!m_oRecaptchaTransport->start())
+		{
+			ret = -4;
 			goto bail;
 		}
 	}
@@ -556,9 +596,10 @@ bool MPEngine::start()
 	if(m_oMailTransport)
 	{
 		m_oMailTransport->setSSLCertificates(m_SSL.pPrivateKey, m_SSL.pPublicKey, m_SSL.pCA, m_SSL.bVerify);
+		m_oMailTransport->setAllowedRemoteHost(m_pC2CHttpDomain);
 		if(!m_oMailTransport->start())
 		{
-			ret = -4;
+			ret = -5;
 			goto bail;
 		}
 	}

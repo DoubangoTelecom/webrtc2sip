@@ -308,6 +308,28 @@ static int parseConfigNode(xmlNode *pNode, MPObjectWrapper<MPEngine*> oEngine)
 							}
 						}
 					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "account-http-domain")) // available since 2.7.0
+					{
+						const char* pcHttpDomain = (const char*)pCurrNode->content;
+						TSK_DEBUG_INFO("account-http-domain = %s", pcHttpDomain);
+						if(!oEngine->setHttpDomain(mp_str_is_star(pcHttpDomain) ? NULL : pcHttpDomain))
+						{
+							TSK_DEBUG_ERROR("Failed to set 'account-http-domain': %s", pcHttpDomain);
+						}
+					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "account-recaptcha")) // available since 2.7.0
+					{
+						if((pParams = tsk_params_fromstring((const char*)pCurrNode->content, ";", tsk_true)) && mp_list_count(pParams) >= 2)
+						{
+							const char* pcSiteVerifyUrl = ((const tsk_param_t*)pParams->head->data)->name;
+							const char* pcSecret = ((const tsk_param_t*)pParams->head->next->data)->name;
+							TSK_DEBUG_INFO("account-recaptcha = %s;<secret>", pcSiteVerifyUrl);
+							if(!oEngine->setRecaptchaInfo(pcSiteVerifyUrl, pcSecret))
+							{
+								TSK_DEBUG_ERROR("Failed to set 'account-recaptcha'");
+							}
+						}
+					}
 					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "dtmf-type")) // available since 2.4.0
 					{
 						const char* pcDtmfType = (const char*)pCurrNode->content;

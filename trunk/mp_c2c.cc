@@ -54,6 +54,7 @@
 #define kJsonField_Realm "realm"
 #define kJsonField_AccountSipCallerId "account_sip_id"
 #define kJsonField_Ha1 "ha1"
+#define kJsonField_CaptchaValue "captcha_value"
                 
 
 #define kJsonValue_ActionReq_AccountAdd "req_account_add"
@@ -80,20 +81,25 @@
 #define kJsonContent_ActionResp_AccountSipDelete "{\"action\": \"" kJsonValue_ActionResp_AccountSipDelete "\"}"
 #define kJsonContent_ActionResp_AccountSipCallerDelete "{\"action\": \"" kJsonValue_ActionResp_AccountSipCallerDelete "\"}"
 
-#define kMPC2CResultCode_Success			200
-#define kMPC2CResultCode_Unauthorized		403
-#define kMPC2CResultCode_NotFound			404
-#define kMPC2CResultCode_ParsingFailed		420
-#define kMPC2CResultCode_InvalidDataType	483
-#define kMPC2CResultCode_InvalidData		450
-#define kMPC2CResultCode_InternalError		603
+#define kMPC2CResultCode_Success				200
+#define kMPC2CResultCode_Accepted				202
+#define kMPC2CResultCode_Unauthorized			403
+#define kMPC2CResultCode_NotFound				404
+#define kMPC2CResultCode_ParsingFailed			420
+#define kMPC2CResultCode_InvalidDataType		483
+#define kMPC2CResultCode_InvalidData			450
+#define kMPC2CResultCode_InternalError			603
+#define kMPC2CResultCode_InvalidHttpDomain		kMPC2CResultCode_Unauthorized
 
-#define kMPC2CResultPhrase_Success			"OK"
-#define kMPC2CResultPhrase_Unauthorized		"Unauthorized"
-#define kMPC2CResultPhrase_NotFound			"Not Found"
-#define kMPC2CResultPhrase_ParsingFailed	"Parsing failed"
-#define kMPC2CResultPhrase_InvalidDataType	"Invalid data type"
-#define kMPC2CResultPhrase_InternalError	"Internal Error"
+#define kMPC2CResultPhrase_Success				"OK"
+#define kMPC2CResultPhrase_Accepted				"Accepted"
+#define kMPC2CResultPhrase_CaptchaValidation	"Captcha validation"
+#define kMPC2CResultPhrase_Unauthorized			"Unauthorized"
+#define kMPC2CResultPhrase_NotFound				"Not Found"
+#define kMPC2CResultPhrase_ParsingFailed		"Parsing failed"
+#define kMPC2CResultPhrase_InvalidDataType		"Invalid data type"
+#define kMPC2CResultPhrase_InternalError		"Internal Error"
+#define kMPC2CResultPhrase_InvalidHttpDomain	"Invalid http domain"
 
 #define kMailWelcomeSubject "Your click2dial.org registration info"
 
@@ -164,12 +170,16 @@ MPC2CTransport::MPC2CTransport(bool isSecure, const char* pcLocalIP, unsigned sh
 : MPNetTransport(isSecure ? MPNetTransporType_TLS : MPNetTransporType_TCP, pcLocalIP, nLocalPort)
 {
 	m_oCallback = new MPC2CTransportCallback(this);
+	m_oRecaptchaValidationCallback = new MPC2CRecaptchaValidationCallback(this);
 	setCallback(*m_oCallback);
 }
 
 MPC2CTransport::~MPC2CTransport()
 {
 	setCallback(NULL);
+	if (m_oRecaptchaTransport) {
+		m_oRecaptchaTransport->setValidationCallback(NULL);
+	}
 }
 
 void MPC2CTransport::setDb(MPObjectWrapper<MPDb*> oDb)
@@ -180,6 +190,14 @@ void MPC2CTransport::setDb(MPObjectWrapper<MPDb*> oDb)
 void MPC2CTransport::setMailTransport(MPObjectWrapper<MPMailTransport*> oMailTransport)
 {
 	m_oMailTransport = oMailTransport;
+}
+
+void MPC2CTransport::setRecaptchaTransport(MPObjectWrapper<MPRecaptchaTransport*> oRecaptchaTransport)
+{
+	m_oRecaptchaTransport = oRecaptchaTransport;
+	if (m_oRecaptchaTransport) {
+		m_oRecaptchaTransport->setValidationCallback(*m_oRecaptchaValidationCallback);
+	}
 }
 
 MPObjectWrapper<MPData*> MPC2CTransport::serializeAccount(const char* pcActionId, MPObjectWrapper<MPDbAccount*> oAccount)const
@@ -214,7 +232,7 @@ MPObjectWrapper<MPData*> MPC2CTransport::serializeAccount(const char* pcActionId
 
 
 // FIXME: factorize
-MPObjectWrapper<MPC2CResult*> MPC2CTransport::handleJsonContent(const void* pcDataPtr, size_t nDataSize)const
+MPObjectWrapper<MPC2CResult*> MPC2CTransport::handleJsonContent(MPNetFd nFd, const void* pcDataPtr, size_t nDataSize)const
 {
 	if(!pcDataPtr || !nDataSize)
 	{
@@ -261,49 +279,29 @@ MPObjectWrapper<MPC2CResult*> MPC2CTransport::handleJsonContent(const void* pcDa
 	// JSON::action=='req_account_add'
 	if(tsk_striequals(action.asString().c_str(), kJsonValue_ActionReq_AccountAdd))
 	{
-		static const char __pcContentPtr[] = kJsonContent_ActionResp_AccountAdd;
-		static const size_t __nContentSize = sizeof(__pcContentPtr) - 1/*\0*/;
-
-		// kill zombibies
-		if(MPC2CTransport::s_nAccountsCount == 0 || (MPC2CTransport::s_nAccountsCount % kMaxNewAccountBeforeKillingZombies) == 0)
-		{
-			m_oDb->killZombieAccounts(kZombieMaxLifeTimeExpectancy);
-		}
-		++MPC2CTransport::s_nAccountsCount;
-		
+		// FIXME
 		// JSON::name
 		MP_JSON_GET(root, name, kJsonField_Name, isString, false);
 		// JSON::email
 		MP_JSON_GET(root, email, kJsonField_Email, isString, false);
-		// create or update the account
-		MPObjectWrapper<MPDbAccount*> oAccount = m_oDb->selectAccountByEmail(email.asString().c_str());
-		if(oAccount)
+
+		if (m_oRecaptchaTransport)
 		{
-			oAccount->setName(name.asString().c_str());
-			if(m_oDb->updateAccount(oAccount))
+			TSK_DEBUG_INFO("reCAPTCHA enabled. Delaying add account and activation mail until verification is done");
+			// JSON::captcha_value
+			MP_JSON_GET(root, CaptchaValue, kJsonField_CaptchaValue, isString, false);
+			if (m_oRecaptchaTransport->validate(nFd, name.asCString(), email.asCString(), CaptchaValue.asCString()))
 			{
-				// send activation email
-				sendActivationMail(oAccount->getEmail(), oAccount->getName(), oAccount->getActivationCode(), oAccount->getPassword());
-				return new MPC2CResult(kMPC2CResultCode_Success, "Account updated", __pcContentPtr, __nContentSize);
+				return new MPC2CResult(kMPC2CResultCode_Accepted, kMPC2CResultPhrase_CaptchaValidation);
 			}
-			return new MPC2CResult(kMPC2CResultCode_InternalError, "Failed to update account", __pcContentPtr, __nContentSize);
+			else
+			{
+				return new MPC2CResult(kMPC2CResultCode_InternalError, kMPC2CResultPhrase_InternalError);
+			}
 		}
 		else
 		{
-			oAccount = new MPDbAccount(
-					MPDB_ACCOUNT_INVALID_ID,
-					WEBRTC2SIP_C2C_SOFT_VERSION,
-					WEBRTC2SIP_C2C_DATABASE_VERSION,
-					name.asString().c_str(),
-					email.asString().c_str()
-				);
-			if(m_oDb->addAccount(oAccount))
-			{
-				// send activation email
-				sendActivationMail(oAccount->getEmail(), oAccount->getName(), oAccount->getActivationCode(), oAccount->getPassword());
-				return new MPC2CResult(kMPC2CResultCode_Success, "Account added", __pcContentPtr, __nContentSize);
-			}
-			return new MPC2CResult(kMPC2CResultCode_InternalError, "Failed to add account", __pcContentPtr, __nContentSize);
+			return addAccountAndSendActivationMail(email.asCString(), name.asCString());
 		}
 	}
 	// JSON::action=='req_account_sip_add'
@@ -570,6 +568,56 @@ MPObjectWrapper<MPC2CResult*> MPC2CTransport::handleJsonContent(const void* pcDa
 	return new MPC2CResult(kMPC2CResultCode_InvalidDataType, "Invalid action type");
 }
 
+MPObjectWrapper<MPC2CResult*> MPC2CTransport::addAccountAndSendActivationMail(const char* pcEmail, const char* pcName)const
+{
+	if(!pcEmail || !pcName)
+	{
+		TSK_DEBUG_ERROR("Invalid parameter");
+		return false;
+	}
+
+	static const char __pcContentPtr[] = kJsonContent_ActionResp_AccountAdd;
+	static const size_t __nContentSize = sizeof(__pcContentPtr) - 1/*\0*/;
+
+	// kill zombibies
+	if(MPC2CTransport::s_nAccountsCount == 0 || (MPC2CTransport::s_nAccountsCount % kMaxNewAccountBeforeKillingZombies) == 0)
+	{
+		m_oDb->killZombieAccounts(kZombieMaxLifeTimeExpectancy);
+	}
+	++MPC2CTransport::s_nAccountsCount;
+	
+	// create or update the account
+	MPObjectWrapper<MPDbAccount*> oAccount = m_oDb->selectAccountByEmail(pcEmail);
+	if(oAccount)
+	{
+		oAccount->setName(pcName);
+		if(m_oDb->updateAccount(oAccount))
+		{
+			// send activation email
+			sendActivationMail(oAccount->getEmail(), oAccount->getName(), oAccount->getActivationCode(), oAccount->getPassword());
+			return new MPC2CResult(kMPC2CResultCode_Success, "Account updated", __pcContentPtr, __nContentSize);
+		}
+		return new MPC2CResult(kMPC2CResultCode_InternalError, "Failed to update account", __pcContentPtr, __nContentSize);
+	}
+	else
+	{
+		oAccount = new MPDbAccount(
+				MPDB_ACCOUNT_INVALID_ID,
+				WEBRTC2SIP_C2C_SOFT_VERSION,
+				WEBRTC2SIP_C2C_DATABASE_VERSION,
+				pcName,
+				pcEmail
+			);
+		if(m_oDb->addAccount(oAccount))
+		{
+			// send activation email
+			sendActivationMail(oAccount->getEmail(), oAccount->getName(), oAccount->getActivationCode(), oAccount->getPassword());
+			return new MPC2CResult(kMPC2CResultCode_Success, "Account added", __pcContentPtr, __nContentSize);
+		}
+		return new MPC2CResult(kMPC2CResultCode_InternalError, "Failed to add account", __pcContentPtr, __nContentSize);
+	}
+}
+
 bool MPC2CTransport::sendActivationMail(const char* pcEmail, const char* pcName, const char* pcActivationCode, const char* pcPassword)const
 {
 	if(!pcEmail || !pcName || !pcPassword || !pcActivationCode)
@@ -649,6 +697,32 @@ bool MPC2CTransport::sendResult(MPObjectWrapper<MPNetPeer*> oPeer, MPObjectWrapp
 bail:
 	TSK_FREE(pResult);
 	return bRet;
+}
+
+//
+// MPC2CRecaptchaValidationCallback
+//
+
+MPC2CRecaptchaValidationCallback::MPC2CRecaptchaValidationCallback(const MPC2CTransport* pcTransport)
+{
+	m_pcTransport = pcTransport;
+}
+
+MPC2CRecaptchaValidationCallback::~MPC2CRecaptchaValidationCallback()
+{
+}
+
+bool MPC2CRecaptchaValidationCallback::onValidationEvent(bool bSucess, MPObjectWrapper<MPRecaptcha*> oRecaptcha)
+{
+	if (bSucess)
+	{
+		return m_pcTransport->addAccountAndSendActivationMail(oRecaptcha->getAccountEmail(), oRecaptcha->getAccountName());
+	}
+	else
+	{
+		TSK_DEBUG_ERROR("reCAPTCHA validation failed: email=%s, name=%s, response=%s, remoteIP=%s", oRecaptcha->getAccountEmail(), oRecaptcha->getAccountName(), oRecaptcha->getResponse(), oRecaptcha->getRemoteIP());
+	}
+	return true;
 }
 
 //
@@ -803,7 +877,7 @@ parse_buffer:
 				}
 				else
 				{
-					MPObjectWrapper<MPC2CResult*> oResult = m_pcTransport->handleJsonContent(THTTP_MESSAGE_CONTENT(httpMessage), THTTP_MESSAGE_CONTENT_LENGTH(httpMessage));
+					MPObjectWrapper<MPC2CResult*> oResult = m_pcTransport->handleJsonContent(oPeer->getFd(), THTTP_MESSAGE_CONTENT(httpMessage), THTTP_MESSAGE_CONTENT_LENGTH(httpMessage));
 					m_pcTransport->sendResult(oPeer, oResult);
 				}
 			}

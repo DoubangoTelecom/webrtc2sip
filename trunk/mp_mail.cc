@@ -63,6 +63,7 @@ MPMailTransport::MPMailTransport(bool isSecure, const char* pcLocalIP, unsigned 
 , m_nConnectedFd(kMPNetFdInvalid)
 , m_bConnectToPending(false)
 , m_bNeedToAuthenticate(true)
+, m_pHttpDomain(NULL)
 , m_pAuthName64(NULL)
 , m_pAuthPwd64(NULL)
 , m_pTempBuffPtr(NULL)
@@ -86,9 +87,16 @@ MPMailTransport::~MPMailTransport()
 
 	TSK_FREE(m_pSmtpHost);
 	TSK_FREE(m_pEmail);
+	TSK_FREE(m_pHttpDomain);
 	TSK_FREE(m_pAuthName64);
 	TSK_FREE(m_pAuthPwd64);
 	TSK_FREE(m_pTempBuffPtr);
+}
+
+bool MPMailTransport::setHttpDomain(const char* pcHttpDomain)
+{
+	tsk_strupdate(&m_pHttpDomain, pcHttpDomain);
+	return setAllowedRemoteHost(pcHttpDomain);
 }
 
 bool MPMailTransport::sendMail(const char* pcDstMailAddr, const char* pcSubject, const void* pcDataPr, size_t nDataSize, const char* pcSrcMailAddr /*= NULL*/)
