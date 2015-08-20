@@ -8,7 +8,7 @@ This is part of <a href='http://code.google.com/p/sipml5/'>sipML5</a> solution a
 As an example, you will be able to make a call from your preferred web browser to a SIP-legacy softphone (e.g. <a href='http://www.counterpath.com/x-lite.html'>xlite</a>) or mobile/fixed phone.<br />
 The gateway contains four modules: [SIP Proxy](#SIP_Proxy.md) | [RTCWeb Breaker](#RTCWeb_Breaker.md) | [Media Coder](#Media_Coder.md) | [Click-to-Call service](#Click-to-Call_service.md)..
 
-![http://webrtc2sip.googlecode.com/svn/trunk/documentation/images/architecture.png](http://webrtc2sip.googlecode.com/svn/trunk/documentation/images/architecture.png) <br />
+![documentation/images/architecture.png](documentation/images/architecture.png) <br />
 _Global architecture_
 
 
@@ -17,7 +17,7 @@ The role of the SIP Proxy module is to convert the SIP transport from WebSocket 
 Bypassing the SIP Proxy is not recommended if you’re planning to use the RTCWeb Breaker or Media Coder modules as this will requires maintaining two different connections.<br />
 There are no special requirements for the end server to be able to talk to the Proxy module.
 
-![http://webrtc2sip.googlecode.com/svn/trunk/documentation/images/module_sipproxy.png](http://webrtc2sip.googlecode.com/svn/trunk/documentation/images/module_sipproxy.png) <br />
+![documentation/images/module_sipproxy.png](documentation/images/module_sipproxy.png) <br />
 _SIP Proxy architecture_
 
 
@@ -27,7 +27,7 @@ It’s up to the RTCWeb Breaker to negotiate and convert the media stream to all
 We highly recommend checking the [Technical Guide](http://webrtc2sip.org/technical-guide-1.0.pdf) to understand how to avoid **security issues** when using this module.
 For example, **FreeSWITCH** do not support **ICE** which means it requires the RTCWeb Breaker in order to be able to connect the browser to a SIP-legacy endpoint.
 
-![http://webrtc2sip.googlecode.com/svn/trunk/documentation/images/module_rtcwebbreaker.png](http://webrtc2sip.googlecode.com/svn/trunk/documentation/images/module_rtcwebbreaker.png) <br />
+![http://webrtc2sip.googlecode.com/svn/trunk/documentation/images/module_rtcwebbreaker.png](documentation/images/module_rtcwebbreaker.png) <br />
 _RTCWeb Breaker architecture_
 
 
@@ -37,14 +37,14 @@ For now there are intense discussions about the MTI video codecs. The choice is 
 Google has decided to use <b>VP8</b> in Chrome while Ericsson uses <b>H.264 AVC</b> in [Bowser](https://labs.ericsson.com/apps/bowser). Mozilla and Opera Software will probably use VP8 and Microsoft H.264 AVC. As an example, the Media Coder will allow to make video calls between Chrome and Bowser.
 Another example is calling a Telepresence system (e.g. Cisco) which most likely uses <b>H.264 SVC</b> from Chrome.
 
-![http://webrtc2sip.googlecode.com/svn/trunk/documentation/images/module_mediacoder.png](http://webrtc2sip.googlecode.com/svn/trunk/documentation/images/module_mediacoder.png) <br />
+![documentation/images/module_mediacoder.png](documentation/images/module_mediacoder.png) <br />
 _Media Coder architecture_
 
 ## Click-to-Call service ##
 This is a complete SIP [click-to-call](http://en.wikipedia.org/wiki/Click-to-call) solution based on the three other components. The goal is to allow any person receiving your mails, visiting your website, reading your twitts, watching your Facebook/Google+ profile to call you on your mobile phone with a single click. As an example, click [here](http://click2dial.org/u/ZGlvcG1hbWFkb3VAZG91YmFuZ28ub3Jn) to call me on my mobile phone. <br />
 For more information: http://click2dial.org
 
-![http://webrtc2sip.googlecode.com/svn/trunk/documentation/images/module_click-to-call.png](http://webrtc2sip.googlecode.com/svn/trunk/documentation/images/module_click-to-call.png) <br />
+![documentation/images/module_click-to-call.png](documentation/images/module_click-to-call.png) <br />
 _Click-to-Call Components_
 
 ## Testing the gateway ##
@@ -59,9 +59,7 @@ Let's say the webrtc2sip gateway and SIP server are running on two different PCs
 We highly recommend checking the [Technical Guide](http://webrtc2sip.org/technical-guide-1.0.pdf) to understand how to avoid **security issues** when using our gateway.
 
 ## Technical help ##
-Please check our [issue tracker](http://code.google.com/p/webrtc2sip/issues/list), [developer group](https://groups.google.com/group/doubango) and [technical guide](http://webrtc2sip.org/technical-guide-1.0.pdf) if you have any problem. <br />
-
+Please check our [issue tracker](https://github.com/DoubangoTelecom/webrtc2sip/issues), [developer group](https://groups.google.com/group/doubango) and [technical guide](http://webrtc2sip.org/technical-guide-1.0.pdf) if you have any problem. <br />
 <br />
-<br />
-**© 2012-2013 Doubango Telecom** <br />
+**© 2012-2015 [Doubango Telecom](https://doubango.org)** <br />
 _Inspiring the future_
