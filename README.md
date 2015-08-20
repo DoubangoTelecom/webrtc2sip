@@ -1,4 +1,4 @@
-Source code freely provided to you by <a href='http://www.doubango.org'> Doubango Telecom ®</a>.
+Source code freely provided to you by <a href='https://doubango.org'> Doubango Telecom ®</a>.
 <br />
 This is part of <a href='http://code.google.com/p/sipml5/'>sipML5</a> solution and don't hesitate to test our [live demo](http://sipml5.org/).<br />
 
