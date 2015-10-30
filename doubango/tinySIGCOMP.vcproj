@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src"
+				AdditionalIncludeDirectories="..\..\Doubango\thirdparties\win32\include;..\..\Doubango\tinySAK\src"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TINYSIGCOMP_EXPORTS;DEBUG_LEVEL=DEBUG_LEVEL_INFO;_WIN32_WINNT 0x0501"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -118,7 +118,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="false"
-				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src"
+				AdditionalIncludeDirectories="..\..\Doubango\thirdparties\win32\include;..\..\Doubango\tinySAK\src"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TINYSIGCOMP_EXPORTS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="false"
@@ -180,38 +180,38 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp.c"
+				RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_buffer.c"
+				RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_buffer.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_manager.c"
+				RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_manager.c"
 				>
 			</File>
 			<Filter
 				Name="zlib"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\adler32.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\adler32.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\compress.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\compress.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\deflate.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\deflate.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\trees.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\trees.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\zutil.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\zutil.c"
 					>
 				</File>
 			</Filter>
@@ -219,71 +219,71 @@
 				Name="SigCompLayer"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinySIGCOMP\src\tcomp_compartment.c"
+					RelativePath="..\..\doubango\tinySIGCOMP\src\tcomp_compartment.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_compressordata.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_compressordata.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_compressordisp.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_compressordisp.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_decompressordisp.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_decompressordisp.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_message.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_message.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_nackinfo.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_nackinfo.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_params.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_params.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_reqfeed.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_reqfeed.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_result.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_result.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_state.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_state.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_statehandler.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_statehandler.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_udvm.bytecopy.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_udvm.bytecopy.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_udvm.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_udvm.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_udvm.instructions.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_udvm.instructions.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_udvm.nack.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_udvm.nack.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_udvm.operands.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_udvm.operands.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_udvm.statemanagment.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_udvm.statemanagment.c"
 					>
 				</File>
 			</Filter>
@@ -291,7 +291,7 @@
 				Name="Dictionaries"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_dicts.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_dicts.c"
 					>
 				</File>
 			</Filter>
@@ -299,23 +299,23 @@
 				Name="Compressors"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_compressor_deflate.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_compressor_deflate.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_compressor_dummy.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_compressor_dummy.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_deflatedata.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_deflatedata.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_deflatedata.ghost.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_deflatedata.ghost.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_deflatedata.zlib.c"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_deflatedata.zlib.c"
 					>
 				</File>
 			</Filter>
@@ -326,66 +326,66 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp.h"
+				RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_buffer.h"
+				RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_buffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_headers_index.h"
+				RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_headers_index.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_instructions.h"
+				RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_instructions.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_manager.h"
+				RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_manager.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_nack_codes.h"
+				RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_nack_codes.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_operands.h"
+				RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_operands.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_rfc5049_sip.h"
+				RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_rfc5049_sip.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_types.h"
+				RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_types.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tinysigcomp_config.h"
+				RelativePath="..\..\Doubango\tinySIGCOMP\src\tinysigcomp_config.h"
 				>
 			</File>
 			<Filter
 				Name="zlib"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\deflate.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\deflate.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\trees.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\trees.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\zconf.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\zconf.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\zlib.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\zlib.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\zutil.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\zutil.h"
 					>
 				</File>
 			</Filter>
@@ -393,51 +393,51 @@
 				Name="SigCompLayer"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_compartment.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_compartment.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_compressordata.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_compressordata.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_compressordisp.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_compressordisp.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_decompressordisp.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_decompressordisp.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_message.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_message.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_nackinfo.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_nackinfo.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_params.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_params.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_reqfeed.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_reqfeed.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_result.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_result.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_state.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_state.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_statehandler.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_statehandler.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_udvm.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_udvm.h"
 					>
 				</File>
 			</Filter>
@@ -445,15 +445,15 @@
 				Name="Dictionaries"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_dicts.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_dicts.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_rfc3485_dictionary_sip.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_rfc3485_dictionary_sip.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_rfc5112_dictionary_presence.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_rfc5112_dictionary_presence.h"
 					>
 				</File>
 			</Filter>
@@ -461,19 +461,19 @@
 				Name="Compressors"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_compressor.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_compressor.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_compressor_deflate.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_compressor_deflate.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_compressor_dummy.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_compressor_dummy.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySIGCOMP\src\tcomp_deflatedata.h"
+					RelativePath="..\..\Doubango\tinySIGCOMP\src\tcomp_deflatedata.h"
 					>
 				</File>
 			</Filter>

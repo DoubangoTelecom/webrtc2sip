@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\tinyHTTP\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src;..\..\doubango\branches\2.0\Doubango\tinyNET\src"
+				AdditionalIncludeDirectories="..\..\Doubango\thirdparties\win32\include;..\..\Doubango\tinyHTTP\include;..\..\Doubango\tinySAK\src;..\..\Doubango\tinyNET\src"
 				PreprocessorDefinitions="DEBUG_LEVEL=DEBUG_LEVEL_INFO;WIN32;_DEBUG;_WINDOWS;_USRDLL;TINYHTTP_EXPORTS;_WIN32_WINNT 0x0501"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -118,7 +118,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="false"
-				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\tinyHTTP\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src;..\..\doubango\branches\2.0\Doubango\tinyNET\src"
+				AdditionalIncludeDirectories="..\..\Doubango\thirdparties\win32\include;..\..\Doubango\tinyHTTP\include;..\..\Doubango\tinySAK\src;..\..\Doubango\tinyNET\src"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TINYHTTP_EXPORTS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="false"
@@ -178,46 +178,46 @@
 			Name="source(*.c)"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyHTTP\src\thttp.c"
+				RelativePath="..\..\doubango\tinyHTTP\src\thttp.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\thttp_action.c"
+				RelativePath="..\..\Doubango\tinyHTTP\src\thttp_action.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\thttp_dialog.c"
+				RelativePath="..\..\Doubango\tinyHTTP\src\thttp_dialog.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\thttp_event.c"
+				RelativePath="..\..\Doubango\tinyHTTP\src\thttp_event.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\thttp_message.c"
+				RelativePath="..\..\Doubango\tinyHTTP\src\thttp_message.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyHTTP\src\thttp_proxy_node_plugin.c"
+				RelativePath="..\..\doubango\tinyHTTP\src\thttp_proxy_node_plugin.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\thttp_session.c"
+				RelativePath="..\..\Doubango\tinyHTTP\src\thttp_session.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\thttp_url.c"
+				RelativePath="..\..\Doubango\tinyHTTP\src\thttp_url.c"
 				>
 			</File>
 			<Filter
 				Name="auth"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\auth\thttp_auth.c"
+					RelativePath="..\..\Doubango\tinyHTTP\src\auth\thttp_auth.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\auth\thttp_challenge.c"
+					RelativePath="..\..\Doubango\tinyHTTP\src\auth\thttp_challenge.c"
 					>
 				</File>
 			</Filter>
@@ -225,51 +225,51 @@
 				Name="headers"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\headers\thttp_header.c"
+					RelativePath="..\..\Doubango\tinyHTTP\src\headers\thttp_header.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\headers\thttp_header_Authorization.c"
+					RelativePath="..\..\Doubango\tinyHTTP\src\headers\thttp_header_Authorization.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\headers\thttp_header_Content_Length.c"
+					RelativePath="..\..\Doubango\tinyHTTP\src\headers\thttp_header_Content_Length.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\headers\thttp_header_Content_Type.c"
+					RelativePath="..\..\Doubango\tinyHTTP\src\headers\thttp_header_Content_Type.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\headers\thttp_header_Dummy.c"
+					RelativePath="..\..\Doubango\tinyHTTP\src\headers\thttp_header_Dummy.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\headers\thttp_header_ETag.c"
+					RelativePath="..\..\Doubango\tinyHTTP\src\headers\thttp_header_ETag.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyHTTP\src\headers\thttp_header_Sec_WebSocket_Accept.c"
+					RelativePath="..\..\doubango\tinyHTTP\src\headers\thttp_header_Sec_WebSocket_Accept.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyHTTP\src\headers\thttp_header_Sec_WebSocket_Key.c"
+					RelativePath="..\..\doubango\tinyHTTP\src\headers\thttp_header_Sec_WebSocket_Key.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyHTTP\src\headers\thttp_header_Sec_WebSocket_Protocol.c"
+					RelativePath="..\..\doubango\tinyHTTP\src\headers\thttp_header_Sec_WebSocket_Protocol.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyHTTP\src\headers\thttp_header_Sec_WebSocket_Version.c"
+					RelativePath="..\..\doubango\tinyHTTP\src\headers\thttp_header_Sec_WebSocket_Version.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\headers\thttp_header_Transfer_Encoding.c"
+					RelativePath="..\..\Doubango\tinyHTTP\src\headers\thttp_header_Transfer_Encoding.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\headers\thttp_header_WWW_Authenticate.c"
+					RelativePath="..\..\Doubango\tinyHTTP\src\headers\thttp_header_WWW_Authenticate.c"
 					>
 				</File>
 			</Filter>
@@ -277,15 +277,15 @@
 				Name="parsers"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\parsers\thttp_parser_header.c"
+					RelativePath="..\..\Doubango\tinyHTTP\src\parsers\thttp_parser_header.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\parsers\thttp_parser_message.c"
+					RelativePath="..\..\Doubango\tinyHTTP\src\parsers\thttp_parser_message.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\src\parsers\thttp_parser_url.c"
+					RelativePath="..\..\Doubango\tinyHTTP\src\parsers\thttp_parser_url.c"
 					>
 				</File>
 			</Filter>
@@ -294,50 +294,50 @@
 			Name="include(*.h)"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\thttp.h"
+				RelativePath="..\..\Doubango\tinyHTTP\include\thttp.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyHTTP\thttp_action.h"
+				RelativePath="..\..\Doubango\tinyHTTP\include\tinyHTTP\thttp_action.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyHTTP\thttp_dialog.h"
+				RelativePath="..\..\Doubango\tinyHTTP\include\tinyHTTP\thttp_dialog.h"
 				>
 			</File>
 			<File
-				RelativePath="...\..\doubango\branches\2.0\Doubango\tinyHTTP\...\..\doubango\branches\2.0\Doubango\tinyHTTP\Doubango\tinyHTTP\include\tinyHTTP\thttp_event.h"
+				RelativePath="...\..\Doubango\tinyHTTP\...\..\Doubango\tinyHTTP\Doubango\tinyHTTP\include\tinyHTTP\thttp_event.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyHTTP\thttp_message.h"
+				RelativePath="..\..\Doubango\tinyHTTP\include\tinyHTTP\thttp_message.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyHTTP\thttp_session.h"
+				RelativePath="..\..\Doubango\tinyHTTP\include\tinyHTTP\thttp_session.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyHTTP\thttp_url.h"
+				RelativePath="..\..\Doubango\tinyHTTP\include\tinyHTTP\thttp_url.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyhttp.h"
+				RelativePath="..\..\Doubango\tinyHTTP\include\tinyhttp.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyhttp_config.h"
+				RelativePath="..\..\Doubango\tinyHTTP\include\tinyhttp_config.h"
 				>
 			</File>
 			<Filter
 				Name="auth"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyHTTP\auth\thttp_auth.h"
+					RelativePath="..\..\Doubango\tinyHTTP\include\tinyHTTP\auth\thttp_auth.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyHTTP\auth\thttp_challenge.h"
+					RelativePath="..\..\Doubango\tinyHTTP\include\tinyHTTP\auth\thttp_challenge.h"
 					>
 				</File>
 			</Filter>
@@ -345,51 +345,51 @@
 				Name="headers"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyHTTP\headers\thttp_header.h"
+					RelativePath="..\..\Doubango\tinyHTTP\include\tinyHTTP\headers\thttp_header.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyHTTP\headers\thttp_header_Authorization.h"
+					RelativePath="..\..\Doubango\tinyHTTP\include\tinyHTTP\headers\thttp_header_Authorization.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyHTTP\headers\thttp_header_Content_Length.h"
+					RelativePath="..\..\Doubango\tinyHTTP\include\tinyHTTP\headers\thttp_header_Content_Length.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyHTTP\headers\thttp_header_Content_Type.h"
+					RelativePath="..\..\Doubango\tinyHTTP\include\tinyHTTP\headers\thttp_header_Content_Type.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyHTTP\headers\thttp_header_Dummy.h"
+					RelativePath="..\..\Doubango\tinyHTTP\include\tinyHTTP\headers\thttp_header_Dummy.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyHTTP\headers\thttp_header_ETag.h"
+					RelativePath="..\..\Doubango\tinyHTTP\include\tinyHTTP\headers\thttp_header_ETag.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyHTTP\include\tinyhttp\headers\thttp_header_Sec_WebSocket_Accept.h"
+					RelativePath="..\..\doubango\tinyHTTP\include\tinyhttp\headers\thttp_header_Sec_WebSocket_Accept.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyHTTP\include\tinyhttp\headers\thttp_header_Sec_WebSocket_Key.h"
+					RelativePath="..\..\doubango\tinyHTTP\include\tinyhttp\headers\thttp_header_Sec_WebSocket_Key.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyHTTP\include\tinyhttp\headers\thttp_header_Sec_WebSocket_Protocol.h"
+					RelativePath="..\..\doubango\tinyHTTP\include\tinyhttp\headers\thttp_header_Sec_WebSocket_Protocol.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyHTTP\include\tinyhttp\headers\thttp_header_Sec_WebSocket_Version.h"
+					RelativePath="..\..\doubango\tinyHTTP\include\tinyhttp\headers\thttp_header_Sec_WebSocket_Version.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyHTTP\headers\thttp_header_Transfer_Encoding.h"
+					RelativePath="..\..\Doubango\tinyHTTP\include\tinyHTTP\headers\thttp_header_Transfer_Encoding.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyHTTP\headers\thttp_header_WWW_Authenticate.h"
+					RelativePath="..\..\Doubango\tinyHTTP\include\tinyHTTP\headers\thttp_header_WWW_Authenticate.h"
 					>
 				</File>
 			</Filter>
@@ -397,15 +397,15 @@
 				Name="parsers"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyHTTP\parsers\thttp_parser_header.h"
+					RelativePath="..\..\Doubango\tinyHTTP\include\tinyHTTP\parsers\thttp_parser_header.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyHTTP\parsers\thttp_parser_message.h"
+					RelativePath="..\..\Doubango\tinyHTTP\include\tinyHTTP\parsers\thttp_parser_message.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\include\tinyHTTP\parsers\thttp_parser_url.h"
+					RelativePath="..\..\Doubango\tinyHTTP\include\tinyHTTP\parsers\thttp_parser_url.h"
 					>
 				</File>
 			</Filter>
@@ -414,15 +414,15 @@
 			Name="abnf(*.abnf)"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\abnf\http.abnf"
+				RelativePath="..\..\Doubango\tinyHTTP\abnf\http.abnf"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\abnf\httpauth.abnf"
+				RelativePath="..\..\Doubango\tinyHTTP\abnf\httpauth.abnf"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\abnf\uri.abnf"
+				RelativePath="..\..\Doubango\tinyHTTP\abnf\uri.abnf"
 				>
 			</File>
 		</Filter>
@@ -430,71 +430,71 @@
 			Name="ragel(*.rl)"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\ragel\thttp_machine_header.rl"
+				RelativePath="..\..\Doubango\tinyHTTP\ragel\thttp_machine_header.rl"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\ragel\thttp_machine_message.rl"
+				RelativePath="..\..\Doubango\tinyHTTP\ragel\thttp_machine_message.rl"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\ragel\thttp_machine_utils.rl"
+				RelativePath="..\..\Doubango\tinyHTTP\ragel\thttp_machine_utils.rl"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyHTTP\ragel\thttp_machine_ws.rl"
+				RelativePath="..\..\doubango\tinyHTTP\ragel\thttp_machine_ws.rl"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\ragel\thttp_parser_header.rl"
+				RelativePath="..\..\Doubango\tinyHTTP\ragel\thttp_parser_header.rl"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\ragel\thttp_parser_header_Authorization.rl"
+				RelativePath="..\..\Doubango\tinyHTTP\ragel\thttp_parser_header_Authorization.rl"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\ragel\thttp_parser_header_Content_Length.rl"
+				RelativePath="..\..\Doubango\tinyHTTP\ragel\thttp_parser_header_Content_Length.rl"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\ragel\thttp_parser_header_Content_Type.rl"
+				RelativePath="..\..\Doubango\tinyHTTP\ragel\thttp_parser_header_Content_Type.rl"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\ragel\thttp_parser_header_Dummy.rl"
+				RelativePath="..\..\Doubango\tinyHTTP\ragel\thttp_parser_header_Dummy.rl"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\ragel\thttp_parser_header_ETag.rl"
+				RelativePath="..\..\Doubango\tinyHTTP\ragel\thttp_parser_header_ETag.rl"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyHTTP\ragel\thttp_parser_header_Sec_WebSocket_Accept.rl"
+				RelativePath="..\..\doubango\tinyHTTP\ragel\thttp_parser_header_Sec_WebSocket_Accept.rl"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyHTTP\ragel\thttp_parser_header_Sec_WebSocket_Key.rl"
+				RelativePath="..\..\doubango\tinyHTTP\ragel\thttp_parser_header_Sec_WebSocket_Key.rl"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyHTTP\ragel\thttp_parser_header_Sec_WebSocket_Version.rl"
+				RelativePath="..\..\doubango\tinyHTTP\ragel\thttp_parser_header_Sec_WebSocket_Version.rl"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\ragel\thttp_parser_header_Transfer_Encoding.rl"
+				RelativePath="..\..\Doubango\tinyHTTP\ragel\thttp_parser_header_Transfer_Encoding.rl"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\ragel\thttp_parser_header_WWW_Authenticate.rl"
+				RelativePath="..\..\Doubango\tinyHTTP\ragel\thttp_parser_header_WWW_Authenticate.rl"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\ragel\thttp_parser_message.rl"
+				RelativePath="..\..\Doubango\tinyHTTP\ragel\thttp_parser_message.rl"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyHTTP\ragel\thttp_parser_url.rl"
+				RelativePath="..\..\Doubango\tinyHTTP\ragel\thttp_parser_url.rl"
 				>
 			</File>
 		</Filter>

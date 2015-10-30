@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\tinyBFCP\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src;..\..\doubango\branches\2.0\Doubango\tinyNET\src"
+				AdditionalIncludeDirectories="..\..\Doubango\thirdparties\win32\include;..\..\Doubango\tinyBFCP\include;..\..\Doubango\tinySAK\src;..\..\Doubango\tinyNET\src"
 				PreprocessorDefinitions="DEBUG_LEVEL=DEBUG_LEVEL_INFO;WIN32;_WIN32_WINNT=0x0501;_DEBUG;_WINDOWS;_USRDLL;TINYBFCP_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -118,7 +118,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\tinyBFCP\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src;..\..\doubango\branches\2.0\Doubango\tinyNET\src"
+				AdditionalIncludeDirectories="..\..\Doubango\thirdparties\win32\include;..\..\Doubango\tinyBFCP\include;..\..\Doubango\tinySAK\src;..\..\Doubango\tinyNET\src"
 				PreprocessorDefinitions="_WIN32_WINNT=0x0501;WIN32;NDEBUG;_WINDOWS;_USRDLL;TINYBFCP_EXPORTS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -179,19 +179,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyBFCP\src\tbfcp_attr.c"
+				RelativePath="..\..\doubango\tinyBFCP\src\tbfcp_attr.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyBFCP\src\tbfcp_pkt.c"
+				RelativePath="..\..\doubango\tinyBFCP\src\tbfcp_pkt.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyBFCP\src\tbfcp_session.c"
+				RelativePath="..\..\doubango\tinyBFCP\src\tbfcp_session.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyBFCP\src\tbfcp_utils.c"
+				RelativePath="..\..\doubango\tinyBFCP\src\tbfcp_utils.c"
 				>
 			</File>
 		</Filter>
@@ -201,31 +201,31 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyBFCP\include\tinybfcp\tbfcp_attr.h"
+				RelativePath="..\..\doubango\tinyBFCP\include\tinybfcp\tbfcp_attr.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyBFCP\include\tinybfcp\tbfcp_pkt.h"
+				RelativePath="..\..\doubango\tinyBFCP\include\tinybfcp\tbfcp_pkt.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyBFCP\include\tinybfcp\tbfcp_session.h"
+				RelativePath="..\..\doubango\tinyBFCP\include\tinybfcp\tbfcp_session.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyBFCP\include\tinybfcp\tbfcp_types.h"
+				RelativePath="..\..\doubango\tinyBFCP\include\tinybfcp\tbfcp_types.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyBFCP\include\tinybfcp\tbfcp_utils.h"
+				RelativePath="..\..\doubango\tinyBFCP\include\tinybfcp\tbfcp_utils.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyBFCP\include\tinybfcp.h"
+				RelativePath="..\..\doubango\tinyBFCP\include\tinybfcp.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyBFCP\include\tinybfcp_config.h"
+				RelativePath="..\..\doubango\tinyBFCP\include\tinybfcp_config.h"
 				>
 			</File>
 		</Filter>

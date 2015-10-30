@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\tinySMS\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src"
+				AdditionalIncludeDirectories="..\..\Doubango\thirdparties\win32\include;..\..\Doubango\tinySMS\include;..\..\Doubango\tinySAK\src"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TINYSMS_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -118,7 +118,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="false"
-				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\tinySMS\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src"
+				AdditionalIncludeDirectories="..\..\Doubango\thirdparties\win32\include;..\..\Doubango\tinySMS\include;..\..\Doubango\tinySAK\src"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TINYSMS_EXPORTS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="false"
@@ -179,54 +179,54 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\include\tinysms.h"
+				RelativePath="..\..\Doubango\tinySMS\include\tinysms.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\doubango\branches\2.0\Doubango\branches\2.0\Doubango\tinySMS\include\tinysms_config.h"
+				RelativePath="..\..\..\..\Doubango\branches\2.0\Doubango\tinySMS\include\tinysms_config.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\include\tinysms\tsms.h"
+				RelativePath="..\..\Doubango\tinySMS\include\tinysms\tsms.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\include\tinysms\tsms_address.h"
+				RelativePath="..\..\Doubango\tinySMS\include\tinysms\tsms_address.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\include\tinysms\tsms_common.h"
+				RelativePath="..\..\Doubango\tinySMS\include\tinysms\tsms_common.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\include\tinysms\tsms_etsi_gsm_03_38.h"
+				RelativePath="..\..\Doubango\tinySMS\include\tinysms\tsms_etsi_gsm_03_38.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\include\tinysms\tsms_packing.h"
+				RelativePath="..\..\Doubango\tinySMS\include\tinysms\tsms_packing.h"
 				>
 			</File>
 			<Filter
 				Name="tpdu"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\include\tinysms\tpdu\tsms_tpdu_command.h"
+					RelativePath="..\..\Doubango\tinySMS\include\tinysms\tpdu\tsms_tpdu_command.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\include\tinysms\tpdu\tsms_tpdu_deliver.h"
+					RelativePath="..\..\Doubango\tinySMS\include\tinysms\tpdu\tsms_tpdu_deliver.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\include\tinysms\tpdu\tsms_tpdu_report.h"
+					RelativePath="..\..\Doubango\tinySMS\include\tinysms\tpdu\tsms_tpdu_report.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\include\tinysms\tpdu\tsms_tpdu_status_report.h"
+					RelativePath="..\..\Doubango\tinySMS\include\tinysms\tpdu\tsms_tpdu_status_report.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\include\tinysms\tpdu\tsms_tpdu_submit.h"
+					RelativePath="..\..\Doubango\tinySMS\include\tinysms\tpdu\tsms_tpdu_submit.h"
 					>
 				</File>
 			</Filter>
@@ -234,7 +234,7 @@
 				Name="rpdu"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\include\tinysms\rpdu\tsms_rpdu.h"
+					RelativePath="..\..\Doubango\tinySMS\include\tinysms\rpdu\tsms_rpdu.h"
 					>
 				</File>
 			</Filter>
@@ -245,42 +245,42 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\src\tsms.c"
+				RelativePath="..\..\Doubango\tinySMS\src\tsms.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\src\tsms_address.c"
+				RelativePath="..\..\Doubango\tinySMS\src\tsms_address.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\src\tsms_common.c"
+				RelativePath="..\..\Doubango\tinySMS\src\tsms_common.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\src\tsms_packing.c"
+				RelativePath="..\..\Doubango\tinySMS\src\tsms_packing.c"
 				>
 			</File>
 			<Filter
 				Name="tpdu"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\src\tpdu\tsms_tpdu_command.c"
+					RelativePath="..\..\Doubango\tinySMS\src\tpdu\tsms_tpdu_command.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\src\tpdu\tsms_tpdu_deliver.c"
+					RelativePath="..\..\Doubango\tinySMS\src\tpdu\tsms_tpdu_deliver.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\src\tpdu\tsms_tpdu_report.c"
+					RelativePath="..\..\Doubango\tinySMS\src\tpdu\tsms_tpdu_report.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\src\tpdu\tsms_tpdu_status_report.c"
+					RelativePath="..\..\Doubango\tinySMS\src\tpdu\tsms_tpdu_status_report.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\src\tpdu\tsms_tpdu_submit.c"
+					RelativePath="..\..\Doubango\tinySMS\src\tpdu\tsms_tpdu_submit.c"
 					>
 				</File>
 			</Filter>
@@ -288,7 +288,7 @@
 				Name="rpdu"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinySMS\src\rpdu\tsms_rpdu.c"
+					RelativePath="..\..\Doubango\tinySMS\src\rpdu\tsms_rpdu.c"
 					>
 				</File>
 			</Filter>

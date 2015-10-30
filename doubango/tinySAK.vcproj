@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include"
+				AdditionalIncludeDirectories="..\..\Doubango\thirdparties\win32\include"
 				PreprocessorDefinitions="DEBUG_LEVEL=DEBUG_LEVEL_INFO;WIN32;_DEBUG;_WINDOWS;_USRDLL;TINYSAK_EXPORTS;_WIN32_WINNT=0x0501"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -316,135 +316,135 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tinysak_config.h"
+				RelativePath="..\..\doubango\tinySAK\src\tinysak_config.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_base64.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_base64.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_binaryutils.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_binaryutils.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_buffer.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_buffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_common.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_common.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_condwait.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_condwait.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_debug.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_debug.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_errno.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_errno.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_fsm.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_fsm.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_hmac.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_hmac.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_list.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_list.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_md5.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_md5.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_memory.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_memory.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_mutex.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_mutex.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_object.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_object.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_options.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_options.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_params.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_params.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_plugin.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_plugin.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_ppfcs16.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_ppfcs16.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_ppfcs32.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_ppfcs32.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_ragel_state.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_ragel_state.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_runnable.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_runnable.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_safeobj.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_safeobj.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_semaphore.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_semaphore.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_sha1.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_sha1.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_string.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_string.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_thread.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_thread.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_time.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_time.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_timer.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_timer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_url.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_url.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_uuid.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_uuid.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_xml.h"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_xml.h"
 				>
 			</File>
 		</Filter>
@@ -454,123 +454,123 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_base64.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_base64.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_binaryutils.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_binaryutils.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_buffer.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_buffer.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_condwait.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_condwait.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_debug.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_debug.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_fsm.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_fsm.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_hmac.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_hmac.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_list.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_list.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_md5.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_md5.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_memory.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_memory.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_mutex.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_mutex.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_object.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_object.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_options.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_options.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_params.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_params.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_plugin.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_plugin.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_ppfcs16.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_ppfcs16.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_ppfcs32.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_ppfcs32.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_ragel_state.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_ragel_state.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_runnable.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_runnable.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_safeobj.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_safeobj.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_semaphore.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_semaphore.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_sha1.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_sha1.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_string.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_string.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_thread.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_thread.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_time.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_time.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_timer.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_timer.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_url.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_url.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_uuid.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_uuid.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinySAK\src\tsk_xml.c"
+				RelativePath="..\..\doubango\tinySAK\src\tsk_xml.c"
 				>
 			</File>
 		</Filter>

@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src;..\..\doubango\branches\2.0\Doubango\tinySDP\include;..\..\doubango\branches\2.0\Doubango\tinyNET\src"
+				AdditionalIncludeDirectories="..\..\Doubango\thirdparties\win32\include;..\..\Doubango\tinyMEDIA\include;..\..\Doubango\tinySAK\src;..\..\Doubango\tinySDP\include;..\..\Doubango\tinyNET\src"
 				PreprocessorDefinitions="DEBUG_LEVEL=DEBUG_LEVEL_INFO;WIN32;_DEBUG;_WINDOWS;_USRDLL;TINYMEDIA_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -118,7 +118,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				EnableIntrinsicFunctions="false"
-				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src;..\..\doubango\branches\2.0\Doubango\tinySDP\include;..\..\doubango\branches\2.0\Doubango\tinyNET\src"
+				AdditionalIncludeDirectories="..\..\Doubango\thirdparties\win32\include;..\..\Doubango\tinyMEDIA\include;..\..\Doubango\tinySAK\src;..\..\Doubango\tinySDP\include;..\..\Doubango\tinyNET\src"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TINYMEDIA_EXPORTS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="false"
@@ -180,102 +180,102 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia.h"
+				RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia_config.h"
+				RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia_config.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia\tmedia.h"
+				RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia\tmedia.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia\tmedia_codec.h"
+				RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia\tmedia_codec.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia\tmedia_codec_dummy.h"
+				RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia\tmedia_codec_dummy.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia\tmedia_common.h"
+				RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia\tmedia_common.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia\tmedia_consumer.h"
+				RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia\tmedia_consumer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyMEDIA\include\tinymedia\tmedia_converter_video.h"
+				RelativePath="..\..\doubango\tinyMEDIA\include\tinymedia\tmedia_converter_video.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyMEDIA\include\tinymedia\tmedia_defaults.h"
+				RelativePath="..\..\doubango\tinyMEDIA\include\tinymedia\tmedia_defaults.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia\tmedia_denoise.h"
+				RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia\tmedia_denoise.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyMEDIA\include\tinymedia\tmedia_imageattr.h"
+				RelativePath="..\..\doubango\tinyMEDIA\include\tinymedia\tmedia_imageattr.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyMEDIA\include\tinymedia\tmedia_jitterbuffer.h"
+				RelativePath="..\..\doubango\tinyMEDIA\include\tinymedia\tmedia_jitterbuffer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia\tmedia_params.h"
+				RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia\tmedia_params.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia\tmedia_producer.h"
+				RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia\tmedia_producer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia\tmedia_qos.h"
+				RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia\tmedia_qos.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyMEDIA\include\tinymedia\tmedia_resampler.h"
+				RelativePath="..\..\doubango\tinyMEDIA\include\tinymedia\tmedia_resampler.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia\tmedia_session.h"
+				RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia\tmedia_session.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia\tmedia_session_dummy.h"
+				RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia\tmedia_session_dummy.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia\tmedia_session_ghost.h"
+				RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia\tmedia_session_ghost.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia\tmedia_vad.h"
+				RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia\tmedia_vad.h"
 				>
 			</File>
 			<Filter
 				Name="content"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia\content\tmedia_content.h"
+					RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia\content\tmedia_content.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia\content\tmedia_content_cpim.h"
+					RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia\content\tmedia_content_cpim.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia\content\tmedia_content_multipart.h"
+					RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia\content\tmedia_content_multipart.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include\tinymedia\content\tmedia_content_sip_frag.h"
+					RelativePath="..\..\Doubango\tinyMEDIA\include\tinymedia\content\tmedia_content_sip_frag.h"
 					>
 				</File>
 			</Filter>
@@ -286,94 +286,94 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\src\tmedia.c"
+				RelativePath="..\..\Doubango\tinyMEDIA\src\tmedia.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\src\tmedia_codec.c"
+				RelativePath="..\..\Doubango\tinyMEDIA\src\tmedia_codec.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\src\tmedia_codec_dummy.c"
+				RelativePath="..\..\Doubango\tinyMEDIA\src\tmedia_codec_dummy.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\src\tmedia_common.c"
+				RelativePath="..\..\Doubango\tinyMEDIA\src\tmedia_common.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\src\tmedia_consumer.c"
+				RelativePath="..\..\Doubango\tinyMEDIA\src\tmedia_consumer.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyMEDIA\src\tmedia_converter_video.c"
+				RelativePath="..\..\doubango\tinyMEDIA\src\tmedia_converter_video.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyMEDIA\src\tmedia_defaults.c"
+				RelativePath="..\..\doubango\tinyMEDIA\src\tmedia_defaults.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\src\tmedia_denoise.c"
+				RelativePath="..\..\Doubango\tinyMEDIA\src\tmedia_denoise.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyMEDIA\src\tmedia_imageattr.c"
+				RelativePath="..\..\doubango\tinyMEDIA\src\tmedia_imageattr.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyMEDIA\src\tmedia_jitterbuffer.c"
+				RelativePath="..\..\doubango\tinyMEDIA\src\tmedia_jitterbuffer.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\src\tmedia_params.c"
+				RelativePath="..\..\Doubango\tinyMEDIA\src\tmedia_params.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\src\tmedia_producer.c"
+				RelativePath="..\..\Doubango\tinyMEDIA\src\tmedia_producer.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\src\tmedia_qos.c"
+				RelativePath="..\..\Doubango\tinyMEDIA\src\tmedia_qos.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyMEDIA\src\tmedia_resampler.c"
+				RelativePath="..\..\doubango\tinyMEDIA\src\tmedia_resampler.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\src\tmedia_session.c"
+				RelativePath="..\..\Doubango\tinyMEDIA\src\tmedia_session.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\src\tmedia_session_dummy.c"
+				RelativePath="..\..\Doubango\tinyMEDIA\src\tmedia_session_dummy.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\src\tmedia_session_ghost.c"
+				RelativePath="..\..\Doubango\tinyMEDIA\src\tmedia_session_ghost.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\src\tmedia_vad.c"
+				RelativePath="..\..\Doubango\tinyMEDIA\src\tmedia_vad.c"
 				>
 			</File>
 			<Filter
 				Name="content"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\src\content\tmedia_content.c"
+					RelativePath="..\..\Doubango\tinyMEDIA\src\content\tmedia_content.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\src\content\tmedia_content_cpim.c"
+					RelativePath="..\..\Doubango\tinyMEDIA\src\content\tmedia_content_cpim.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\src\content\tmedia_content_multipart.c"
+					RelativePath="..\..\Doubango\tinyMEDIA\src\content\tmedia_content_multipart.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\src\content\tmedia_content_sip_frag.c"
+					RelativePath="..\..\Doubango\tinyMEDIA\src\content\tmedia_content_sip_frag.c"
 					>
 				</File>
 			</Filter>
@@ -382,11 +382,11 @@
 			Name="ragel"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\ragel\tmedia_content_cpim.rl"
+				RelativePath="..\..\Doubango\tinyMEDIA\ragel\tmedia_content_cpim.rl"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyMEDIA\ragel\tmedia_machine_utils.rl"
+				RelativePath="..\..\Doubango\tinyMEDIA\ragel\tmedia_machine_utils.rl"
 				>
 			</File>
 		</Filter>

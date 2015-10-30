@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src"
+				AdditionalIncludeDirectories="..\..\Doubango\thirdparties\win32\include;..\..\Doubango\tinySAK\src"
 				PreprocessorDefinitions="HAVE_IPSEC=0;WIN32;_WIN32_WINNT=0x0501;_DEBUG;_WINDOWS;_USRDLL;TINYIPSEC_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -120,7 +120,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				EnableIntrinsicFunctions="false"
-				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\..\..\doubango\branches\2.0\Doubango\branches\2.0\Doubango\tinySAK\src"
+				AdditionalIncludeDirectories="..\..\Doubango\thirdparties\win32\include;..\..\..\..\Doubango\branches\2.0\Doubango\tinySAK\src"
 				PreprocessorDefinitions="HAVE_IPSEC=0;WIN32;_WIN32_WINNT=0x0501;NDEBUG;_WINDOWS;_USRDLL;TINYIPSEC_EXPORTS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="false"
@@ -183,7 +183,7 @@
 			Name="source(*.c)"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyIPSec\src\tipsec.c"
+				RelativePath="..\..\Doubango\tinyIPSec\src\tipsec.c"
 				>
 			</File>
 		</Filter>
@@ -191,11 +191,11 @@
 			Name="include(*.h)"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyIPSec\src\tinyipsec_config.h"
+				RelativePath="..\..\Doubango\tinyIPSec\src\tinyipsec_config.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyIPSec\src\tipsec.h"
+				RelativePath="..\..\Doubango\tinyIPSec\src\tipsec.h"
 				>
 			</File>
 		</Filter>

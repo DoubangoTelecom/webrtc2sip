@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\tinyRTP\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src;..\..\doubango\branches\2.0\Doubango\tinyNET\src;..\..\doubango\branches\2.0\Doubango\tinyMEDIA\include"
+				AdditionalIncludeDirectories="..\..\Doubango\thirdparties\win32\include;..\..\Doubango\tinyRTP\include;..\..\Doubango\tinySAK\src;..\..\Doubango\tinyNET\src;..\..\Doubango\tinyMEDIA\include"
 				PreprocessorDefinitions="HAVE_SRTP=1;DEBUG_LEVEL=DEBUG_LEVEL_INFO;WIN32;_DEBUG;_WINDOWS;_USRDLL;TINYRTP_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -63,7 +63,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ws2_32.lib &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\srtp\libsrtp.a&quot; &quot;..\..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\libgcc.a&quot; $(OutDir)\tinySAK.lib $(OutDir)\tinyNET.lib $(OutDir)\tinyMEDIA.lib"
+				AdditionalDependencies="ws2_32.lib &quot;..\..\Doubango\thirdparties\win32\lib\srtp\libsrtp.a&quot; &quot;..\..\Doubango\thirdparties\win32\lib\libgcc.a&quot; $(OutDir)\tinySAK.lib $(OutDir)\tinyNET.lib $(OutDir)\tinyMEDIA.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -118,7 +118,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="false"
-				AdditionalIncludeDirectories="..\..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\..\doubango\branches\2.0\Doubango\tinyRTP\include;..\..\doubango\branches\2.0\Doubango\tinySAK\src;..\..\doubango\branches\2.0\Doubango\tinyNET\src"
+				AdditionalIncludeDirectories="..\..\Doubango\thirdparties\win32\include;..\..\Doubango\tinyRTP\include;..\..\Doubango\tinySAK\src;..\..\Doubango\tinyNET\src"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TINYRTP_EXPORTS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="false"
@@ -180,30 +180,30 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyRTP\src\trtp.c"
+				RelativePath="..\..\Doubango\tinyRTP\src\trtp.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyRTP\src\trtp_manager.c"
+				RelativePath="..\..\Doubango\tinyRTP\src\trtp_manager.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\src\trtp_srtp.c"
+				RelativePath="..\..\doubango\tinyRTP\src\trtp_srtp.c"
 				>
 			</File>
 			<Filter
 				Name="rtp"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\src\rtp\trtp_rtp_header.c"
+					RelativePath="..\..\doubango\tinyRTP\src\rtp\trtp_rtp_header.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\src\rtp\trtp_rtp_packet.c"
+					RelativePath="..\..\doubango\tinyRTP\src\rtp\trtp_rtp_packet.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\src\rtp\trtp_rtp_session.c"
+					RelativePath="..\..\doubango\tinyRTP\src\rtp\trtp_rtp_session.c"
 					>
 				</File>
 			</Filter>
@@ -211,55 +211,55 @@
 				Name="rtcp"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\src\rtcp\trtp_rtcp_header.c"
+					RelativePath="..\..\doubango\tinyRTP\src\rtcp\trtp_rtcp_header.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\src\rtcp\trtp_rtcp_packet.c"
+					RelativePath="..\..\doubango\tinyRTP\src\rtcp\trtp_rtcp_packet.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\src\rtcp\trtp_rtcp_rblock.c"
+					RelativePath="..\..\doubango\tinyRTP\src\rtcp\trtp_rtcp_rblock.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\src\rtcp\trtp_rtcp_report.c"
+					RelativePath="..\..\doubango\tinyRTP\src\rtcp\trtp_rtcp_report.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\src\rtcp\trtp_rtcp_report_bye.c"
+					RelativePath="..\..\doubango\tinyRTP\src\rtcp\trtp_rtcp_report_bye.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\src\rtcp\trtp_rtcp_report_fb.c"
+					RelativePath="..\..\doubango\tinyRTP\src\rtcp\trtp_rtcp_report_fb.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\src\rtcp\trtp_rtcp_report_rr.c"
+					RelativePath="..\..\doubango\tinyRTP\src\rtcp\trtp_rtcp_report_rr.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\src\rtcp\trtp_rtcp_report_sdes.c"
+					RelativePath="..\..\doubango\tinyRTP\src\rtcp\trtp_rtcp_report_sdes.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\src\rtcp\trtp_rtcp_report_sr.c"
+					RelativePath="..\..\doubango\tinyRTP\src\rtcp\trtp_rtcp_report_sr.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\src\rtcp\trtp_rtcp_report_xr.c"
+					RelativePath="..\..\doubango\tinyRTP\src\rtcp\trtp_rtcp_report_xr.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\src\rtcp\trtp_rtcp_sdes_chunck.c"
+					RelativePath="..\..\doubango\tinyRTP\src\rtcp\trtp_rtcp_sdes_chunck.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\src\rtcp\trtp_rtcp_sdes_item.c"
+					RelativePath="..\..\doubango\tinyRTP\src\rtcp\trtp_rtcp_sdes_item.c"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\src\rtcp\trtp_rtcp_session.c"
+					RelativePath="..\..\doubango\tinyRTP\src\rtcp\trtp_rtcp_session.c"
 					>
 				</File>
 			</Filter>
@@ -274,34 +274,34 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyRTP\include\tinyrtp.h"
+				RelativePath="..\..\Doubango\tinyRTP\include\tinyrtp.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyRTP\include\tinyrtp_config.h"
+				RelativePath="..\..\Doubango\tinyRTP\include\tinyrtp_config.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyRTP\include\tinyrtp\trtp.h"
+				RelativePath="..\..\Doubango\tinyRTP\include\tinyrtp\trtp.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doubango\branches\2.0\Doubango\tinyRTP\include\tinyrtp\trtp_manager.h"
+				RelativePath="..\..\Doubango\tinyRTP\include\tinyrtp\trtp_manager.h"
 				>
 			</File>
 			<Filter
 				Name="rtp"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\include\tinyrtp\rtp\trtp_rtp_header.h"
+					RelativePath="..\..\doubango\tinyRTP\include\tinyrtp\rtp\trtp_rtp_header.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\include\tinyrtp\rtp\trtp_rtp_packet.h"
+					RelativePath="..\..\doubango\tinyRTP\include\tinyrtp\rtp\trtp_rtp_packet.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\include\tinyrtp\rtp\trtp_rtp_session.h"
+					RelativePath="..\..\doubango\tinyRTP\include\tinyrtp\rtp\trtp_rtp_session.h"
 					>
 				</File>
 			</Filter>
@@ -309,55 +309,55 @@
 				Name="rtcp"
 				>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_header.h"
+					RelativePath="..\..\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_header.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_packet.h"
+					RelativePath="..\..\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_packet.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_rblock.h"
+					RelativePath="..\..\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_rblock.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_report.h"
+					RelativePath="..\..\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_report.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_report_bye.h"
+					RelativePath="..\..\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_report_bye.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_report_fb.h"
+					RelativePath="..\..\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_report_fb.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_report_rr.h"
+					RelativePath="..\..\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_report_rr.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_report_sdes.h"
+					RelativePath="..\..\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_report_sdes.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_report_sr.h"
+					RelativePath="..\..\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_report_sr.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_report_xr.h"
+					RelativePath="..\..\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_report_xr.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_sdes_chunck.h"
+					RelativePath="..\..\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_sdes_chunck.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_sdes_item.h"
+					RelativePath="..\..\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_sdes_item.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\doubango\branches\2.0\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_session.h"
+					RelativePath="..\..\doubango\tinyRTP\include\tinyrtp\rtcp\trtp_rtcp_session.h"
 					>
 				</File>
 			</Filter>

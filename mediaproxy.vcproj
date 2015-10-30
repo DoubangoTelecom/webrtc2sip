@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="mediaproxy"
 	ProjectGUID="{19B6D461-7CB9-474F-B7F2-E2DA49904A6B}"
 	RootNamespace="mediaproxy"
@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".;..\doubango\branches\2.0\Doubango\thirdparties\win32\include;..\doubango\branches\2.0\Doubango\thirdparties\common\include;..\doubango\branches\2.0\Doubango\thirdparties\common\include\libxml2;..\doubango\branches\2.0\Doubango\bindings\_common;..\doubango\branches\2.0\Doubango\tinySAK\src;..\doubango\branches\2.0\Doubango\tinyNET\src;..\doubango\branches\2.0\Doubango\tinyHTTP\include;..\doubango\branches\2.0\Doubango\tinySIP\include;..\doubango\branches\2.0\Doubango\tinyDAV\include;..\doubango\branches\2.0\Doubango\tinySDP\include;..\doubango\branches\2.0\Doubango\tinyMEDIA\include;..\doubango\branches\2.0\Doubango\tinyXCAP\include;..\doubango\branches\2.0\Doubango\tinySMS\include;..\doubango\branches\2.0\Doubango\tinyMSRP\include;..\doubango\branches\2.0\Doubango\tinyRTP\include"
+				AdditionalIncludeDirectories=".;..\doubango\thirdparties\win32\include;..\doubango\thirdparties\common\include;..\doubango\thirdparties\common\include\libxml2;..\doubango\bindings\_common;..\doubango\tinySAK\src;..\doubango\tinyNET\src;..\doubango\tinyHTTP\include;..\doubango\tinySIP\include;..\doubango\tinyDAV\include;..\doubango\tinySDP\include;..\doubango\tinyMEDIA\include;..\doubango\tinyXCAP\include;..\doubango\tinySMS\include;..\doubango\tinyMSRP\include;..\doubango\tinyRTP\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;TINYWRAP_EXPORTS;DEBUG_LEVEL=DEBUG_LEVEL_INFO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="..\doubango\branches\2.0\Doubango\thirdparties\win32\lib\libxml2\libxml2_a.lib $(OutDir)\tinySAK.lib $(OutDir)\tinySIP.lib $(OutDir)\tinyNET.lib $(OutDir)\tinyDAV.lib $(OutDir)\tinyMEDIA.lib $(OutDir)\tinyHTTP.lib $(OutDir)\tinyXCAP.lib $(OutDir)\tinySMS.lib $(OutDir)\tinyMSRP.lib $(OutDir)\tinySDP.lib $(OutDir)\tinyRTP.lib"
+				AdditionalDependencies="..\doubango\thirdparties\win32\lib\libxml2\libxml2_a.lib $(OutDir)\tinySAK.lib $(OutDir)\tinySIP.lib $(OutDir)\tinyNET.lib $(OutDir)\tinyDAV.lib $(OutDir)\tinyMEDIA.lib $(OutDir)\tinyHTTP.lib $(OutDir)\tinyXCAP.lib $(OutDir)\tinySMS.lib $(OutDir)\tinyMSRP.lib $(OutDir)\tinySDP.lib $(OutDir)\tinyRTP.lib"
 				LinkIncremental="2"
 				IgnoreDefaultLibraryNames="MSVCRT;LIBCMTD;LIBCMT"
 				GenerateDebugInformation="true"
@@ -249,75 +249,155 @@
 				Name="tinyWRAP"
 				>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\ActionConfig.cxx"
+					RelativePath=".\tinywrap\ActionConfig.cxx"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\AudioResampler.cxx"
+					RelativePath=".\tinywrap\ActionConfig.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\DDebug.cxx"
+					RelativePath=".\tinywrap\AudioResampler.cxx"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\MediaContent.cxx"
+					RelativePath=".\tinywrap\AudioResampler.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\MediaSessionMgr.cxx"
+					RelativePath=".\tinywrap\Common.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\Msrp.cxx"
+					RelativePath=".\tinywrap\DDebug.cxx"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\ProxyConsumer.cxx"
+					RelativePath=".\tinywrap\DDebug.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\ProxyPluginMgr.cxx"
+					RelativePath=".\tinywrap\MediaContent.cxx"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\ProxyProducer.cxx"
+					RelativePath=".\tinywrap\MediaContent.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\SafeObject.cxx"
+					RelativePath=".\tinywrap\MediaSessionMgr.cxx"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\SipCallback.cxx"
+					RelativePath=".\tinywrap\MediaSessionMgr.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\SipEvent.cxx"
+					RelativePath=".\tinywrap\Msrp.cxx"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\SipMessage.cxx"
+					RelativePath=".\tinywrap\Msrp.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\SipSession.cxx"
+					RelativePath=".\tinywrap\ProxyConsumer.cxx"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\SipStack.cxx"
+					RelativePath=".\tinywrap\ProxyConsumer.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\SipUri.cxx"
+					RelativePath=".\tinywrap\ProxyPluginMgr.cxx"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\SMSEncoder.cxx"
+					RelativePath=".\tinywrap\ProxyPluginMgr.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\Xcap.cxx"
+					RelativePath=".\tinywrap\ProxyProducer.cxx"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\ProxyProducer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\SafeObject.cxx"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\SafeObject.h"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\SipCallback.cxx"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\SipCallback.h"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\SipEvent.cxx"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\SipEvent.h"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\SipMessage.cxx"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\SipMessage.h"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\SipSession.cxx"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\SipSession.h"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\SipStack.cxx"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\SipStack.h"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\SipUri.cxx"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\SipUri.h"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\SMSEncoder.cxx"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\SMSEncoder.h"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\tinyWRAP_config.h"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\Xcap.cxx"
+					>
+				</File>
+				<File
+					RelativePath=".\tinywrap\Xcap.h"
 					>
 				</File>
 			</Filter>
@@ -439,79 +519,79 @@
 				Name="tinyWRAP"
 				>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\ActionConfig.h"
+					RelativePath="..\doubango\bindings\_common\ActionConfig.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\AudioResampler.h"
+					RelativePath="..\doubango\bindings\_common\AudioResampler.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\Common.h"
+					RelativePath="..\doubango\bindings\_common\Common.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\DDebug.h"
+					RelativePath="..\doubango\bindings\_common\DDebug.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\MediaContent.h"
+					RelativePath="..\doubango\bindings\_common\MediaContent.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\MediaSessionMgr.h"
+					RelativePath="..\doubango\bindings\_common\MediaSessionMgr.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\Msrp.h"
+					RelativePath="..\doubango\bindings\_common\Msrp.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\ProxyConsumer.h"
+					RelativePath="..\doubango\bindings\_common\ProxyConsumer.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\ProxyPluginMgr.h"
+					RelativePath="..\doubango\bindings\_common\ProxyPluginMgr.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\ProxyProducer.h"
+					RelativePath="..\doubango\bindings\_common\ProxyProducer.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\SafeObject.h"
+					RelativePath="..\doubango\bindings\_common\SafeObject.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\SipCallback.h"
+					RelativePath="..\doubango\bindings\_common\SipCallback.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\SipEvent.h"
+					RelativePath="..\doubango\bindings\_common\SipEvent.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\SipMessage.h"
+					RelativePath="..\doubango\bindings\_common\SipMessage.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\SipSession.h"
+					RelativePath="..\doubango\bindings\_common\SipSession.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\SipStack.h"
+					RelativePath="..\doubango\bindings\_common\SipStack.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\SipUri.h"
+					RelativePath="..\doubango\bindings\_common\SipUri.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\SMSEncoder.h"
+					RelativePath="..\doubango\bindings\_common\SMSEncoder.h"
 					>
 				</File>
 				<File
-					RelativePath="..\doubango\branches\2.0\doubango\bindings\_common\tinyWRAP_config.h"
+					RelativePath="..\doubango\bindings\_common\tinyWRAP_config.h"
 					>
 				</File>
 			</Filter>
