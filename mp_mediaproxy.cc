@@ -1,5 +1,5 @@
 /* Copyright (C) 2012-2015 Doubango Telecom <http://www.doubango.org>
-/* Copyright (C) 2012 Diop Mamadou Ibrahima
+* Copyright (C) 2012 Diop Mamadou Ibrahima
 *
 * This file is part of Open Source 'webrtc2sip' project 
 * <http://code.google.com/p/webrtc2sip/>
@@ -456,7 +456,7 @@ static int parseArguments(int argc, char** argv)
 			exit(-1);
 		}
 		else{
-			fprintf(stderr, "'%.*s' not valid as command argument\n", name_size, name);
+			fprintf(stderr, "'%.*s' not valid as command argument\n", (int)name_size, name);
 			exit(-1);
 		}
 	}

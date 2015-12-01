@@ -269,7 +269,7 @@ MPObjectWrapper<MPC2CResult*> MPC2CTransport::handleJsonContent(MPNetFd nFd, con
 	bool parsingSuccessful = reader.parse((const char*)pcDataPtr, (((const char*)pcDataPtr) + nDataSize), root);
 	if (!parsingSuccessful)
 	{
-		TSK_DEBUG_ERROR("Failed to parse JSON content: %.*s", nDataSize, pcDataPtr);
+		TSK_DEBUG_ERROR("Failed to parse JSON content: %.*s", (int)nDataSize, pcDataPtr);
 		return new MPC2CResult(kMPC2CResultCode_ParsingFailed, kMPC2CResultPhrase_ParsingFailed);
 	}
 
@@ -573,7 +573,7 @@ MPObjectWrapper<MPC2CResult*> MPC2CTransport::addAccountAndSendActivationMail(co
 	if(!pcEmail || !pcName)
 	{
 		TSK_DEBUG_ERROR("Invalid parameter");
-		return false;
+		return new MPC2CResult(kMPC2CResultCode_InternalError, "Invalid parameter");
 	}
 
 	static const char __pcContentPtr[] = kJsonContent_ActionResp_AccountAdd;
