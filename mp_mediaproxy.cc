@@ -339,6 +339,23 @@ static int parseConfigNode(xmlNode *pNode, MPObjectWrapper<MPEngine*> oEngine)
 							TSK_DEBUG_ERROR("Failed to set 'dtmf-type': %s", pcDtmfType);
 						}
 					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "rtp-port-range")) // available since 2.1.0
+					{
+
+						if((pParams = tsk_params_fromstring((const char*)pCurrNode->content, ";", tsk_true)) && mp_list_count(pParams) == 2)
+						{
+							const char* start = ((const tsk_param_t*)pParams->head->data)->name;
+							const char* stop = ((const tsk_param_t*)pParams->head->next->data)->name;
+
+							TSK_DEBUG_INFO("rtp-port-range = %s;%s", start, stop);
+
+							if(!oEngine->setRtpPortRange(atoi(start), atoi(stop)))
+							{
+								TSK_DEBUG_ERROR("Failed to set 'rtp-port-range': %s;%s", start, stop);
+							}
+							oEngine->setRtpPort(atoi(start), atoi(stop));
+						}
+					}
 				break;
 			}
 		}

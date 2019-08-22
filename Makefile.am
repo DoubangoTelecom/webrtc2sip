@@ -38,7 +38,8 @@ ${TINYMSRP_LIBS} \
 ${TINYRTP_LIBS} \
 ${TINYIPSEC_LIBS} \
 -lxml2 \
--lpthread
+-lpthread \
+-ldl
 
 
 webrtc2sip_SOURCES  = \

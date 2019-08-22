@@ -96,6 +96,14 @@ bool SipStack::setDisplayName(const char* display_name)
 	return (ret == 0);
 }
 
+bool SipStack::setRtpPortRange(uint16_t start, uint16_t stop)
+{
+	int ret = tsip_stack_set(m_pHandle,
+		TSIP_STACK_SET_RTP_PORT_RANGE(start, stop),
+		TSIP_STACK_SET_NULL());
+	return (ret == 0);
+}
+
 bool SipStack::setRealm(const char* realm_uri)
 {
 	int ret = tsip_stack_set(m_pHandle,
