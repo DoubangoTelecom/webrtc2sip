@@ -163,6 +163,15 @@ bool MPEngine::setRtpSymetricEnabled(bool bEnabled)
 	return MediaSessionMgr::defaultsSetRtpSymetricEnabled(bEnabled);
 }
 
+bool MPEngine::setRtpPortRange(uint16_t start, uint16_t stop)
+{
+	if(start < 1024 || stop < 1024 || start >= stop) {
+        TSK_DEBUG_ERROR("Invalid parameter: (%u < 1024 || %u < 1024 || %u >= %u)", start, stop, start, stop);
+        return false;
+    }
+	return  MediaSessionMgr::defaultsSetRtpPortRange(start, stop);
+}
+
 bool MPEngine::set100relEnabled(bool bEnabled)
 {
 	return MediaSessionMgr::defaultsSet100relEnabled(bEnabled);
@@ -607,6 +616,7 @@ bool MPEngine::start()
 	// start SIP stack
 	if(const_cast<SipStack*>(m_oSipStack->getWrappedStack())->start())
 	{
+		//const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setRtpPortRange(this.rtp_port_start, this.rtp_port_stop);
 		setStarted(true);
 	}
 	else
@@ -678,6 +688,20 @@ bool MPEngine::stop()
 bail:
 	m_oMutex->unlock();
 	return (ret == 0);
+}
+
+
+bool MPEngine::setRtpPort(uint16_t start, uint16_t stop){
+	return const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setRtpPortRange(start, stop);
+}
+
+
+uint16_t MPEngine::RtpPortStart(){
+	return this->port_range_start;
+}
+
+uint16_t MPEngine::RtpPortStop(){
+	return this->port_range_stop;
 }
 
 MPObjectWrapper<MPPeer*> MPEngine::getPeerById(uint64_t nId)
