@@ -616,7 +616,7 @@ bool MPEngine::start()
 	// start SIP stack
 	if(const_cast<SipStack*>(m_oSipStack->getWrappedStack())->start())
 	{
-		//const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setRtpPortRange(this.rtp_port_start, this.rtp_port_stop);
+		//const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setRtpPortRange(RtpPortStart(), RtpPortStop());
 		setStarted(true);
 	}
 	else
@@ -692,7 +692,19 @@ bail:
 
 
 bool MPEngine::setRtpPort(uint16_t start, uint16_t stop){
-	return const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setRtpPortRange(start, stop);
+
+	if(start < 1024 || stop < 1024 || start >= stop) {
+        TSK_DEBUG_ERROR("Invalid parameter: (%u < 1024 || %u < 1024 || %u >= %u)", start, stop, start, stop);
+        return false;
+    }
+
+	this->port_range_start = start;
+	this->port_range_stop = stop;
+
+	const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setRtpPortRange(start, stop);
+
+	return true;
+	//return const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setRtpPortRange(start, stop);
 }
 
 

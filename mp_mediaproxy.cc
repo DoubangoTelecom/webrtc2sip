@@ -349,11 +349,10 @@ static int parseConfigNode(xmlNode *pNode, MPObjectWrapper<MPEngine*> oEngine)
 
 							TSK_DEBUG_INFO("rtp-port-range = %s;%s", start, stop);
 
-							if(!oEngine->setRtpPortRange(atoi(start), atoi(stop)))
+							if(!oEngine->setRtpPort(atoi(start), atoi(stop)))
 							{
 								TSK_DEBUG_ERROR("Failed to set 'rtp-port-range': %s;%s", start, stop);
 							}
-							oEngine->setRtpPort(atoi(start), atoi(stop));
 						}
 					}
 				break;
