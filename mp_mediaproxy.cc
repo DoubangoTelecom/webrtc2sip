@@ -18,8 +18,18 @@
 * along with 'webrtc2sip'.
 */
 #include "mp_engine.h"
-
+#include "tsk_stat.h"
+#include "tsk_string.h"
+#include "app_log.h"
 #include <libxml/tree.h>
+
+#include <sys/time.h>
+#include <stdio.h>      /* puts, printf */
+#include <time.h>       /* time_t, struct tm, time, localtime */
+#include <errno.h>
+
+
+
 
 static char* sConfigXmlPath = NULL;
 #define kSQLiteConnectionInfo  "./c2c_sqlite.db"
@@ -68,6 +78,78 @@ static int parseConfigNode(xmlNode *pNode, MPObjectWrapper<MPEngine*> oEngine)
 						if(!oEngine->setDebugLevel((const char*)pCurrNode->content)){
 							TSK_DEBUG_ERROR("Failed to set debug-level = %s\n", (const char*)pCurrNode->content);
 						}
+					}
+					/**
+					 * set log configuration
+					 */
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "log-filename"))
+					{
+						TSK_DEBUG_INFO("log filename = %s\n", (const char*)pCurrNode->content);
+						tsk_debug_set_log_file((const char*)pCurrNode->content);
+					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "log-path"))
+					{
+						TSK_DEBUG_INFO("log path = %s\n", (const char*)pCurrNode->content);
+						tsk_debug_set_log_path((const char*)pCurrNode->content);
+					}
+					/**
+					 * set app log configuration
+					 */
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "app-log-level"))
+					{
+						TSK_DEBUG_INFO("app-log-level = %s\n", (const char*)pCurrNode->content);
+						if(!oEngine->setAppLogLevel((const char*)pCurrNode->content)){
+							TSK_DEBUG_ERROR("Failed to set app-log-level = %s\n", (const char*)pCurrNode->content);
+						}
+					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "app-log-filename"))
+					{
+						TSK_DEBUG_INFO("app log filename = %s\n", (const char*)pCurrNode->content);
+						tsk_app_set_log_file((const char*)pCurrNode->content);
+					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "app-log-path"))
+					{
+						TSK_DEBUG_INFO("app log path = %s\n", (const char*)pCurrNode->content);
+						tsk_app_set_log_path((const char*)pCurrNode->content);
+					}
+					/**
+					 * set stat configuration
+					 */
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "stat-filename"))
+					{
+						TSK_DEBUG_INFO("stat filename = %s\n", (const char*)pCurrNode->content);
+						tsk_stat_set_filename((const char*)pCurrNode->content);
+					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "stat-path"))
+					{
+						TSK_DEBUG_INFO("stat path = %s\n", (const char*)pCurrNode->content);
+						tsk_stat_set_path((const char*)pCurrNode->content);
+					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "stat-interval"))
+					{
+						int interval = atoi((const char*)pCurrNode->content);
+						TSK_DEBUG_INFO("stat interval = %d s\n", interval);
+						/* stat interval
+							- min 1 seconds
+							- max 60 seconds
+						*/
+						if( interval < 1 ) {
+							TSK_DEBUG_FATAL("stat interval must be at least 1 seconds");
+							return -1;
+						}else if( interval > 3600 ){
+							TSK_DEBUG_FATAL("stat interval must be less than 3600 seconds");
+							return -1;
+						}
+						
+						tsk_stat_set_interval(interval);
+					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "reset-enable"))
+					{
+						TSK_DEBUG_INFO("reset enable = %s\n", (const char*)pCurrNode->content);
+						if( tsk_strnicmp("yes", (const char*)pCurrNode->content, 3) )
+							tsk_stat_reset_enable(1);
+						else
+							tsk_stat_reset_enable(0);
 					}
 					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "transport"))
 					{
@@ -339,6 +421,22 @@ static int parseConfigNode(xmlNode *pNode, MPObjectWrapper<MPEngine*> oEngine)
 							TSK_DEBUG_ERROR("Failed to set 'dtmf-type': %s", pcDtmfType);
 						}
 					}
+					else if(pCurrNode->parent && tsk_striequals(pCurrNode->parent->name, "rtp-port-range")) // available since 2.1.0
+					{
+
+						if((pParams = tsk_params_fromstring((const char*)pCurrNode->content, ";", tsk_true)) && mp_list_count(pParams) == 2)
+						{
+							const char* start = ((const tsk_param_t*)pParams->head->data)->name;
+							const char* stop = ((const tsk_param_t*)pParams->head->next->data)->name;
+
+							TSK_DEBUG_INFO("rtp-port-range = %s;%s", start, stop);
+
+							if(!oEngine->setRtpPort(atoi(start), atoi(stop)))
+							{
+								TSK_DEBUG_ERROR("Failed to set 'rtp-port-range': %s;%s", start, stop);
+							}
+						}
+					}
 				break;
 			}
 		}
@@ -493,6 +591,32 @@ int main(int argc, char** argv)
 		exit (-1);
 	}
 
+	// optional: set callback data (will be passed to _debug_info_write_to_file() as "arg" parameter)
+	const  void* _this = tsk_null;
+
+	tsk_debug_set_arg_data(_this);
+	tsk_debug_set_log_file_path(tsk_debug_get_log_path(), tsk_debug_get_log_file());
+	tsk_debug_set_info_cb(tsk_debug_writer);
+	tsk_debug_set_warn_cb(tsk_debug_writer);
+	tsk_debug_set_error_cb(tsk_debug_writer);
+	tsk_debug_set_fatal_cb(tsk_debug_writer);
+
+	tsk_app_set_arg_data(_this);
+	tsk_app_set_log_file_path(tsk_app_get_log_path(), tsk_app_get_log_file());
+	tsk_app_set_info_cb(tsk_app_writer);
+	tsk_app_set_warn_cb(tsk_app_writer);
+	tsk_app_set_error_cb(tsk_app_writer);
+	tsk_app_set_fatal_cb(tsk_app_writer);
+
+	tsk_stat_set_path_file(tsk_stat_get_path(), tsk_stat_get_filename());
+	tsk_stat_init(tsk_stat_get_interval());
+	
+	if( tsk_stat_start() != 0 ){
+		exit (-1);
+	}
+
+	TSK_APP_INFO("Doubango started");
+	
 	while (fgets(command, sizeof(command), stdin) != NULL) {
 		if (tsk_strnicmp(command, "quit", 4) == 0) {
             printf("+++ quit() +++");

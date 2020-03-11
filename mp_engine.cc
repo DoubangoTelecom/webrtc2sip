@@ -17,6 +17,7 @@
 * along with 'webrtc2sip'.
 */
 #include "mp_engine.h"
+#include "app_log.h"
 #include "mp_proxyplugin_mgr.h"
 #include "db/sqlite/mp_db_sqlite.h"
 
@@ -126,6 +127,27 @@ bool MPEngine::setDebugLevel(const char* pcLevel)
 	return false;
 }
 
+bool MPEngine::setAppLogLevel(const char* pcLevel)
+{
+	struct debug_level { const char* name; int level; };
+	static const debug_level debug_levels[] =
+	{
+		{"INFO", DEBUG_LEVEL_INFO},
+		{"WARN", DEBUG_LEVEL_WARN},
+		{"ERROR", DEBUG_LEVEL_ERROR},
+		{"FATAL", DEBUG_LEVEL_FATAL},
+	};
+	static const int debug_levels_count = sizeof(debug_levels)/sizeof(debug_levels[0]);
+	int i;
+	for(i = 0; i < debug_levels_count; ++i){
+		if(tsk_striequals(debug_levels[i].name, pcLevel)){
+			tsk_debug_set_level(debug_levels[i].level);
+			return true;
+		}
+	}
+	return false;
+}
+
 bool MPEngine::addTransport(const char* pTransport, uint16_t nLocalPort, const char* pcLocalIP /*= tsk_null*/)
 {
 	if(!isValid())
@@ -161,6 +183,15 @@ bool MPEngine::setRtpSymetricEnabled(bool bEnabled)
 		return false;
 	}
 	return MediaSessionMgr::defaultsSetRtpSymetricEnabled(bEnabled);
+}
+
+bool MPEngine::setRtpPortRange(uint16_t start, uint16_t stop)
+{
+	if(start < 1024 || stop < 1024 || start >= stop) {
+        TSK_DEBUG_ERROR("Invalid parameter: (%u < 1024 || %u < 1024 || %u >= %u)", start, stop, start, stop);
+        return false;
+    }
+	return  MediaSessionMgr::defaultsSetRtpPortRange(start, stop);
 }
 
 bool MPEngine::set100relEnabled(bool bEnabled)
@@ -607,6 +638,7 @@ bool MPEngine::start()
 	// start SIP stack
 	if(const_cast<SipStack*>(m_oSipStack->getWrappedStack())->start())
 	{
+		//const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setRtpPortRange(RtpPortStart(), RtpPortStop());
 		setStarted(true);
 	}
 	else
@@ -678,6 +710,32 @@ bool MPEngine::stop()
 bail:
 	m_oMutex->unlock();
 	return (ret == 0);
+}
+
+
+bool MPEngine::setRtpPort(uint16_t start, uint16_t stop){
+
+	if(start < 1024 || stop < 1024 || start >= stop) {
+        TSK_DEBUG_ERROR("Invalid parameter: (%u < 1024 || %u < 1024 || %u >= %u)", start, stop, start, stop);
+        return false;
+    }
+
+	this->port_range_start = start;
+	this->port_range_stop = stop;
+
+	const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setRtpPortRange(start, stop);
+
+	return true;
+	//return const_cast<SipStack*>(m_oSipStack->getWrappedStack())->setRtpPortRange(start, stop);
+}
+
+
+uint16_t MPEngine::RtpPortStart(){
+	return this->port_range_start;
+}
+
+uint16_t MPEngine::RtpPortStop(){
+	return this->port_range_stop;
 }
 
 MPObjectWrapper<MPPeer*> MPEngine::getPeerById(uint64_t nId)

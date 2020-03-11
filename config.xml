@@ -2,7 +2,19 @@
 <!-- Please check the technical guide (http://webrtc2sip.org/technical-guide-1.0.pdf) for more information on how to adjust this file -->
 <config>
 
-  <debug-level>ERROR</debug-level>
+  <debug-level>INFO</debug-level>
+  <log-path>/tmp/</log-path>
+  <log-filename>webrtc2sip.log</log-filename>
+
+  <app-log-level>INFO</app-log-level>
+  <app-log-path>/tmp/</app-log-path>
+  <app-log-filename>app.log</app-log-filename>
+
+
+  <stat-path>/tmp/</stat-path>
+  <stat-filename>webrtc2sip.stat</stat-filename>
+  <stat-interval>5</stat-interval>
+  <reset-enable>yes</reset-enable>
 
   <transport>udp;*;10060</transport>
   <transport>ws;*;10060</transport>
@@ -30,6 +42,12 @@
   <max-fds>-1</max-fds>
 
   <!--nameserver>66.66.66.6</nameserver-->
+<ssl-certificates>
+    /root/build/webrtc2sip/siampiwat-pem/private.pem;
+    /root/build/webrtc2sip/siampiwat-pem/cert.pem;
+    /root/build/webrtc2sip/siampiwat-pem/fullchain.pem;
+    no
+</ssl-certificates>
 
   <!--ssl-certificates>
     C:/Projects/ssl/priv.pem;

@@ -348,6 +348,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\doubango\tinySAK\src\my_debug.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\doubango\tinySAK\src\tsk_stat.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\doubango\tinySAK\src\tsk_errno.h"
 				>
 			</File>

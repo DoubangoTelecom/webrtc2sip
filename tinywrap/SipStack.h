@@ -43,6 +43,7 @@ public: /* API functions */
 	bool start();
 	bool setDebugCallback(DDebugCallback* pCallback);
 	bool setDisplayName(const char* display_name);
+	bool setRtpPortRange(uint16_t start, uint16_t stop);
 	bool setRealm(const char* realm_uri);
 	bool setIMPI(const char* impi);
 	bool setIMPU(const char* impu_uri);

@@ -49,6 +49,7 @@ public:
 	virtual MP_INLINE bool isValid(){ return  m_bValid; }
 	virtual MP_INLINE bool isStarted(){ return m_bStarted; }
 	virtual bool setDebugLevel(const char* pcLevel);
+	virtual bool setAppLogLevel(const char* pcLevel);
 	virtual bool addTransport(const char* pTransport, uint16_t nLocalPort, const char* pcLocalIP = tsk_null);
 	virtual bool setRtpSymetricEnabled(bool bEnabled);
 	virtual bool set100relEnabled(bool bEnabled);
@@ -61,6 +62,7 @@ public:
 	virtual bool setCodecs(const char* pcCodecs);
 	virtual bool setCodecOpusMaxRates(int32_t nPlaybackMaxRate, int32_t nCaptureMaxRate);
 	virtual bool setSRTPMode(const char* pcMode);
+	virtual bool setRtpPortRange(uint16_t, uint16_t);
 	virtual bool setSRTPType(const char* pcTypesCommaSep);
 	virtual bool setDtmfType(const char* pcDtmfType);
 	virtual bool setStunServer(const char* pcIP, unsigned short nPort, const char* pcUsrName, const char* pcUsrPwd);
@@ -80,6 +82,12 @@ public:
 
 	static MPObjectWrapper<MPEngine*> New();
 
+	virtual uint16_t RtpPortStart();
+	virtual uint16_t RtpPortStop();
+	virtual bool setRtpPort(uint16_t start, uint16_t stop);
+
+	uint16_t port_range_start;
+	uint16_t port_range_stop;
 
 protected:
 	virtual MP_INLINE void setStarted(bool bStarted){ m_bStarted = bStarted; }
