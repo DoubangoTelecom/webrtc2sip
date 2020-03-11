@@ -21,6 +21,7 @@
 
 #include "mp_config.h"
 #include "mp_net_transport.h"
+#include "tsk_debug.h"
 #include "db/mp_db.h"
 #include "mp_mail.h"
 #include "mp_recaptcha.h"

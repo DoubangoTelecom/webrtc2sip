@@ -49,6 +49,7 @@ public:
 	virtual MP_INLINE bool isValid(){ return  m_bValid; }
 	virtual MP_INLINE bool isStarted(){ return m_bStarted; }
 	virtual bool setDebugLevel(const char* pcLevel);
+	virtual bool setAppLogLevel(const char* pcLevel);
 	virtual bool addTransport(const char* pTransport, uint16_t nLocalPort, const char* pcLocalIP = tsk_null);
 	virtual bool setRtpSymetricEnabled(bool bEnabled);
 	virtual bool set100relEnabled(bool bEnabled);

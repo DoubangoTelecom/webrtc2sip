@@ -23,7 +23,7 @@
 
 #include "tsk_string.h"
 #include "tsk_memory.h"
-
+#include "tsk_debug.h"
 #include "tinyhttp.h"
 
 #include <assert.h>

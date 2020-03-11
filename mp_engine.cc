@@ -17,6 +17,7 @@
 * along with 'webrtc2sip'.
 */
 #include "mp_engine.h"
+#include "app_log.h"
 #include "mp_proxyplugin_mgr.h"
 #include "db/sqlite/mp_db_sqlite.h"
 
@@ -106,6 +107,27 @@ MPEngine::~MPEngine()
 }
 
 bool MPEngine::setDebugLevel(const char* pcLevel)
+{
+	struct debug_level { const char* name; int level; };
+	static const debug_level debug_levels[] =
+	{
+		{"INFO", DEBUG_LEVEL_INFO},
+		{"WARN", DEBUG_LEVEL_WARN},
+		{"ERROR", DEBUG_LEVEL_ERROR},
+		{"FATAL", DEBUG_LEVEL_FATAL},
+	};
+	static const int debug_levels_count = sizeof(debug_levels)/sizeof(debug_levels[0]);
+	int i;
+	for(i = 0; i < debug_levels_count; ++i){
+		if(tsk_striequals(debug_levels[i].name, pcLevel)){
+			tsk_debug_set_level(debug_levels[i].level);
+			return true;
+		}
+	}
+	return false;
+}
+
+bool MPEngine::setAppLogLevel(const char* pcLevel)
 {
 	struct debug_level { const char* name; int level; };
 	static const debug_level debug_levels[] =
